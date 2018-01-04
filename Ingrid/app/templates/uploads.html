@@ -1,0 +1,26 @@
+{% extends "LAYOUT.html" %}
+{% block title %}Blog{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+    <section id="fileUpload">
+        <div class="container">
+            {% if uploadedFile %}
+
+            {% endif %}
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>Please upload Image file here!</h2>
+                </div>
+                <div class="col-sm-12">
+                    <form method="post" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+                        <input type="file" class="fileInput" name="file"><br><br>
+                        <input type="submit" class="btn btn-primary" value="Upload Image">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,182 @@
+{% extends "LAYOUT.html" %}
+{% block title %}Benchmark{% endblock %}
+{% block head %}
+    {{ super() }}
+
+     <style> 
+        .jumbotron {
+        background: #21B6D7;
+        color: #FFF;
+        border-radius: 0px;
+        }
+        .jumbotron-sm { padding-top: 24px;
+        padding-bottom: 24px; }
+        .jumbotron small {
+        color: #FFF;
+        }
+        .h1 small {
+        font-size: 24px;
+        }
+        /* Message flashing */
+        .flash {
+            background-color: #FBB0B0;
+            padding: 10px;
+            width: 400px;
+        }
+    </style>
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+   
+{% endblock %}
+
+{% block content %}
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well well-sm">
+                    {% if success %}
+                    <p>Thank you for your message. We'll get back to you shortly.</p>
+                    {% else %}
+                        {% for message in form.name.errors %}
+                          <div class="flash">{{ message }}</div>
+                        {% endfor %}
+
+                        {% for message in form.email.errors %}
+                          <div class="flash">{{ message }}</div>
+                        {% endfor %}
+
+                        {% for message in form.plant.errors %}
+                          <div class="flash">{{ message }}</div>
+                        {% endfor %}
+                    
+                        {% for message in form.unit.errors %}
+                          <div class="flash">{{ message }}</div>
+                        {% endfor %}
+                    
+                        {% for message in form.subject.errors %}
+                          <div class="flash">{{ message }}</div>
+                        {% endfor %}
+
+                        {% for message in form.message.errors %}
+                          <div class="flash">{{ message }}</div>
+                        {% endfor %}
+
+                    
+                        <div class="row">
+                            <form action="/benchmark" method=post>
+                                {{ form.csrf_token }}
+                            <div class="col-md-4">
+                               
+                                <h3> Personal Info</h3>
+                                <div class="form-group">
+                                <label for="name">{{ form.name.label }}</label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" required="required" />
+                                </div>                       
+                                <div class="form-group">
+                                    <label for="company">{{ form.company.label }}</label>
+                                    <input type="text" class="form-control" name="company" id="company" placeholder="Enter Company Name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">{{ form.email.label }} Address</label>
+                                    <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
+                                    </span>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required="required" /></div>
+                                </div>
+                                    
+                                    
+               
+                                    
+                            </div>
+                     
+                            <div class="col-md-4">
+                                <h3>Plant Info</h3>
+                                <div class="form-group">
+                                    <label for="plant">Select your {{ form.plant.label }}</label>
+                                    <select id="plant" name="plant" class="form-control" required="required">
+                                        <option value="na" selected="">Choose One:</option>
+                                        {% for p in plants %}
+                                            <option value="{{p['name']}}">{{p['name']}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label for="unit">Select your {{ form.unit.label }}</label>
+                                    <select id="unit" name="unit" class="form-control" required="required">
+                                        <option value="all" selected="">Choose One:</option>
+                                        {% for p in units %}
+                                            <option value="{{p['na']}}" plant="{{p['uid']}}">{{p['uid']}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <!--JQUERY TO FILTER THE UNIT NUMBERS-->
+                                    <script>
+                                        $("#plant").change(function() {
+                                            if (jQuery(this).data('options') == undefined) {
+                                                /*Taking an array of all options-2 and kind of embedding it on the select1*/
+                                                jQuery(this).data('options', jQuery('#unit option').clone());
+                                            }
+                                            var id = $(this).val();
+                                            var options = $(this).data('options').filter('[value="' + id + '"]');
+                                            $('#unit').html(options);
+                                        });
+                                    </script>   
+                                </div>  
+                                <div class="form-group">
+                                    <label for="subject">{{ form.subject.label }}</label>
+                                    <select id="subject" name="subject" class="form-control" required="required">
+                                    <option value="Benchmark L1"> Benchmark L1 </option>
+                                    <option value="Benchmark L2"> Benchmark L2 [MW file required. See notes.]</option>
+                                    </select>
+                                </div>
+                 
+                            </div>  
+                            
+                            <div class="col-md-4"> 
+                                <h3>Message</h3>
+                                <div class="form-group">
+                                    <label for="message">{{ form.message.label }}</label>
+                                    <textarea name="message" id="message" class="form-control" rows="9" cols="25" placeholder="Message"></textarea>
+                                </div>
+                                
+                            
+                            </div>    
+
+                            <div class="col-md-12"><br><h3>Notes</h3></div>
+                            <div class="col-md-6">   
+                          
+                                    <ul>
+                                        <li><p>For Benchmark Level 2  a MW file is required. We will send you a private dropbox link to upload the MW file/s.</p>
+                                        <li><p>We will reply as soon as possible within the next two days.</p></li>
+                                        <li><p>Our response will attach a proposal including a price.</p></li>
+                                        <li><p>For a price estimate, please check our <a href="pricing#" target="_blank">Pricing page</a></p></li>
+                                        <li><p>If your plant is not listed in a Level 1 Solution, you will have to use a Level 2 Solution and submit a MW file.</p></li>   
+                                    </ul>
+                            </div>               
+                            <div class="col-md-6">   
+ 
+                                    <ul>
+                                        <li><p>For file Upload we will send you a link to drop your MW files.</p></li>                      
+                                        <li><p>MW files must have CSV, TXT, XLS or XLSX format</p></li>
+                                        <li><p>MW files will protected by a Non Disclosure Agreement between the customer and Intertek once you sign our proposal.</p></li>
+                                        <li><p>If you have any doubt about this benchmark or if you want to benchmark all your units, please <a href="contactus#" target="_blank">Contact us</a> for a discounted price.</p></li>
+                                    </ul>
+                            </div>
+                              
+                            <div class="col-md-12"> <br><br> <center> <button type="submit" class="btn btn-lg btn-primary" id="btnContactUs">Submit your Benchmark </button> </center>   </div>    
+                          
+                                
+                                
+                            </form>  
+                        </div>
+                    {% endif %}
+             
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+{% endblock %} 

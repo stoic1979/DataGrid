@@ -1,0 +1,46 @@
+{% extends "dashboard_layout.html" %}
+{% block title %}User - Blogs Lists{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+    <!-- Add blog --->
+    <section id="blogShortDescription">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>My Blogs list</h2>
+                <!----- IF BLOG IS WRITTEN ----->
+                {% if assets %}
+                    <table class="table blogTable">
+                        <thead>
+                        <tr>
+                            <th>Sr.No.</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Image</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for blog in assets %}
+                                <tr>
+                                <td></td>
+                                <td>{{ blog.title }}</td>
+                                <td>{% if blog.status == 1 %}{{ "Published" }}{% else %}{{ 'Draft' }}{% endif %}</td>
+                                <td><img src="{{ url_for('static', filename='img/blog/') }}{{ blog.image }}" class="img-thumbnail"> </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+                <!--- IF BLOG IS WRITTEN ---->
+                </div>
+            <div class="col-sm-12">
+                <a href="{{ url_for('addBlog') }}">Add New Blog</a>
+            </div>
+            </div>
+        </div>
+</section>
+    <!-- Add blog --->
+{% endblock %}

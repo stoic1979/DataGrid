@@ -1,0 +1,91 @@
+{% extends "LAYOUT.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block head %}
+    {{ super() }}
+    <!-- signup -->	
+    <script type="text/javascript" src="../static/myjs/intertek.js"></script>  
+ 
+    <style>
+        body{background-color: #3c3d45;}
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<br><br><br><br><br><br>
+    <div class="container">
+        <div class="row centered-form">
+        <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+		
+		{% if page_msg %}
+
+			<div class="panel panel-default">
+				
+				<div class="panel-heading">
+					<h3 class="panel-title">Status:</h3>
+				</div>
+							
+				<div class="panel-body">
+
+					<p>{{ page_msg|safe }}</p>
+					
+					<form action='/login' method='get'>
+						<input type="submit" name='retry' value="Login" class="btn btn-info btn-block">							
+					</form>
+
+				</div>
+			</div>
+
+		{% else %}
+
+			{% if page_err %}
+				<h2 style="color: white;"> {{ page_err|safe }} </h2>
+			{% endif %}		
+
+			<div class="panel panel-default">
+
+				<div class="panel-heading">
+						<h3 class="panel-title">Reset Password: </h3>
+					</div>
+							
+					<div class="panel-body">
+						<form action='' method='post' name='Reset-Password'>
+						
+							<p>
+							<label>Username *</label>
+							{{ form.username }}
+							</p>
+
+							<p>
+							<label>Password *</label>
+							{{ form.password }}
+							</p>
+							
+							<p>
+							<label>New Password *</label>
+							{{ form.npassword }}
+							</p>
+							
+							<p>
+							<label>Confirm Password *</label>
+							{{ form.cpassword }}
+							</p>
+							
+							<p>
+							<input type="submit" name='submit' value="Submit" class="btn btn-info btn-block">
+							</p>
+							
+						</form>
+					</div>
+			</div>
+
+		{% endif %}
+
+	</div>
+        </div>
+    </div>
+
+<br><br><br><br><br>
+
+{% endblock %} 		
+

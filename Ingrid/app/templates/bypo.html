@@ -1,0 +1,128 @@
+{% extends "LAYOUT.html" %}
+{% block title %}Operational Benchmark{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link href="/static/css/pages/bypo.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="section" id="section-overview" data-image-src="/static/img/index/refinery_night.jpg" data-parallax="scroll">
+  <div class="section-content">
+    <div class="container">
+      <div class="section-title">
+        <h1>
+          Operational Benchmark
+        </h1>
+        <h2>
+          (U.S. fossil fuel plants only)
+        </h2>
+      </div>
+
+      <div class="flex-area">
+        <div class="mini-section">
+          <h1>
+            <span class="service-content">
+              <span class="service-description">
+                Level 1 Solution
+              </span>
+              <span class="service-level">
+                <i class="glyphicon glyphicon-time"></i>
+                Quick
+              </span>
+            </span>
+          </h1>
+          <ul class="list-nobullet">
+            <li>
+              <i class="glyphicon glyphicon-import"></i>
+              We only need your plant name
+            </li>
+            <li>
+              <i class="glyphicon glyphicon-export"></i>
+              Get a quick report within few days
+            </li>
+            <li>
+              <i class="glyphicon glyphicon-usd"></i>
+              Most economical tool on the market
+            </li>
+          </ul>
+        </div>
+
+        <div class="mini-section">
+          <h1>
+            <span class="service-content">
+              <span class="service-description">
+                Level 2 Solution
+              </span>
+              <span class="service-level">
+                <i class="glyphicon glyphicon-stats"></i>
+                Deep
+              </span>
+            </span>
+          </h1>
+          <ul class="list-nobullet">
+            <li>
+              <i class="glyphicon glyphicon-ok"> </i>
+              We need your name and MW Data
+            </li>
+            <li>
+              <i class="glyphicon glyphicon-export"></i>
+              Get a detailed report within few weeks
+            </li>
+            <li>
+              <i class="glyphicon glyphicon-usd"></i>
+              Still the most economical on the market
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <center>
+        <br><br>
+        <a class="button" href="benchmark#" role="button">
+          Request a Benchmark Quote
+        </a>
+      </center>
+    </div>
+  </div>
+</div>
+
+
+<div class="section" id="section-screenshot">
+  <div class="section-content">
+    <div class="container">
+      <div class="flex-area">
+        <div>
+          <img src="/static/img/bypo/How_it_works.png" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="section" id="section-demo" data-image-src="/static/img/index/power_station_silhouette.jpg" data-parallax="scroll">
+  <div class="section-content">
+    <div class="container">
+      <div class="section-title">
+        <h1>
+          Give us a try!
+        </h1>
+      </div>
+      <p>
+        This is be the most economical tool you have to keep updated operations, compare your plant operations with your peers, quantify the actual damage to your plant
+          due to an increase in cycling, optimize your operations and gain strategic advantage.
+      </p>
+      <a class="button" href="contactus#" role="button">Contact us / Request a Demo</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<!-- Parallax scrolling -->
+<script type="text/javascript" src="../static/lib/parallax.js/parallax.min.js"></script>
+
+{% endblock %}

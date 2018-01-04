@@ -1,0 +1,78 @@
+{% extends "LAYOUT.html" %}
+{% block title %}Performance Insights{% endblock %}
+{% block head %}
+  {{ super() }}
+ 
+{% endblock %}
+
+{% block content %}
+    <br><br>
+    <div class="container">
+         <!-- Example row of columns -->
+            <div class="row">
+                <div class="col-md-6">
+                       <h4 class="list-group-item list-group-item-info"><center><strong>WINDLIFE</strong></center></h4>  
+                </div>
+                <div class="col-md-6">    
+                <h4 class="list-group-item list-group-item-info"><center><strong>COSTCOM</strong></center></h4>  
+                </div>
+            </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">   
+                <ul class="list-group">
+                    <li class="list-group-item"><i class="glyphicon glyphicon-plus"></i> Real time monitoring and historical data</li>  
+                    <li class="list-group-item"><i class="glyphicon glyphicon-plus"></i> Inspection Data Management System (IDMS)</li>
+                    <li class="list-group-item"><i class="glyphicon glyphicon-plus"></i> Early Fault Detection System </li>
+                    <br>
+                    <p><a class="btn btn-primary" href="windlife#" role="button">Learn more &raquo;</a></p>
+
+
+                </ul>
+            </div>
+            <div class="col-md-3">      
+            <div id="cycling" style="position: relative; width: 220px; height: 220px;"></div>
+                    <script>
+                      var data3 = [
+                        {"turbine": 1, "unit":"No-Failure", "MW": 100},
+                        {"turbine": 2, "unit":"No-Failure", "MW": 90},
+                        {"turbine": 3, "unit":"No-Failure", "MW": 80},
+                        {"turbine": 4, "unit":"No-Failure", "MW": 85},
+                        {"turbine": 5, "unit":"Generation Loss",   "MW": 63},
+                        {"turbine": 6, "unit":"No-Failure", "MW": 89},
+                        {"turbine": 7, "unit":"No-Failure", "MW": 98},
+                        {"turbine": 8, "unit":"No-Failure", "MW": 100},
+                        {"turbine": 9, "unit":"No-Failure", "MW": 102},
+                      ]
+                      var visualization = d3plus.viz()
+                        .container("#cycling")
+                        .data(data3)
+                        .type("bar")
+                        .id("unit")
+                        .x("turbine")
+                        .y("MW")
+                        .draw()
+                    </script>
+                    
+            </div>    
+            <div class="col-md-2">  
+                <img src="../static/img/services/costcom.jpg" alt="Costcom" style="width:180px;height:180px" class="img-rounded">
+
+            </div>
+            <div class="col-md-4">
+                <ul class="list-group">
+                    <li class="list-group-item"><i class="glyphicon glyphicon-plus"></i> <b>Cos</b>t <b>C</b>ontrol of <b>O</b>perations and <b>M</b>aintenance (COSTCOM) </li> 
+                    <li class="list-group-item"><i class="glyphicon glyphicon-plus"></i> A real-time cost analysis tool for power plant operations.</li>
+                    <li class="list-group-item"><i class="glyphicon glyphicon-plus"></i> Supports owners' and operators' capital planning, operations training, and decision making.</li>
+                 </ul>
+                  <p><a class="btn btn-primary" href="contactus#" role="button">Contact us &raquo;</a></p><!-- <p><a class="btn btn-primary" href="costcom#" role="button">Learn more &raquo;</a></p>-->
+           </div>
+        </div>
+    </div> <!-- /.container  -->    
+    <br><br>
+    
+  
+ 
+{% endblock %} 

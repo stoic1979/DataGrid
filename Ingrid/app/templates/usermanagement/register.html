@@ -1,0 +1,99 @@
+{% extends "LAYOUT.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block head %}
+    {{ super() }}
+    <!-- signup -->	
+    <script type="text/javascript" src="../static/myjs/intertek.js"></script>  
+ 
+    <style>
+        body{background-color: #3c3d45;}
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<br><br><br><br><br><br>
+    <div class="container">
+        <div class="row centered-form">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-2">
+
+      		{% if current_user.is_authenticated %}
+                <div class="alert alert-danger">
+                    <a class="close" data-dismiss="alert" href="#">×</a> You are already authenticated!
+                </div>  
+        	{% else %}
+
+                {% if err %}
+                 <div class="alert alert-danger">
+                    <a class="close" data-dismiss="alert" href="#">×</a> {{ err|safe }}
+                </div>  	
+                {% endif %}
+
+            <div class="panel panel-default">
+        		<div class="panel-heading">
+			    		<h3 class="panel-title">Sign up for INGRID <small> It's free!</small></h3>
+                            <div class="panel-body">
+			    		        <form action='' method='post' name='register_user'>
+								    <div class="form-group">	
+                                    
+                                        <div class="col-xs-12 col-sm-12 col-md-6">
+										
+                                            <p>
+                                                <label id="form">E-mail: *</label>
+                                                {{ form.email }}
+                                            </p>		
+
+                                            <p>
+                                                <label id="form">Username: *</label>
+                                                {{ form.username}}
+                                            </p>
+
+                                            <p>
+                                                <label id="form">Password: *</label>
+                                                {{ form.password }}
+                                            </p>
+										</div>
+                                        
+                                        <div class="col-xs-12 col-sm-12 col-md-6">
+                                            <p>
+                                                <label id="form">Full Name: *</label>
+                                                {{ form.name }}
+                                            </p>
+                                        
+                                            <p>
+											     <label id="form">Company: *</label>
+											     {{ form.company }}
+										    </p>
+                                        
+                                            <p>
+											     <label id="form">Confirm&nbsp;Password:&nbsp;*</label>
+											     {{ form.cpassword }}
+										    </p> 
+										</div>
+                                        
+									</div>
+                                    
+                                    <p>
+                                        <small>
+                                            <strong>
+                                            Your password must be at least 8 characters long, have at least one number one upper and one lowercase letter, and a special character.
+                                            </strong>
+                                        </small>
+                                    </p>
+                                     <input name="terms" type="checkbox"> I have read and agree to the <a href="#">terms of service</a>
+                                    <br><br><br>
+			    			       <center>
+                                       <input type="submit" value="Sign Me Up!" class="btn btn-lg btn-info">
+                                    </center>
+			    		       </form>
+             
+			    	        </div>
+	    		 </div>
+    		</div>
+            {% endif %}
+            
+    	</div>
+    </div>
+<br><br><br><br><br>
+
+{% endblock %} 			

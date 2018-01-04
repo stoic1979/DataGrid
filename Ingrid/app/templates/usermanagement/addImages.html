@@ -1,0 +1,131 @@
+{% extends "dashboard_layout.html" %}
+{% block title %}User - Dashboard{% endblock %}
+{% block head %}
+  {{ super() }}
+  <link href="{{ url_for('static', filename='css/pages/dashboard_user.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<!-- dynamic content -->
+<div id="dashboard_target">
+  <!-- top tiles -->
+  {% for s in stats %}
+  <div class="row tile_count">
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-plug"></i> Total Net Generation </span>
+        <div class="count">{{s['ng0']}}</div>
+        <span class="count_bottom"><i class="{{s['ng3']}}"><i class="fa fa-sort-{{s['ng2']}}"></i>{{s['ng1']}} % </i> From last year</span>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-bar-chart"></i> Total Cycling (EHS) </span>
+        <div class="count {{s['da3']}}">{{s['da0']}}</div>
+        <span class="count_bottom"><i class="{{s['da3']}}"><i class="fa fa-sort-{{s['da2']}}"></i>{{s['da1']}} % </i> From last year</span>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-line-chart"></i> Number of Starts</span>
+        <div class="count">{{s['st0']}} </div>
+        <span class="count_bottom"><i class="{{s['st3']}}"><i class="fa fa-sort-{{s['st2']}}"></i>{{s['st1']}} % </i> From last year</span>
+      </div>
+
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-random"></i> Load Followings </span>
+        <div class="count">{{s['lf0']}}</div>
+        <span class="count_bottom"><i class="{{s['lf3']}}"><i class="fa fa-sort-{{s['lf2']}}"></i>{{s['lf1']}} % </i> From last year</span>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-calendar "></i> Operating Hours</span>
+        <div class="count">{{s['od0']}}</div>
+        <span class="count_bottom"><i class="{{s['od3']}}"><i class="fa fa-sort-{{s['od2']}}"></i>{{s['od1']}} % </i> From last year</span>
+      </div>
+      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-toggle-on"></i> Hot/Warm/Cold starts</span>
+        <div class="count">{{s['hs0']}}-{{s['ws0']}}-{{s['cs0']}}</div>
+        <span class="count_bottom"><i class="{{s['hs3']}}"><i class="fa fa-sort-{{s['hs2']}}"></i>{{s['hs1']}}  %-</i><i class="{{s['ws3']}}"><i class="fa fa-sort-{{s['ws2']}}"></i>{{s['ws1']}}  %-</i>
+             <i class="{{s['cs3']}}"><i class="fa fa-sort-{{s['cs2']}}"></i>{{s['cs1']}} % </i>From last year</span>
+      </div>
+  </div>
+  {% endfor %}
+  <!-- /top tiles -->
+
+
+ <div class="dashboard-area-flex">
+
+   <div class="dashboard-user-area-map">
+      <div id="Map">
+        <div id="legende">
+          <div class="udiv_legende" id="legende_1">
+            <img src="../static/img/legend_map_sm.png">
+          </div>
+        </div>
+      </div>
+
+      <script>
+        var mapConfig = {
+          "clon": {{clon}},
+          "clat": {{clat}},
+          "plants": {{plants|safe}},
+          "minLng": {{minLng}},
+          "minLat": {{minLat}},
+          "maxLng": {{maxLng}},
+          "maxLat": {{maxLat}}
+        };
+      </script>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script src="../static/js/OpenLayers.js"></script>
+      <script src="../static/js/map_dashboard.js"></script>
+    </div>
+
+    <div class="col-md-3 dashboard-content-area dashboard-user-area-assets">
+      <h3>{{current_user.name}} Assets</h3>
+      <table class="table table-condensed" >
+        <thead>
+          <tr>
+            <th style="">
+              <div data-toggle="tooltip" title="Plant Orispl Code">
+                Plant ID
+              </div>
+            </th>
+            <th style="">
+              <div data-toggle="tooltip" title="Plant Name">
+                Plant Name
+              </div>
+            </th>
+            <th style="">
+              <div data-toggle="tooltip" title="Plant Name">
+                Unit ID
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in assets %}
+          <tr>
+            <td>
+              {{p['plant_id']}}
+            </td>
+            <td>
+              {{p['fname']}}
+            </td>
+            <td>
+              {{p['unit_id']}}
+            </td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <div>
+        <h5>
+          This is your dashboard and these are the assets you have
+          access to. If you don't have assets assigned or an asset is missing,
+          please send us a
+          <a href="http://ingrid.intertek.com/contactus">message</a>
+          and we will add them.
+        </h5>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

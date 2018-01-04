@@ -1,0 +1,2611 @@
+{% extends "LAYOUT.html" %}
+{% block title %}Plant Level{% endblock %}
+{% block head %}
+  {{ super() }}
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+
+    <link href="../static/css/pages/dashboard_plant_operations.css" rel="stylesheet">
+    <link href="../static/css/pages/dashboard_user.css" rel="stylesheet">
+
+    <style>
+    .tab-content {
+        border-bottom: 1px solid #dddddd; 
+        border-left: 1px solid #ddd;  
+        border-right: 1px solid #ddd;  
+        padding: 10px; 
+        border-radius: 0 0 4px 4px;
+    }
+    .nav-tabs { 
+        margin-bottom: 0px;  
+    }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+<br>
+<div class="container">
+    <!-- START OF TABS -->
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="pill" href="#ginfo">PLANT PROFILE</a></li>
+        <!--<li ><a data-toggle="pill" href="#dinfo">GENERATION AND FUEL DATA</a></li>-->
+        <li><a data-toggle="pill" href="#oinfo">OPERATIONS DATA</a></li>
+        <!--<li><a data-toggle="pill" href="#finfo">FINANCIAL DATA</a></li>-->
+    </ul>
+
+    <div class="tab-content">
+        <div id="ginfo" class="tab-pane fade in active" >
+            <div class="row">
+                <div class="col-sm-7"> <!-- LEFT COLUMN-->
+                    <h4 class="list-group-item list-group-item-info"> <strong>Plant Level Information</strong></h4>
+
+                    {% if current_user.is_authenticated %}
+                        <table class="table table-condensed table-striped" >           
+                            <tbody>  
+                                 {% for p in plts %}
+                                    <tr><td><div data-toggle="tooltip" title="{{g['fi']}}"><b>{{p['fi']}}</b></div></td><td>{{p['na2']}}</td></tr> 
+                                 {% endfor %}
+                            </tbody>  
+                        </table>
+                    {% else %}
+                    <table class="table table-condensed" >
+                        <thead>
+                           <tr>
+                            {% for n in ptlsh %}
+                            <th style=""><div data-toggle="tooltip" title="{{n['fi']}}">{{n['na']}}</div></th>
+                            {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {% for p in plts %}
+                                    <tr data-index="{{p['oc']}}">
+                                    <td>{{p['na']}}</td>
+                                    <td>{{p['st']}}</td>
+                                    <!--<td>{{p['ci']}}</td>
+                                    <td>{{p['oc']}}</td>-->
+                                    <td>{{p['ne']}}</td>
+                                    <!--<td>{{p['nb']}}</td>
+                                    <td>{{p['ng']}}</td>-->
+                                    <td>{{p['pf']}}</td>
+                                    <!--<td>{{p['fc']}}</td>-->
+                               <!--     <td>{{p['cf']}}</td>
+                                    <td>{{p['npc']}}</td>-->
+
+                                {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                    
+                    
+                    
+                    {% if current_user.is_authenticated %}
+                    <h4 class="list-group-item list-group-item-info";> <strong>Generators</strong></h4>
+                    <table class="table table-condensed table-striped">
+                        <thead class="warning">
+                        <tr >
+                        {% for n in gnrsh %}
+                        <th><div data-toggle="tooltip" title="{{n['fi']}}">{{n['na']}}</div></th>
+                        {% endfor %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for g in gens %}
+                        <tr><td>{{g['gid']}}</td><td>{{g['gs']}}</td><td>{{g['pm']}}</td><td>{{g['fu']}}</td><td>{{g['npc']}}</td><td>{{g['yo']}}</td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <h4 class="list-group-item list-group-item-info";> <strong>Generators</strong></h4>
+                    <table class="table table-condensed table-striped">
+                        <thead class="warning">
+                        <tr >
+                        {% for n in gnrsh %}
+                        <th><div data-toggle="tooltip" title="{{n['fi']}}">{{n['na']}}</div></th>
+                        {% endfor %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for g in gens %}
+                        <tr><td>{{g['gid']}}</td><td>{{g['gs']}}</td><td>{{g['pm']}}</td><td>{{g['fu']}}</td><td>{{g['yo']}}</td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                    <!--<h4 class="list-group-item list-group-item-info";> <strong>Boilers</strong></h4>
+                    <table class="table table-condensed table-striped">
+                        <thead>
+                            <tr class="danger">
+                            {% for n in blrsh %}
+                            <th><a href="#" data-toggle="tooltip" title="{{n['fi']}}">{{n['na']}}</a></th>
+                            {% endfor %}
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            {% for b in blrs %}
+                            <tr><td>{{b['bid']}}</td><td>{{b['us']}}</td><td>{{b['pm']}}</td><td>{{b['fu']}}</td><td>{{b['yo']}}</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>-->
+                    <h4 class="list-group-item list-group-item-info";> <strong>Operator and Owners</strong></h4>
+                    <table class="table table-condensed table-striped">
+                       <tbody>
+                        {% for g in ownsh %}
+                           <tr><td><div data-toggle="tooltip" title="{{g['fi']}}"><b>{{g['na']}}</b></div></td><td>{{g['na2']}}</td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                <h6>Source: U.S. Environmental Protection Agency (EPA) (eGRID-Database) (Feb. 2017)</h6>
+                <br><br> <p><a class="btn btn-sm btn-primary"  href="adv_search#" role="button">back to search &raquo;</a></p>
+            </div><!--END OF LEFT COLUMN-->
+                <div class="col-sm-5"> <!-- RIGHT COLUMN-->
+                <center><h4>Plant Annual Net Generation (MWh)</h4></center>
+
+                    <div id="viz2" style="width:400px; height:250px;"></div>
+
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        var sample_data = [
+                          {% for a in agenplt %}
+                          {"year":{{a['year']}}, "Plant Name":"{{a['na']}}", "Net Gen (MWh)":{{a['gen']}}  },
+                          {% endfor %}
+                        ]
+                        var attributes = [
+                          {% for a in agenplt %}
+                          {"Plant Name": "{{a['na']}}", "hex": "#AA0000"},
+                          {% endfor %}
+                        ]
+
+                        // instantiate d3plus
+                        var visualization = d3plus.viz()
+                          .container("#viz2")
+                          .data(sample_data)
+                          .type("bar")
+                          .id("Plant Name")
+                          .text('year')
+                          .y("Net Gen (MWh)")
+                          .x("year")
+                          .attrs(attributes)
+                          .color("hex")
+                          /*.ui([
+                          {
+                          "method" : "type",
+                          "value"  : [{" Bar plot ": "bar"}, {"Tree Map ": "tree_map"},{" Pie ":"pie"}]
+                           }
+                           ])*/
+                          .draw()
+                      });
+                    </script>
+
+                <!--<br>
+                <center><h3>Monthly Net Generation (MW) by Generator ID</h3></center>
+                    <div id="viz3" style="width:600px; height:400px;"></div>
+                    <script type="text/javascript">
+                      var sample_data = [
+                        {% for a in agens %}
+                        {"Month":"{{a['date']}}", "gen":"{{a['gid']}}", "MWh":{{a['gen']}}  },
+                        {% endfor %}
+                      ]
+                      var attributes = [
+                        {% for a in agensb %}
+                        {"gen": "{{a['gid']}}", "hex": "{{a['co']}}"},
+                        {% endfor %}
+                      ]
+
+                      // instantiate d3plus
+                      var visualization = d3plus.viz()
+                        .container("#viz3")
+                        .data(sample_data)
+                        .type("bar")
+                        .id("gen")          // key for which our data is unique on
+                        .text('gen')        // key to use for display text
+                        .y("MWh")           // key to use for y-axis
+                        .x("Month")          // key to use for x-axis
+                        .attrs(attributes)
+                        //.legend({"size": 60})
+                        .color("hex")
+                        /*.ui([
+                          {
+                        "method" : "type",
+                        "value"  : [{" Stacked Lines ": "stacked"}, {" Scatter ": "scatter"}, {" Tree Map ": "tree_map"} , {" Pie ": "pie"}, {" Stacked Bars": "bar"}]
+                        }
+
+                         ])*/
+                        .draw()             // finally, draw the visualization!
+                    </script>-->
+
+                <br>
+                <center><h4>Fuel consumption by reported fuel type </h4></center>
+                <center><h6>(Consumed For Electric Generation And Useful Thermal Output)</h6></center>
+
+                    <div id="fuel3" style="width:400px; height:250px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        var sample_data3 = [
+                         {% for p in afuels %}
+                          {"year":"{{p['yr']}}", "type":"{{p['rf']}}", "Total Fuel Consumption MMBtu":{{p['tfm']}}  },
+                         {% endfor %}
+                        ]
+                        var attributes3 = [
+                          {"type": "BIT", "hex": "#AA0000"},
+                          {"type": "DFO", "hex": "#00AA00"},
+                          {"type": "NG", "hex": "#0000AA"},
+                          {"type": "LIG", "hex": "#800000"},
+                          {"type": "SUB", "hex": "#FFAA00"},
+                          {"type": "ANT", "hex": "#808000"},
+                          {"type": "WAT", "hex": "#AA00FF"},
+                          {"type": "COL", "hex": "#800080"},
+                          {"type": "NUC", "hex": "#FFC700"},
+                        ]
+
+                        // instantiate d3plus
+                        var visualization = d3plus.viz()
+                          .container("#fuel3")
+                          .data(sample_data3)
+                          .type("bar")
+                          .id("type")          // key for which our data is unique on
+                          //.text('type')        // key to use for display text
+                          .y("Total Fuel Consumption MMBtu")           // key to use for y-axis
+                          .x("year")          // key to use for x-axis
+                          .attrs(attributes3)
+                          //.font({"size":14})
+                          .color("hex")
+                          .draw()
+                      });
+                    </script>
+                 <h6>Source: U.S. Energy Information Administration (Dec. 2016)</h6>
+            </div><!--END OF RIGHT COLUMN-->
+            </div> <!--END OF ROW-->
+        </div> <!-- END OF TAB ginfo  -->
+        <br>
+        <div id="oinfo" class="tab-pane fade">
+            <div class="row">
+                <!--Intro-->
+                <div class="col-sm-12">
+                    <h2>Plant Operations <small class="text-warning">  This is an example of information you can get</small></h2>
+                    <kbd>To gain access, please contact us using our contact form.</kbd>
+                    <h5>This data does not correspond to this plant and it is shown as example.</h5>
+
+                    <br>
+                </div>
+                <!--STATS-->
+                <div class="col-sm-12">    
+                    <div class="row tile_count">
+                      <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-plug"></i> Total Net Generation </span>
+                        <div class="count">120 GWh</div>
+                        <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>45 % </i> From last year</span>
+                      </div>
+                      <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-bar-chart"></i> Total Cycling (EHS) </span>
+                        <div class="count">69</div>
+                        <span class="count_bottom"><i class="red"><i class="fa fa-sort-asc"></i>27 % </i> From last year</span>
+                      </div>
+                      <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-line-chart"></i> Number of Starts</span>
+                        <div class="count">22 </div>
+                        <span class="count_bottom"><i class="red"><i class="fa fa-sort-asc"></i>10 % </i> From last year</span>
+                      </div>
+                      <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-random"></i> Load Followings </span>
+                        <div class="count">345</div>
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-desc"></i>4 % </i> From last year</span>
+                      </div>
+                      <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-calendar "></i> Operating days</span>
+                        <div class="count">45 %</div>
+                        <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>1 % </i> From last year</span>
+                      </div>
+                      <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-toggle-on"></i> Hot/Warm/Cold starts</span>
+                        <div class="count">10-9-3</div>
+                        <span class="count_bottom"><i class="red"><i class="fa fa-sort-asc"></i>23 %-</i><i class="green"><i class="fa fa-sort-desc"></i>10 %-</i> 
+                             <i class="green"><i class="fa fa-sort-desc"></i>11 % </i>From last year</span>
+                      </div>
+                    </div><!-- /top tiles -->
+                </div>
+                <hr>
+                <!--FIRST BLOCK:  COMPARISON-RADIAL-UNIT'S INFO-->
+                <div class="col-sm-4">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Peer Comparison</strong></center></h3>
+                  <div class="content">
+                        <p><small>                    
+                            This unit has been automically compared with <strong>10</strong> <strong>Subbituminous coal</strong> units for which the prime mover is <strong>Steam turbine</strong> with a namplate capacity between <strong>734</strong> and <strong>920</strong> MW, that started operations between <strong>1977</strong> and <strong>1983</strong>.</small>
+                        </p>
+                        <p><small> 
+                            On the right, a summary plot shows a radial comparison of the most important key perfomance indicators for cycling. Values in the radial direction are percentages and are normalized to the value of your peers. </small>
+                        </p>
+                  </div>
+            </div>
+                <div class="col-sm-4">
+              <h3 class="list-group-item list-group-item-info"><center><strong>Summary Plot</strong></center></h3>
+              <div id="bench" style="width: 300px; height:450px;"></div>
+                <script>
+                  $(document).ready(function(){
+                    var sample_data = [
+                              {"name": "Your Peers","skill": "HS", "score": 100},
+                              {"name": "Your Peers","skill": "WS", "score": 100},
+                              {"name": "Your Peers","skill": "CS", "score": 100},
+                              {"name": "Your Peers","skill": "EHS", "score": 100},
+                              {"name": "Your Peers","skill": "GEN", "score": 100},
+                              {"name": "Your Peers","skill": "LF", "score": 100},
+                              {"name": "Your Peers","skill": "OD", "score": 100},
+                              {"name": "Your Unit","skill": "HS", "score": 147},
+                              {"name": "Your Unit","skill": "WS", "score": 204},
+                              {"name": "Your Unit","skill": "CS", "score": 138},
+                              {"name": "Your Unit","skill": "EHS", "score": 70},
+                              {"name": "Your Unit","skill": "GEN", "score": 110},
+                              {"name": "Your Unit","skill": "LF", "score": 90},
+                              {"name": "Your Unit","skill": "OD", "score": 75},   
+                            
+                    ];
+                    var visualization = d3plus.viz()
+                      .container("#bench")
+                      .data(sample_data)
+                      .id(["name", "skill"])
+                      .size("score")
+                      .font({"size":12})
+                      .type("radar")
+                      .color(function(d){
+                          return d.score != 700 ? "rgb(143, 27, 0)" : "#0047b3";
+                      })
+                      .legend({"size": 65})
+                      .draw();
+
+                    moveLegend();
+
+                    function moveLegend() {
+                      var l = d3.select("#key"),
+                          c = d3.select("#container");
+
+                      // wait for the legend and container to appear
+                      // if not wait 200 milliseconds and try again
+                      if (!l.size() || !c.size()) {
+                        setTimeout(moveLegend, 1000);
+                      } else {
+                        // both now exist
+                        // move legend to top
+                        l.transition()
+                         .attr("transform","translate(50,50)");
+                        // move chart down height of legend
+                        var lh = l.node().getBBox().height;
+                        var lw = -l.node().getBBox().width;
+                        c.attr("transform", "translate("+lw/2+"," + lh/2 + ")");
+                      }
+                    }
+                  });
+                </script>
+              </div>
+                <div class="col-sm-4">
+                   <h3 class="list-group-item list-group-item-info"><center><strong>This Unit's info</strong></center></h3>
+                    <div class="content">
+                        <table class="table table-condensed table-striped">
+                           <tbody>
+                            
+                                <tr><td><small><b>Plant Name               </b></small></td><td><small> Los Olmos EC  </small></td></tr>
+                                <tr><td><small><b>Unit ID                  </b></small></td><td><small> 1            </small></td></tr>
+                                <tr><td><small><b>Fuel                     </b></small></td><td><small> Sub. coal     </small></td></tr>
+                                <tr><td><small><b>Prime Mover              </b></small></td><td><small> Steam Turbine </small></td></tr>
+                                <tr><td><small><b>Nameplate Cap. (MW)  </b></small></td><td><small> 850           </small></td></tr>
+                                <tr><td><small><b>Year Online               </b></small></td><td><small>1980          </small></td></tr>
+                                <tr><td><small><b>Operation's data          </b></small></td><td><small>2003-2017     </small></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+              </div>
+            
+                <!--2nd BLOCK:  CYCLING AVERAGES AND CYCLING RANKING-->          
+                <div class="col-sm-6">
+                   <h3 class="list-group-item list-group-item-info"><center><strong>Cycling Averages
+                        (2003-2007)</strong></center></h3>
+                    <div class="content">
+                        <table class="table table-condensed table-striped">
+                            <thead>
+                                <tr><td><b><small>Historical average values for:</small></b></td><td><b>Your Unit</b></td><td><b>Your Peers</b></td><td><b> Diff. (&#37;)</b></td></tr>
+                            </thead>
+
+                            <tbody>
+                                <tr><td><b>Cycling (EHS)</b></td><td><b>74.4</b></td><td><b>69.7</b> </td><td><b><i class="red"><i class="fa fa-sort-asc"></i> 6 &#37;</i></b></td></tr>
+                                <tr><td>Total starts      </td><td>8.9 </td><td> 8.9</td><td><i class="green"><i class="fa fa-sort-desc"></i>  0 &#37;</i></td></tr>
+                                <tr><td>Hot Starts    </td><td> 3.5 </td><td> 3.9 </td><td> <i class="green"><i class="fa fa-sort-desc"></i>  16 &#37; </i> </td></tr>
+                                <tr><td>Warm Starts   </td><td> 3.9 </td><td> 3.4 </td><td> <i class="red"><i class="fa fa-sort-asc"></i> 13 &#37; </i></td></tr>
+                                <tr><td>Cold Starts   </td><td> 1.5 </td><td> 1.5 </td><td> <i class="green"><i class="fa fa-sort-desc"></i> 0 &#37; </i> </td></tr>
+                                <tr><td>Significant Load Follows </td><td> 312.8 </td><td> 258.8 </td><td><i class="red"><i class="fa fa-sort-asc"></i> 18 &#37;</i></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>  
+                <div class="col-sm-6">
+                   <h3 class="list-group-item list-group-item-info"><center><strong>Cycling ranking</strong></center></h3>
+                    <div id="rank" style="width: 550px; height:300px;"></div>
+                        <script type="text/javascript">
+                          $(document).ready(function(){
+                            var sample_data2 = [
+                                  {"rank":1,  "unit":"Your Peers", "Equivalent Hot Starts (EHS)":54.3},
+                                  {"rank":2,  "unit":"Your Peers", "Equivalent Hot Starts (EHS)":61.5},
+                                  {"rank":3,  "unit":"Your Peers", "Equivalent Hot Starts (EHS)":66.3},
+                                  {"rank":4,  "unit":"Your Peers", "Equivalent Hot Starts (EHS)":68.6},
+                                  {"rank":5,  "unit":"Your Peers", "Equivalent Hot Starts (EHS)":69.0},
+                                  {"rank":6,  "unit":"Your Peers", "Equivalent Hot Starts (EHS)":69.6},
+                                  {"rank":7,  "unit":"Your Peers", "Equivalent Hot Starts (EHS)":69.8},
+                                  {"rank":8,  "unit":"Your Peers", "Equivalent Hot Starts (EHS)":74.3},
+                                  {"rank":9,  "unit":"Your Unit" , "Equivalent Hot Starts (EHS)":74.4},
+                                  {"rank":10, "unit":"Your Peers", "Equivalent Hot Starts (EHS)":74.5},
+                                  {"rank":11, "unit":"Your Peers", "Equivalent Hot Starts (EHS)":74.9},
+                            ]
+                            // instantiate d3plus
+                            var visualization = d3plus.viz()
+                              .container("#rank")
+                              .data(sample_data2)
+                              .type("bar")
+                              .id("unit")          // key for which our data is unique on
+                              .y("Equivalent Hot Starts (EHS)")           // key to use for y-axis
+                              .x("rank")          // key to use for x-axis
+                              .legend({"size": 50})
+                              //.color("hex")
+                              .draw()             // finally, draw the visualization!
+                          });
+                        </script>
+                </div> 
+                
+                <!--3rd BLOCK:  CYCLING DATA--> 
+                <div class="col-sm-8">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Cycling</strong></center></h3>
+                <div id="oper_2" style="width: 700px; height:300px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        var sample_data2 = [
+                              {"year":"2003", "unit":"1", "Equivalent Hot Starts (EHS)":89.3  },
+                              {"year":"2004", "unit":"1", "Equivalent Hot Starts (EHS)":89.7  },
+                              {"year":"2005", "unit":"1", "Equivalent Hot Starts (EHS)":89.5  },
+                              {"year":"2006", "unit":"1", "Equivalent Hot Starts (EHS)":87.1  },
+                              {"year":"2007", "unit":"1", "Equivalent Hot Starts (EHS)":80.6  },
+                              {"year":"2008", "unit":"1", "Equivalent Hot Starts (EHS)":69.9  },
+                              {"year":"2009", "unit":"1", "Equivalent Hot Starts (EHS)":70.7  },
+                              {"year":"2010", "unit":"1", "Equivalent Hot Starts (EHS)":85.3  },
+                              {"year":"2011", "unit":"1", "Equivalent Hot Starts (EHS)":70.4  },
+                              {"year":"2012", "unit":"1", "Equivalent Hot Starts (EHS)":64.4  },
+                              {"year":"2013", "unit":"1", "Equivalent Hot Starts (EHS)":70.7  },
+                              {"year":"2014", "unit":"1", "Equivalent Hot Starts (EHS)":63.8  },
+                              {"year":"2015", "unit":"1", "Equivalent Hot Starts (EHS)":48.6  },
+                              {"year":"2016", "unit":"1", "Equivalent Hot Starts (EHS)":62.1  },
+                              {"year":"2017", "unit":"1", "Equivalent Hot Starts (EHS)":74.3  },
+                        ]
+                        // instantiate d3plus
+                        var visualization = d3plus.viz()
+                          .container("#oper_2")
+                          .data(sample_data2)
+                          .type("bar")
+                          .id("unit")          // key for which our data is unique on
+                          .y("Equivalent Hot Starts (EHS)")           // key to use for y-axis
+                          .x("year")          // key to use for x-axis
+                          .legend({"size": 50})
+                          .draw()             // finally, draw the visualization!
+                      });
+                    </script>
+                </div>
+                <div class="col-sm-4">
+
+                  <h3 class="list-group-item list-group-item-info"><center><strong>Peer Comparison</strong></center></h3>
+                      <div id="oper_2comp" style="width: 300px; height:300px;"></div>
+                          <script>
+                            $(document).ready(function(){
+                              var data = [
+                                    {"plant":"Your Unit", "name":"2003", "value": 89.3  },
+                                    {"plant":"Your Unit", "name":"2004", "value": 89.7  },
+                                    {"plant":"Your Unit", "name":"2005", "value": 89.5  },
+                                    {"plant":"Your Unit", "name":"2006", "value": 87.1  },
+                                    {"plant":"Your Unit", "name":"2007", "value": 80.6  },
+                                    {"plant":"Your Unit", "name":"2008", "value": 69.9  },
+                                    {"plant":"Your Unit", "name":"2009", "value": 70.7  },
+                                    {"plant":"Your Unit", "name":"2010", "value": 85.3  },
+                                    {"plant":"Your Unit", "name":"2011", "value": 70.4  },
+                                    {"plant":"Your Unit", "name":"2012", "value": 64.4  },
+                                    {"plant":"Your Unit", "name":"2013", "value": 70.7  },
+                                    {"plant":"Your Unit", "name":"2014", "value": 63.8  },
+                                    {"plant":"Your Unit", "name":"2015", "value": 48.6  },
+                                    {"plant":"Your Unit", "name":"2016", "value": 62.1  },
+                                    {"plant":"Your Unit", "name":"2017", "value": 74.3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2012 ", "value": 44.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2013 ", "value": 48.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2014 ", "value": 37.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2015 ", "value": 49.8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2010 ", "value": 58.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2011 ", "value": 58.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2008 ", "value": 57.8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2009 ", "value": 45.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2007 ", "value": 87.1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2010 ", "value": 84.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2011 ", "value": 58.6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2008 ", "value": 55.6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2009 ", "value": 60.8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2005 ", "value": 60.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2006 ", "value": 51.8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2007 ", "value": 64.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2010 ", "value": 94.8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2011 ", "value": 59.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2012 ", "value": 72.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2013 ", "value": 85.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2007 ", "value": 50.8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2008 ", "value": 55.3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2009 ", "value": 46.6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2014 ", "value": 100.1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2015 ", "value": 81.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2014 ", "value": 86.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2015 ", "value": 95.5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2005 ", "value": 65.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2006 ", "value": 46.1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2012 ", "value": 81.6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2013 ", "value": 67.6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2000 ", "value": 89.3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2001 ", "value": 89.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2002 ", "value": 89.5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2003 ", "value": 87.1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2004 ", "value": 80.6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2005 ", "value": 69.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2006 ", "value": 70.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2007 ", "value": 85.3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2008 ", "value": 70.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2009 ", "value": 64.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2010 ", "value": 70.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2011 ", "value": 63.8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2012 ", "value": 48.6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2013 ", "value": 62.1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2014 ", "value": 74.3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2000 ", "value": 109.3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2001 ", "value": 95.2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2002 ", "value": 42.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2003 ", "value": 63.5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2004 ", "value": 92.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2005 ", "value": 83.2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2006 ", "value": 90.1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2007 ", "value": 90.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2008 ", "value": 85.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2009 ", "value": 92.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2010 ", "value": 78.3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2011 ", "value": 75.3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2012 ", "value": 69.2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2013 ", "value": 63.5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2014 ", "value": 56.6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2007 ", "value": 72.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2008 ", "value": 73.5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2015 ", "value": 40.1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2014 ", "value": 66.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2009 ", "value": 68.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2005 ", "value": 72.2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2006 ", "value": 78.3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2013 ", "value": 71.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2011 ", "value": 58.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2012 ", "value": 63.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2010 ", "value": 63.2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2001 ", "value": 86.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2002 ", "value": 95.8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2004 ", "value": 68.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2005 ", "value": 67.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2006 ", "value": 63.5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2003 ", "value": 75.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2008 ", "value": 70.6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2009 ", "value": 75.2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2010 ", "value": 82.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2007 ", "value": 77.3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2000 ", "value": 81.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2001 ", "value": 88.8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2002 ", "value": 78.8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2003 ", "value": 64.1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2004 ", "value": 70.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2005 ", "value": 70.5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2006 ", "value": 80.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2007 ", "value": 58.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2008 ", "value": 57.2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2009 ", "value": 67.5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2010 ", "value": 64.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2011 ", "value": 61.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2012 ", "value": 55.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2013 ", "value": 62.4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2014 ", "value": 80.6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2000 ", "value": 73.2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2013 ", "value": 79.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2014 ", "value": 78.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2011 ", "value": 56.8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2012 ", "value": 62.3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2005 ", "value": 31.1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2006 ", "value": 51.1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2009 ", "value": 64.3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2015 ", "value": 82.6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2008 ", "value": 86.6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2011 ", "value": 59.1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2012 ", "value": 66.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2007 ", "value": 43.1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2013 ", "value": 63.6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2014 ", "value": 63.0  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2010 ", "value": 64.9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 4, Year: 2015 ", "value": 27.2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 4, Year: 2012 ", "value": 94.6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 4, Year: 2014 ", "value": 68.7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 4, Year: 2010 ", "value": 78.8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 4, Year: 2011 ", "value": 70.5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 4, Year: 2013 ", "value": 71.7  },
+                              ]
+                              var visualization = d3plus.viz()
+                                .container("#oper_2comp")
+                                .data(data)
+                                .type("box")
+                                .id("name")
+                                .x("plant")
+                                .y("value")
+                                .time("year")
+                                .draw()
+                            });
+                          </script>
+                </div>
+
+                <div class="col-sm-8">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Starts</strong></center></h3>
+                <div id="oper_3" style="width:700px; height:300px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        var sample_data3 = [
+                              {"year":"2003", "unit":"1", "Starts":12  },
+                              {"year":"2004", "unit":"1", "Starts":18  },
+                              {"year":"2005", "unit":"1", "Starts":10  },
+                              {"year":"2006", "unit":"1", "Starts":8  },
+                              {"year":"2007", "unit":"1", "Starts":10  },
+                              {"year":"2008", "unit":"1", "Starts":10  },
+                              {"year":"2009", "unit":"1", "Starts":8  },
+                              {"year":"2010", "unit":"1", "Starts":5  },
+                              {"year":"2011", "unit":"1", "Starts":7  },
+                              {"year":"2012", "unit":"1", "Starts":8  },
+                              {"year":"2013", "unit":"1", "Starts":5  },
+                              {"year":"2014", "unit":"1", "Starts":11  },
+                              {"year":"2015", "unit":"1", "Starts":8  },
+                              {"year":"2016", "unit":"1", "Starts":9  },
+                              {"year":"2017", "unit":"1", "Starts":3  },
+                        ]
+                        // instantiate d3plus
+                        var visualization = d3plus.viz()
+                          .container("#oper_3")
+                          .data(sample_data3)
+                          .type("bar")
+                          .id("unit")          // key for which our data is unique on
+                          .y("Starts")           // key to use for y-axis
+                          .x("year")          // key to use for x-axis
+                          .legend({"size": 50})
+                          .draw()             // finally, draw the visualization!
+                      });
+                    </script>
+
+                </div>
+                <div class="col-sm-4">
+                  <h3 class="list-group-item list-group-item-info"><center><strong>Peer Comparison</strong></center></h3>
+                      <div id="oper_3comp" style="width: 300px; height:300px;"></div>
+                          <script>
+                            $(document).ready(function(){
+                              var data = [
+                                {"plant":"Your Unit", "name":"2003", "value": 12  },
+                            
+                                {"plant":"Your Unit", "name":"2004", "value": 18  },
+                            
+                                {"plant":"Your Unit", "name":"2005", "value": 10  },
+                            
+                                {"plant":"Your Unit", "name":"2006", "value": 8  },
+                            
+                                {"plant":"Your Unit", "name":"2007", "value": 10  },
+                            
+                                {"plant":"Your Unit", "name":"2008", "value": 10  },
+                            
+                                {"plant":"Your Unit", "name":"2009", "value": 8  },
+                            
+                                {"plant":"Your Unit", "name":"2010", "value": 5  },
+                            
+                                {"plant":"Your Unit", "name":"2011", "value": 7  },
+                            
+                                {"plant":"Your Unit", "name":"2012", "value": 8  },
+                            
+                                {"plant":"Your Unit", "name":"2013", "value": 5  },
+                            
+                                {"plant":"Your Unit", "name":"2014", "value": 11  },
+                            
+                                {"plant":"Your Unit", "name":"2015", "value": 8  },
+                            
+                                {"plant":"Your Unit", "name":"2016", "value": 9  },
+                            
+                                {"plant":"Your Unit", "name":"2017", "value": 3  },
+                            
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2012 ", "value": 3  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2013 ", "value": 11  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2014 ", "value": 1  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2015 ", "value": 5  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2010 ", "value": 15  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2011 ", "value": 11  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2008 ", "value": 15  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2009 ", "value": 2  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2007 ", "value": 28  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2010 ", "value": 6  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2011 ", "value": 4  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2008 ", "value": 6  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2009 ", "value": 9  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2005 ", "value": 10  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2006 ", "value": 3  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2007 ", "value": 8  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2010 ", "value": 6  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2011 ", "value": 3  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2012 ", "value": 6  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2013 ", "value": 8  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2007 ", "value": 4  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2008 ", "value": 4  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2009 ", "value": 5  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2014 ", "value": 8  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2015 ", "value": 5  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2014 ", "value": 6  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2015 ", "value": 7  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2005 ", "value": 5  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2006 ", "value": 4  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2012 ", "value": 6  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2013 ", "value": 6  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2000 ", "value": 12  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2001 ", "value": 18  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2002 ", "value": 10  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2003 ", "value": 8  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2004 ", "value": 10  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2005 ", "value": 10  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2006 ", "value": 8  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2007 ", "value": 5  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2008 ", "value": 7  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2009 ", "value": 8  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2010 ", "value": 5  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2011 ", "value": 11  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2012 ", "value": 8  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2013 ", "value": 9  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2014 ", "value": 5  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2000 ", "value": 19  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2001 ", "value": 10  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2002 ", "value": 8  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2003 ", "value": 12  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2004 ", "value": 11  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2005 ", "value": 11  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2006 ", "value": 6  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2007 ", "value": 17  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2008 ", "value": 11  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2009 ", "value": 14  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2010 ", "value": 11  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2011 ", "value": 8  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2012 ", "value": 9  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2013 ", "value": 7  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2014 ", "value": 3  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2007 ", "value": 11  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2008 ", "value": 16  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2015 ", "value": 7  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2014 ", "value": 10  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2009 ", "value": 10  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2005 ", "value": 16  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2006 ", "value": 10  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2013 ", "value": 8  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2011 ", "value": 7  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2012 ", "value": 15  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2010 ", "value": 11  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2001 ", "value": 13  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2002 ", "value": 15  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2004 ", "value": 13  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2005 ", "value": 7  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2006 ", "value": 7  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2003 ", "value": 12  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2008 ", "value": 10  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2009 ", "value": 10  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2010 ", "value": 8  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2007 ", "value": 6  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2000 ", "value": 11  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2001 ", "value": 15  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2002 ", "value": 16  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2003 ", "value": 10  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2004 ", "value": 12  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2005 ", "value": 9  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2006 ", "value": 12  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2007 ", "value": 5  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2008 ", "value": 3  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2009 ", "value": 10  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2010 ", "value": 3  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2011 ", "value": 4  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2012 ", "value": 1  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2013 ", "value": 7  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2014 ", "value": 7  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2000 ", "value": 9  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2013 ", "value": 3  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2014 ", "value": 2  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2011 ", "value": 7  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2012 ", "value": 3  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2005 ", "value": 10  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2006 ", "value": 15  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2009 ", "value": 13  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2015 ", "value": 11  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2008 ", "value": 23  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2011 ", "value": 7  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2012 ", "value": 4  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2007 ", "value": 14  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2013 ", "value": 4  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2014 ", "value": 5  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2010 ", "value": 5  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 4, Year: 2015 ", "value": 5  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 4, Year: 2012 ", "value": 11  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 4, Year: 2014 ", "value": 10  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 4, Year: 2010 ", "value": 16  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 4, Year: 2011 ", "value": 11  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 4, Year: 2013 ", "value": 19  },
+                            
+                              ]
+                              var visualization = d3plus.viz()
+                                .container("#oper_3comp")
+                                .data(data)
+                                .type("box")
+                                .id("name")
+                                .x("plant")
+                                .y("value")
+                                .time("year")
+                                .draw()
+                              });
+                            </script>
+                  </div>
+
+                <div class="col-sm-8">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Significant Load Follows</strong></center></h3>
+                <div id="oper_4" style="width:700px; height:300px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        var sample_data4 = [
+                          {"year":"2003", "unit":"1", "No. of Load Followings":303  },
+                          {"year":"2004", "unit":"1", "No. of Load Followings":278  },
+                          {"year":"2005", "unit":"1", "No. of Load Followings":304  },
+                          {"year":"2006", "unit":"1", "No. of Load Followings":346  },
+                          {"year":"2007", "unit":"1", "No. of Load Followings":324  },
+                          {"year":"2008", "unit":"1", "No. of Load Followings":435  },
+                          {"year":"2009", "unit":"1", "No. of Load Followings":391  },
+                          {"year":"2010", "unit":"1", "No. of Load Followings":295  },
+                          {"year":"2011", "unit":"1", "No. of Load Followings":284  },
+                          {"year":"2012", "unit":"1", "No. of Load Followings":313  },
+                          {"year":"2013", "unit":"1", "No. of Load Followings":240  },
+                          {"year":"2014", "unit":"1", "No. of Load Followings":296  },
+                          {"year":"2015", "unit":"1", "No. of Load Followings":373  },
+                          {"year":"2016", "unit":"1", "No. of Load Followings":332  },
+                          {"year":"2017", "unit":"1", "No. of Load Followings":178  },
+                        ]
+
+
+                        // instantiate d3plus
+                        var visualization = d3plus.viz()
+                          .container("#oper_4")
+                          .data(sample_data4)
+                          .type("bar")
+                          .id("unit")          // key for which our data is unique on
+                          .y("No. of Load Followings")           // key to use for y-axis
+                          .x("year")          // key to use for x-axis
+                          .legend({"size": 50})
+                          .draw()             // finally, draw the visualization!
+                      });
+                    </script>
+              </div>
+                <div class="col-sm-4">
+                  <h3 class="list-group-item list-group-item-info"><center><strong>Peer Comparison</strong></center></h3>
+                      <div id="oper_4comp" style="width: 300px; height:300px;"></div>
+                          <script>
+                            $(document).ready(function(){
+                              var data = [
+                            
+                            {"plant":"Your Unit", "name":"2003", "value": 303  },
+                            
+                            {"plant":"Your Unit", "name":"2004", "value": 278  },
+                            
+                            {"plant":"Your Unit", "name":"2005", "value": 304  },
+                            
+                            {"plant":"Your Unit", "name":"2006", "value": 346  },
+                            
+                            {"plant":"Your Unit", "name":"2007", "value": 324  },
+                            
+                            {"plant":"Your Unit", "name":"2008", "value": 435  },
+                            
+                            {"plant":"Your Unit", "name":"2009", "value": 391  },
+                            
+                            {"plant":"Your Unit", "name":"2010", "value": 295  },
+                            
+                            {"plant":"Your Unit", "name":"2011", "value": 284  },
+                            
+                            {"plant":"Your Unit", "name":"2012", "value": 313  },
+                            
+                            {"plant":"Your Unit", "name":"2013", "value": 240  },
+                            
+                            {"plant":"Your Unit", "name":"2014", "value": 296  },
+                            
+                            {"plant":"Your Unit", "name":"2015", "value": 373  },
+                            
+                            {"plant":"Your Unit", "name":"2016", "value": 332  },
+                            
+                            {"plant":"Your Unit", "name":"2017", "value": 178  },
+                            
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2012 ", "value": 210  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2013 ", "value": 183  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2014 ", "value": 196  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2015 ", "value": 253  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2010 ", "value": 122  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2011 ", "value": 199  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2008 ", "value": 167  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2009 ", "value": 185  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2007 ", "value": 114  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2010 ", "value": 387  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2011 ", "value": 286  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2008 ", "value": 136  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2009 ", "value": 141  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2005 ", "value": 104  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2006 ", "value": 108  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2007 ", "value": 69  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2010 ", "value": 399  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2011 ", "value": 314  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2012 ", "value": 294  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2013 ", "value": 320  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2007 ", "value": 116  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2008 ", "value": 139  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2009 ", "value": 138  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2014 ", "value": 311  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2015 ", "value": 357  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2014 ", "value": 297  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2015 ", "value": 376  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2005 ", "value": 116  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2006 ", "value": 87  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2012 ", "value": 319  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2013 ", "value": 289  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2000 ", "value": 308  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2001 ", "value": 280  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2002 ", "value": 306  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2003 ", "value": 348  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2004 ", "value": 325  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2005 ", "value": 438  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2006 ", "value": 393  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2007 ", "value": 297  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2008 ", "value": 285  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2009 ", "value": 315  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2010 ", "value": 241  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2011 ", "value": 298  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2012 ", "value": 374  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2013 ", "value": 336  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2014 ", "value": 310  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2000 ", "value": 267  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2001 ", "value": 341  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2002 ", "value": 128  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2003 ", "value": 341  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2004 ", "value": 483  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2005 ", "value": 410  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2006 ", "value": 443  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2007 ", "value": 188  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2008 ", "value": 258  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2009 ", "value": 328  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2010 ", "value": 274  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2011 ", "value": 418  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2012 ", "value": 447  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2013 ", "value": 354  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2014 ", "value": 275  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2007 ", "value": 67  },
+                            
+                             ]
+                              var visualization = d3plus.viz()
+                                .container("#oper_4comp")
+                                .data(data)
+                                .type("box")
+                                .id("name")
+                                .x("plant")
+                                .y("value")
+                                .time("year")
+                                .draw()
+                            });
+                          </script>
+                  </div>
+
+                <div class="col-sm-8">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Operating Days</strong></center></h3>
+                  <div id="oper_4b" style="width:700px; height:300px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                         var sample_data4b = [
+                                {"year":"2003", "unit":"1", "Operating Days (%)":86},
+                                {"year":"2004", "unit":"1", "Operating Days (%)":74},
+                                {"year":"2005", "unit":"1", "Operating Days (%)":86},
+                                {"year":"2006", "unit":"1", "Operating Days (%)":92},
+                                {"year":"2007", "unit":"1", "Operating Days (%)":86},
+                                {"year":"2008", "unit":"1", "Operating Days (%)":88},
+                                {"year":"2009", "unit":"1", "Operating Days (%)":70},
+                                {"year":"2010", "unit":"1", "Operating Days (%)":90},
+                                {"year":"2011", "unit":"1", "Operating Days (%)":89},
+                                {"year":"2012", "unit":"1", "Operating Days (%)":80},
+                                {"year":"2013", "unit":"1", "Operating Days (%)":91},
+                                {"year":"2014", "unit":"1", "Operating Days (%)":76},
+                                {"year":"2015", "unit":"1", "Operating Days (%)":85},
+                                {"year":"2016", "unit":"1", "Operating Days (%)":88},
+                                {"year":"2017", "unit":"1", "Operating Days (%)":96},
+                          ]
+                          // instantiate d3plus
+                          var visualization = d3plus.viz()
+                            .container("#oper_4b")
+                            .data(sample_data4b)
+                            .type("bar")
+                            .id("unit")          // key for which our data is unique on
+                            .y("Operating Days (%)")           // key to use for y-axis
+                            .x("year")          // key to use for x-axis
+                            .legend({"size": 50})
+                            .draw()             // finally, draw the visualization!
+                        });
+                      </script>
+               </div>
+                <div class="col-sm-4">
+                  <h3 class="list-group-item list-group-item-info"><center><strong>Peer Comparison</strong></center></h3>
+                      <div id="oper_4bcomp" style="width: 300px; height:300px;"></div>
+                          <script>
+                            $(document).ready(function(){
+                              var data = [
+                    
+                                {"plant":"Your Unit", "name":"2003", "value": 86.9080779944  },
+                            
+                                {"plant":"Your Unit", "name":"2004", "value": 74.6831955923  },
+                            
+                                {"plant":"Your Unit", "name":"2005", "value": 86.6115702479  },
+                            
+                                {"plant":"Your Unit", "name":"2006", "value": 92.1763085399  },
+                            
+                                {"plant":"Your Unit", "name":"2007", "value": 86.1813186813  },
+                            
+                                {"plant":"Your Unit", "name":"2008", "value": 88.7878787879  },
+                            
+                                {"plant":"Your Unit", "name":"2009", "value": 70.0826446281  },
+                            
+                                {"plant":"Your Unit", "name":"2010", "value": 90.303030303  },
+                            
+                                {"plant":"Your Unit", "name":"2011", "value": 89.0384615385  },
+                            
+                                {"plant":"Your Unit", "name":"2012", "value": 80.6060606061  },
+                            
+                                {"plant":"Your Unit", "name":"2013", "value": 91.0192837466  },
+                            
+                                {"plant":"Your Unit", "name":"2014", "value": 76.5013774105  },
+                            
+                                {"plant":"Your Unit", "name":"2015", "value": 85.1373626374  },
+                            
+                                {"plant":"Your Unit", "name":"2016", "value": 88.5872576177  },
+                            
+                                {"plant":"Your Unit", "name":"2017", "value": 96.4761904762  },
+                            
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2012 ", "value": 97.0218579235  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2013 ", "value": 94.5479452055  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2014 ", "value": 86.2739726027  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2015 ", "value": 97.3150684932  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2010 ", "value": 91.8356164384  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2011 ", "value": 96.7671232877  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2008 ", "value": 97.6775956284  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2009 ", "value": 94.0  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 8, Year: 2007 ", "value": 76.2181818182  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2010 ", "value": 97.4520547945  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2011 ", "value": 87.1232876712  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2008 ", "value": 93.5792349727  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2009 ", "value": 89.2328767123  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2005 ", "value": 87.4246575342  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2006 ", "value": 97.8630136986  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2007 ", "value": 89.095890411  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2010 ", "value": 96.301369863  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2011 ", "value": 94.7123287671  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2012 ", "value": 78.825136612  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2013 ", "value": 90.1643835616  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2007 ", "value": 98.0547945205  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2008 ", "value": 93.9344262295  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2009 ", "value": 88.4657534247  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2014 ", "value": 86.3835616438  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2015 ", "value": 86.4931506849  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2014 ", "value": 84.2739726027  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2015 ", "value": 94.7945205479  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2005 ", "value": 97.7260273973  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 9, Year: 2006 ", "value": 86.5753424658  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2012 ", "value": 88.2786885246  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 10, Year: 2013 ", "value": 94.8767123288  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2000 ", "value": 86.9080779944  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2001 ", "value": 74.6831955923  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2002 ", "value": 86.6115702479  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2003 ", "value": 92.1763085399  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2004 ", "value": 86.1813186813  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2005 ", "value": 88.7878787879  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2006 ", "value": 70.0826446281  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2007 ", "value": 90.303030303  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2008 ", "value": 89.0384615385  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2009 ", "value": 80.6060606061  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2010 ", "value": 91.0192837466  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2011 ", "value": 76.5013774105  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2012 ", "value": 85.1373626374  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2013 ", "value": 88.5872576177  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 1, Year: 2014 ", "value": 96.4761904762  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2000 ", "value": 77.8272980501  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2001 ", "value": 84.7790055249  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2002 ", "value": 72.7272727273  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2003 ", "value": 81.1845730028  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2004 ", "value": 91.7032967033  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2005 ", "value": 88.1267217631  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2006 ", "value": 93.6914600551  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2007 ", "value": 62.0661157025  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2008 ", "value": 82.4725274725  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2009 ", "value": 85.564738292  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2010 ", "value": 73.91184573  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2011 ", "value": 90.1377410468  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2012 ", "value": 85.3021978022  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2013 ", "value": 86.9080779944  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 2, Year: 2014 ", "value": 78.3333333333  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2007 ", "value": 96.1095890411  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2008 ", "value": 87.0218579235  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2015 ", "value": 43.6164383562  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2014 ", "value": 64.7945205479  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2009 ", "value": 98.5205479452  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2005 ", "value": 94.0273972603  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2006 ", "value": 94.1095890411  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2013 ", "value": 91.5890410959  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2011 ", "value": 89.4794520548  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2012 ", "value": 70.0  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 7, Year: 2010 ", "value": 97.397260274  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2001 ", "value": 86.7777777778  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2002 ", "value": 82.7423822715  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2004 ", "value": 83.7362637363  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2005 ", "value": 90.3856749311  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2006 ", "value": 85.9504132231  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2003 ", "value": 85.8126721763  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2008 ", "value": 77.8296703297  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2009 ", "value": 92.6721763085  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2010 ", "value": 85.6749311295  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2007 ", "value": 87.8787878788  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2000 ", "value": 77.7008310249  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2001 ", "value": 87.728531856  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2002 ", "value": 82.9752066116  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2003 ", "value": 81.7906336088  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2004 ", "value": 82.6373626374  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2005 ", "value": 90.0826446281  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2006 ", "value": 86.2809917355  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2007 ", "value": 86.8870523416  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2008 ", "value": 89.4505494505  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2009 ", "value": 82.8374655647  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2010 ", "value": 95.5096418733  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2011 ", "value": 88.7327823691  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2012 ", "value": 96.4010989011  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2013 ", "value": 81.7679558011  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 5, Year: 2014 ", "value": 92.1904761905  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2000 ", "value": 77.3407202216  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2013 ", "value": 95.9944751381  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2014 ", "value": 98.8095238095  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2011 ", "value": 90.9917355372  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 6, Year: 2012 ", "value": 83.7637362637  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2005 ", "value": 74.0273972603  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2006 ", "value": 90.4657534247  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2009 ", "value": 92.602739726  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2015 ", "value": 81.4246575342  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2008 ", "value": 91.5027322404  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2011 ", "value": 77.1506849315  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2012 ", "value": 97.2950819672  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2007 ", "value": 72.7945205479  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2013 ", "value": 86.602739726  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2014 ", "value": 95.095890411  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 3, Year: 2010 ", "value": 92.1643835616  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 4, Year: 2015 ", "value": 66.1917808219  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 4, Year: 2012 ", "value": 89.4262295082  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 4, Year: 2014 ", "value": 78.7123287671  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 4, Year: 2010 ", "value": 50.0727272727  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 4, Year: 2011 ", "value": 79.5890410959  },
+                            
+                                {"plant":"Your Peers", "name":"Unit 4, Year: 2013 ", "value": 60.7671232877  },
+                        
+                              ]
+                              var visualization = d3plus.viz()
+                                .container("#oper_4bcomp")
+                                .data(data)
+                                .type("box")
+                                .id("name")
+                                .x("plant")
+                                .y("value")
+                                .time("year")
+                                .draw()
+                              });
+                            </script>
+                  </div>
+                <br>
+                <div class="col-sm-8">
+                <h3 class="list-group-item list-group-item-danger"><center><strong>Hot Starts</strong></center></h3>
+                  <div id="oper_5" style="width:700px; height:300px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        var sample_data5 = [
+                              {"year":"2003", "unit":"1", "Hot Starts":6  },
+                              {"year":"2004", "unit":"1", "Hot Starts":8  },
+                              {"year":"2005", "unit":"1", "Hot Starts":3  },
+                              {"year":"2006", "unit":"1", "Hot Starts":4  },
+                              {"year":"2007", "unit":"1", "Hot Starts":4  },
+                              {"year":"2008", "unit":"1", "Hot Starts":3  },
+                              {"year":"2009", "unit":"1", "Hot Starts":5  },
+                              {"year":"2010", "unit":"1", "Hot Starts":1  },
+                              {"year":"2011", "unit":"1", "Hot Starts":4  },
+                              {"year":"2012", "unit":"1", "Hot Starts":1  },
+                              {"year":"2013", "unit":"1", "Hot Starts":3  },
+                              {"year":"2014", "unit":"1", "Hot Starts":3  },
+                              {"year":"2015", "unit":"1", "Hot Starts":1  },
+                              {"year":"2016", "unit":"1", "Hot Starts":4  },
+                              {"year":"2017", "unit":"1", "Hot Starts":0  },
+                        ]
+                        // instantiate d3plus
+                        var visualization = d3plus.viz()
+                          .container("#oper_5")
+                          .data(sample_data5)
+                          .type("bar")
+                          .id("unit")          // key for which our data is unique on
+                          .y("Hot Starts")           // key to use for y-axis
+                          .x("year")          // key to use for x-axis
+                          .draw()             // finally, draw the visualization!
+                      });
+                    </script>
+                </div>
+                <div class="col-sm-4">
+                  <h3 class="list-group-item list-group-item-danger"><center><strong>Peer Comparison</strong></center></h3>
+                      <div id="oper_5comp" style="width:300px; height:300px;"></div>
+                        <script>
+                          $(document).ready(function(){
+                            var data = [
+                                  {"plant":"Your Unit", "name":"2003", "value": 6  },
+
+                                  {"plant":"Your Unit", "name":"2004", "value": 8  },
+
+                                  {"plant":"Your Unit", "name":"2005", "value": 3  },
+
+                                  {"plant":"Your Unit", "name":"2006", "value": 4  },
+
+                                  {"plant":"Your Unit", "name":"2007", "value": 4  },
+
+                                  {"plant":"Your Unit", "name":"2008", "value": 3  },
+
+                                  {"plant":"Your Unit", "name":"2009", "value": 5  },
+
+                                  {"plant":"Your Unit", "name":"2010", "value": 1  },
+
+                                  {"plant":"Your Unit", "name":"2011", "value": 4  },
+
+                                  {"plant":"Your Unit", "name":"2012", "value": 1  },
+
+                                  {"plant":"Your Unit", "name":"2013", "value": 3  },
+
+                                  {"plant":"Your Unit", "name":"2014", "value": 3  },
+
+                                  {"plant":"Your Unit", "name":"2015", "value": 1  },
+
+                                  {"plant":"Your Unit", "name":"2016", "value": 4  },
+
+                                  {"plant":"Your Unit", "name":"2017", "value": 0  },
+
+
+                                  {"plant":"Your Peers", "name":"Unit 8, Year: 2012 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 8, Year: 2013 ", "value": 4  },
+
+                                  {"plant":"Your Peers", "name":"Unit 8, Year: 2014 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 8, Year: 2015 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 8, Year: 2010 ", "value": 13  },
+
+                                  {"plant":"Your Peers", "name":"Unit 8, Year: 2011 ", "value": 9  },
+
+                                  {"plant":"Your Peers", "name":"Unit 8, Year: 2008 ", "value": 13  },
+
+                                  {"plant":"Your Peers", "name":"Unit 8, Year: 2009 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 8, Year: 2007 ", "value": 15  },
+
+                                  {"plant":"Your Peers", "name":"Unit 10, Year: 2010 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 10, Year: 2011 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 10, Year: 2008 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 10, Year: 2009 ", "value": 6  },
+
+                                  {"plant":"Your Peers", "name":"Unit 10, Year: 2005 ", "value": 4  },
+
+                                  {"plant":"Your Peers", "name":"Unit 10, Year: 2006 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 10, Year: 2007 ", "value": 4  },
+
+                                  {"plant":"Your Peers", "name":"Unit 9, Year: 2010 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 9, Year: 2011 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 9, Year: 2012 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 9, Year: 2013 ", "value": 1  },
+
+                                  {"plant":"Your Peers", "name":"Unit 9, Year: 2007 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 9, Year: 2008 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 9, Year: 2009 ", "value": 1  },
+
+                                  {"plant":"Your Peers", "name":"Unit 9, Year: 2014 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 9, Year: 2015 ", "value": 1  },
+
+                                  {"plant":"Your Peers", "name":"Unit 10, Year: 2014 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 10, Year: 2015 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 9, Year: 2005 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 9, Year: 2006 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 10, Year: 2012 ", "value": 1  },
+
+                                  {"plant":"Your Peers", "name":"Unit 10, Year: 2013 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2000 ", "value": 6  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2001 ", "value": 8  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2002 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2003 ", "value": 4  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2004 ", "value": 4  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2005 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2006 ", "value": 5  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2007 ", "value": 1  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2008 ", "value": 4  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2009 ", "value": 1  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2010 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2011 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2012 ", "value": 1  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2013 ", "value": 4  },
+
+                                  {"plant":"Your Peers", "name":"Unit 1, Year: 2014 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2000 ", "value": 10  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2001 ", "value": 6  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2002 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2003 ", "value": 7  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2004 ", "value": 7  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2005 ", "value": 7  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2006 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2007 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2008 ", "value": 4  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2009 ", "value": 6  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2010 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2011 ", "value": 5  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2012 ", "value": 5  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2013 ", "value": 1  },
+
+                                  {"plant":"Your Peers", "name":"Unit 2, Year: 2014 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 7, Year: 2007 ", "value": 6  },
+
+                                  {"plant":"Your Peers", "name":"Unit 7, Year: 2008 ", "value": 11  },
+
+                                  {"plant":"Your Peers", "name":"Unit 7, Year: 2015 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 7, Year: 2014 ", "value": 5  },
+
+                                  {"plant":"Your Peers", "name":"Unit 7, Year: 2009 ", "value": 9  },
+
+                                  {"plant":"Your Peers", "name":"Unit 7, Year: 2005 ", "value": 8  },
+
+                                  {"plant":"Your Peers", "name":"Unit 7, Year: 2006 ", "value": 4  },
+
+                                  {"plant":"Your Peers", "name":"Unit 7, Year: 2013 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 7, Year: 2011 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 7, Year: 2012 ", "value": 8  },
+
+                                  {"plant":"Your Peers", "name":"Unit 7, Year: 2010 ", "value": 7  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2001 ", "value": 5  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2002 ", "value": 9  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2004 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2005 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2006 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2003 ", "value": 4  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2008 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2009 ", "value": 5  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2010 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2007 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2000 ", "value": 4  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2001 ", "value": 6  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2002 ", "value": 8  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2003 ", "value": 4  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2004 ", "value": 6  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2005 ", "value": 6  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2006 ", "value": 7  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2007 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2008 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2009 ", "value": 4  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2010 ", "value": 1  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2011 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2012 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2013 ", "value": 4  },
+
+                                  {"plant":"Your Peers", "name":"Unit 5, Year: 2014 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2000 ", "value": 6  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2013 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2014 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2011 ", "value": 0  },
+
+                                  {"plant":"Your Peers", "name":"Unit 6, Year: 2012 ", "value": 1  },
+
+                                  {"plant":"Your Peers", "name":"Unit 3, Year: 2005 ", "value": 6  },
+
+                                  {"plant":"Your Peers", "name":"Unit 3, Year: 2006 ", "value": 9  },
+
+                                  {"plant":"Your Peers", "name":"Unit 3, Year: 2009 ", "value": 6  },
+
+                                  {"plant":"Your Peers", "name":"Unit 3, Year: 2015 ", "value": 3  },
+
+                                  {"plant":"Your Peers", "name":"Unit 3, Year: 2008 ", "value": 15  },
+
+                                  {"plant":"Your Peers", "name":"Unit 3, Year: 2011 ", "value": 1  },
+
+                                  {"plant":"Your Peers", "name":"Unit 3, Year: 2012 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 3, Year: 2007 ", "value": 8  },
+
+                                  {"plant":"Your Peers", "name":"Unit 3, Year: 2013 ", "value": 1  },
+
+                                  {"plant":"Your Peers", "name":"Unit 3, Year: 2014 ", "value": 1  },
+
+                                  {"plant":"Your Peers", "name":"Unit 3, Year: 2010 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 4, Year: 2015 ", "value": 2  },
+
+                                  {"plant":"Your Peers", "name":"Unit 4, Year: 2012 ", "value": 5  },
+
+                                  {"plant":"Your Peers", "name":"Unit 4, Year: 2014 ", "value": 6  },
+
+                                  {"plant":"Your Peers", "name":"Unit 4, Year: 2010 ", "value": 9  },
+
+                                  {"plant":"Your Peers", "name":"Unit 4, Year: 2011 ", "value": 7  },
+
+                                  {"plant":"Your Peers", "name":"Unit 4, Year: 2013 ", "value": 11  },
+                              ]
+                            var visualization = d3plus.viz()
+                              .container("#oper_5comp")
+                              .data(data)
+                              .type("box")
+                              .id("name")
+                              .x("plant")
+                              .y("value")
+                              .time("year")
+                              .draw()
+                            });
+                          </script>
+                  </div>
+
+                <div class="col-sm-8">
+                <h3 class="list-group-item list-group-item-warning"><center><strong>Warm Starts</strong></center></h3>
+                  <div id="oper_6" style="width:700px; height:300px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        var sample_data6 = [
+                              {"year":"2003", "unit":"1", "Warm Starts":4  },
+                              {"year":"2004", "unit":"1", "Warm Starts":8  },
+                              {"year":"2005", "unit":"1", "Warm Starts":6  },
+                              {"year":"2006", "unit":"1", "Warm Starts":3  },
+                              {"year":"2007", "unit":"1", "Warm Starts":4  },
+                              {"year":"2008", "unit":"1", "Warm Starts":5  },
+                              {"year":"2009", "unit":"1", "Warm Starts":0  },
+                              {"year":"2010", "unit":"1", "Warm Starts":2  },
+                              {"year":"2011", "unit":"1", "Warm Starts":2  },
+                              {"year":"2012", "unit":"1", "Warm Starts":5  },
+                              {"year":"2013", "unit":"1", "Warm Starts":1  },
+                              {"year":"2014", "unit":"1", "Warm Starts":6  },
+                              {"year":"2015", "unit":"1", "Warm Starts":6  },
+                              {"year":"2016", "unit":"1", "Warm Starts":4  },
+                              {"year":"2017", "unit":"1", "Warm Starts":3  },
+                        ]
+
+                        // instantiate d3plus
+                        var visualization = d3plus.viz()
+                          .container("#oper_6")
+                          .data(sample_data6)
+                          .type("bar")
+                          .id("unit")          // key for which our data is unique on
+                          .y("Warm Starts")           // key to use for y-axis
+                          .x("year")          // key to use for x-axis
+                          .draw()             // finally, draw the visualization!
+                      });
+                    </script>
+                </div>
+                <div class="col-sm-4">
+                  <h3 class="list-group-item list-group-item-warning"><center><strong>Peer Comparison</strong></center></h3>
+                      <div id="oper_6comp" style="width: 300px; height:300px;"></div>
+                          <script>
+                            $(document).ready(function(){
+                              var data = [
+                                    {"plant":"Your Unit", "name":"2003", "value": 4  },
+
+                                    {"plant":"Your Unit", "name":"2004", "value": 8  },
+
+                                    {"plant":"Your Unit", "name":"2005", "value": 6  },
+
+                                    {"plant":"Your Unit", "name":"2006", "value": 3  },
+
+                                    {"plant":"Your Unit", "name":"2007", "value": 4  },
+
+                                    {"plant":"Your Unit", "name":"2008", "value": 5  },
+
+                                    {"plant":"Your Unit", "name":"2009", "value": 0  },
+
+                                    {"plant":"Your Unit", "name":"2010", "value": 2  },
+
+                                    {"plant":"Your Unit", "name":"2011", "value": 2  },
+
+                                    {"plant":"Your Unit", "name":"2012", "value": 5  },
+
+                                    {"plant":"Your Unit", "name":"2013", "value": 1  },
+
+                                    {"plant":"Your Unit", "name":"2014", "value": 6  },
+
+                                    {"plant":"Your Unit", "name":"2015", "value": 6  },
+
+                                    {"plant":"Your Unit", "name":"2016", "value": 4  },
+
+                                    {"plant":"Your Unit", "name":"2017", "value": 3  },
+
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2012 ", "value": 0  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2013 ", "value": 6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2014 ", "value": 0  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2015 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2010 ", "value": 1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2011 ", "value": 1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2008 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2009 ", "value": 0  },
+
+                                    {"plant":"Your Peers", "name":"Unit 8, Year: 2007 ", "value": 9  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2010 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2011 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2008 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2009 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2005 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2006 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2007 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2010 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2011 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2012 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2013 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2007 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2008 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2009 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2014 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2015 ", "value": 1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2014 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2015 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2005 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 9, Year: 2006 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2012 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 10, Year: 2013 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2000 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2001 ", "value": 8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2002 ", "value": 6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2003 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2004 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2005 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2006 ", "value": 0  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2007 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2008 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2009 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2010 ", "value": 1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2011 ", "value": 6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2012 ", "value": 6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2013 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 1, Year: 2014 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2000 ", "value": 7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2001 ", "value": 1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2002 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2003 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2004 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2005 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2006 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2007 ", "value": 11  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2008 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2009 ", "value": 6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2010 ", "value": 6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2011 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2012 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2013 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 2, Year: 2014 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2007 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2008 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2015 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2014 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2009 ", "value": 1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2005 ", "value": 8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2006 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2013 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2011 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2012 ", "value": 6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 7, Year: 2010 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2001 ", "value": 7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2002 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2004 ", "value": 8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2005 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2006 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2003 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2008 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2009 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2010 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2007 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2000 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2001 ", "value": 8  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2002 ", "value": 7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2003 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2004 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2005 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2006 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2007 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2008 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2009 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2010 ", "value": 1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2011 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2012 ", "value": 0  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2013 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 5, Year: 2014 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2000 ", "value": 1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2013 ", "value": 0  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2014 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2011 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 6, Year: 2012 ", "value": 1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2005 ", "value": 1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2006 ", "value": 4  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2009 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2015 ", "value": 6  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2008 ", "value": 7  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2011 ", "value": 5  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2012 ", "value": 1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2007 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2013 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2014 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 3, Year: 2010 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 4, Year: 2015 ", "value": 2  },
+
+                                    {"plant":"Your Peers", "name":"Unit 4, Year: 2012 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 4, Year: 2014 ", "value": 1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 4, Year: 2010 ", "value": 3  },
+
+                                    {"plant":"Your Peers", "name":"Unit 4, Year: 2011 ", "value": 1  },
+
+                                    {"plant":"Your Peers", "name":"Unit 4, Year: 2013 ", "value": 2  },
+                              ]
+                              var visualization = d3plus.viz()
+                                .container("#oper_6comp")
+                                .data(data)
+                                .type("box")
+                                .id("name")
+                                .x("plant")
+                                .y("value")
+                                .time("year")
+                                .draw()
+                            });
+                          </script>
+                  </div>
+
+                <div class="col-sm-8">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Cold Starts</strong></center></h3>
+                  <div id="oper_7" style="width:700px; height:300px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        var sample_data7 = [
+                                  {"year":"2003", "unit":"1", "Cold Starts":2  },
+                                  {"year":"2004", "unit":"1", "Cold Starts":2  },
+                                  {"year":"2005", "unit":"1", "Cold Starts":1  },
+                                  {"year":"2006", "unit":"1", "Cold Starts":1  },
+                                  {"year":"2007", "unit":"1", "Cold Starts":2  },
+                                  {"year":"2008", "unit":"1", "Cold Starts":2  },
+                                  {"year":"2009", "unit":"1", "Cold Starts":3  },
+                                  {"year":"2010", "unit":"1", "Cold Starts":2  },
+                                  {"year":"2011", "unit":"1", "Cold Starts":1  },
+                                  {"year":"2012", "unit":"1", "Cold Starts":2  },
+                                  {"year":"2013", "unit":"1", "Cold Starts":1  },
+                                  {"year":"2014", "unit":"1", "Cold Starts":2  },
+                                  {"year":"2015", "unit":"1", "Cold Starts":1  },
+                                  {"year":"2016", "unit":"1", "Cold Starts":1  },
+                                  {"year":"2017", "unit":"1", "Cold Starts":0  },
+                            ]
+                        // instantiate d3plus
+                        var visualization = d3plus.viz()
+                          .container("#oper_7")
+                          .data(sample_data7)
+                          .type("bar")
+                          .id("unit")          // key for which our data is unique on
+                          .y("Cold Starts")           // key to use for y-axis
+                          .x("year")          // key to use for x-axis
+                          .draw()             // finally, draw the visualization!
+                      });
+                    </script>
+                </div>
+                <div class="col-sm-4">
+                  <h3 class="list-group-item list-group-item-info"><center><strong>Peer Comparison</strong></center></h3>
+                      <div id="oper_7comp" style="width: 300px; height:300px;"></div>
+                          <script>
+                          $(document).ready(function(){
+                            var data = [
+
+                                      {"plant":"Your Unit", "name":"2003", "value": 2  },
+
+                                      {"plant":"Your Unit", "name":"2004", "value": 2  },
+
+                                      {"plant":"Your Unit", "name":"2005", "value": 1  },
+
+                                      {"plant":"Your Unit", "name":"2006", "value": 1  },
+
+                                      {"plant":"Your Unit", "name":"2007", "value": 2  },
+
+                                      {"plant":"Your Unit", "name":"2008", "value": 2  },
+
+                                      {"plant":"Your Unit", "name":"2009", "value": 3  },
+
+                                      {"plant":"Your Unit", "name":"2010", "value": 2  },
+
+                                      {"plant":"Your Unit", "name":"2011", "value": 1  },
+
+                                      {"plant":"Your Unit", "name":"2012", "value": 2  },
+
+                                      {"plant":"Your Unit", "name":"2013", "value": 1  },
+
+                                      {"plant":"Your Unit", "name":"2014", "value": 2  },
+
+                                      {"plant":"Your Unit", "name":"2015", "value": 1  },
+
+                                      {"plant":"Your Unit", "name":"2016", "value": 1  },
+
+                                      {"plant":"Your Unit", "name":"2017", "value": 0  },
+
+
+                                      {"plant":"Your Peers", "name":"Unit 8, Year: 2012 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 8, Year: 2013 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 8, Year: 2014 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 8, Year: 2015 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 8, Year: 2010 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 8, Year: 2011 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 8, Year: 2008 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 8, Year: 2009 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 8, Year: 2007 ", "value": 4  },
+
+                                      {"plant":"Your Peers", "name":"Unit 10, Year: 2010 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 10, Year: 2011 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 10, Year: 2008 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 10, Year: 2009 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 10, Year: 2005 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 10, Year: 2006 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 10, Year: 2007 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 9, Year: 2010 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 9, Year: 2011 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 9, Year: 2012 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 9, Year: 2013 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 9, Year: 2007 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 9, Year: 2008 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 9, Year: 2009 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 9, Year: 2014 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 9, Year: 2015 ", "value": 3  },
+
+                                      {"plant":"Your Peers", "name":"Unit 10, Year: 2014 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 10, Year: 2015 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 9, Year: 2005 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 9, Year: 2006 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 10, Year: 2012 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 10, Year: 2013 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2000 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2001 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2002 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2003 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2004 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2005 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2006 ", "value": 3  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2007 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2008 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2009 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2010 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2011 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2012 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2013 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 1, Year: 2014 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2000 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2001 ", "value": 3  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2002 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2003 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2004 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2005 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2006 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2007 ", "value": 3  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2008 ", "value": 3  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2009 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2010 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2011 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2012 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2013 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 2, Year: 2014 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 7, Year: 2007 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 7, Year: 2008 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 7, Year: 2015 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 7, Year: 2014 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 7, Year: 2009 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 7, Year: 2005 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 7, Year: 2006 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 7, Year: 2013 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 7, Year: 2011 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 7, Year: 2012 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 7, Year: 2010 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2001 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2002 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2004 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2005 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2006 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2003 ", "value": 3  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2008 ", "value": 3  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2009 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2010 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2007 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2000 ", "value": 3  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2001 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2002 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2003 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2004 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2005 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2006 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2007 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2008 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2009 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2010 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2011 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2012 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2013 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 5, Year: 2014 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2000 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2013 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2014 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2011 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 6, Year: 2012 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 3, Year: 2005 ", "value": 3  },
+
+                                      {"plant":"Your Peers", "name":"Unit 3, Year: 2006 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 3, Year: 2009 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 3, Year: 2015 ", "value": 2  },
+
+                                      {"plant":"Your Peers", "name":"Unit 3, Year: 2008 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 3, Year: 2011 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 3, Year: 2012 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 3, Year: 2007 ", "value": 3  },
+
+                                      {"plant":"Your Peers", "name":"Unit 3, Year: 2013 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 3, Year: 2014 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 3, Year: 2010 ", "value": 0  },
+
+                                      {"plant":"Your Peers", "name":"Unit 4, Year: 2015 ", "value": 1  },
+
+                                      {"plant":"Your Peers", "name":"Unit 4, Year: 2012 ", "value": 3  },
+
+                                      {"plant":"Your Peers", "name":"Unit 4, Year: 2014 ", "value": 3  },
+
+                                      {"plant":"Your Peers", "name":"Unit 4, Year: 2010 ", "value": 4  },
+
+                                      {"plant":"Your Peers", "name":"Unit 4, Year: 2011 ", "value": 3  },
+
+                                      {"plant":"Your Peers", "name":"Unit 4, Year: 2013 ", "value": 6  },
+
+                            ]
+          
+                      
+                            var visualization = d3plus.viz()
+                              .container("#oper_7comp")
+                              .data(data)
+                              .type("box")
+                              .id("name")
+                              .x("plant")
+                              .y("value")
+                              .time("year")
+                              .draw()
+                            });
+                          </script>
+                </div>
+                
+                
+                
+      
+            </div>  <!--END Of TAB oinfo-->
+        </div> <!--END OF TABS-CONTENT-->
+</div><!-- /.container -->
+<br>
+{% endblock %}

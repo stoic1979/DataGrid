@@ -1,0 +1,76 @@
+{% extends "dashboard_layout.html" %}
+{% block title %}User - Add Blog{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+    <!-- Add blog --->
+    <section id="blogShortDescription">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>Blog list</h2>
+                <!----- IF BLOG IS WRITTEN ----->
+                    <table class="table blogTable">
+                        <thead>
+                        <tr>
+                            <th>Sr.No.</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Image</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if assets %}
+                            {% for blog in assets %}
+                                <tr>
+                                <td></td>
+                                <td>{{ blog.title }}</td>
+                                <td>{{ blog.status }}</td>
+                                <td><img src="{{ url_for('static', filename='img/blog/') }}{{ blog.image }}" class="img-thumbnail"> </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                <!--- IF BLOG IS WRITTEN ---->
+                </div>
+            </div>
+             <div class="row">
+                 <div class="col-sm-12">
+                     <h1>Add new blog Here:</h1>
+                 </div>
+                 <div class="col-sm-12">
+                     <!---  form goes from here --->
+                     <form action="{{ url_for('addBlog') }}" method="post" enctype="multipart/form-data">
+                         {# {{ form.csrf_token }}#}
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="blogTitle">Blog Title</label>
+                                <input type="text" class="form-control" name="title" id="blogTitle" placeholder="Blog Title" required="required" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="blogDescription">Blog Description</label>
+                                <textarea type="text" class="form-control" name="description" id="blogDescription" placeholder="Blog Description" required="required"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="author">Author</label>
+                                <input type="text" class="form-control" name="author" value="{{ current_user.name }}" id="author" data-row="3" placeholder="Blog Author" required="required" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="blogImage">Add Blog Image</label>
+                                <input type="file" class="fileInput" id="image" name="file">
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary pull-right" name="AddBlog" id="submitBlog">Submit Blog</button>
+                            </div>
+                        </div>
+                     </form>
+                     <!---  form goes from here  --->
+                 </div>
+             </div>
+        </div>
+</section>
+    <!-- Add blog --->
+{% endblock %}

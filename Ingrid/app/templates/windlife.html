@@ -1,0 +1,69 @@
+{% extends "LAYOUT.html" %}
+{% block title %}WindLife{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style> 
+        .bar {
+          fill: green;
+        }
+        .bar:hover {
+          fill: red;
+        }
+       .jumbotron {
+            background: rgb(200, 54, 54); /* This is for ie8 and below */
+            background: rgba(250, 254, 254, 0.2); 
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+          <div class="container">
+            <h1 class="display-3"><center>WindLife</center></h1>
+              <div class="row">
+                  <div class="col-sm-6"><h4><i class="glyphicon glyphicon-ok"></i> Real time monitoring and historical data</h4></div>
+                  <div class="col-sm-6"><h4><i class="glyphicon glyphicon-ok"></i> Zoomable terrain map showing real-time data.</h4></div> 
+                  <div class="col-sm-6"><h4><i class="glyphicon glyphicon-ok"></i> Inspection Data Management System (IDMS)</h4></div> 
+                  <div class="col-sm-6"><h4><i class="glyphicon glyphicon-ok"></i> Remaining useful life for each turbine</h4></div>
+                  <div class="col-sm-6"><h4><i class="glyphicon glyphicon-ok"></i> Early Fault Detection System</h4></div> 
+                  <div class="col-sm-6"><h4><i class="glyphicon glyphicon-ok"></i> Automatic Report Generation System (day/month/year)</h4></div>
+                  <div class="col-sm-6"><h4><i class="glyphicon glyphicon-ok"></i> Temperature Anomaly Detection</h4></div>
+                  <div class="col-sm-6"><h4><i class="glyphicon glyphicon-ok"></i> Summary tables showing generation, availability, and failures.</h4></div>
+              </div>
+          </div>
+        </div>
+         <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-4">
+             <h4 class="list-group-item list-group-item-info"><center><strong>What is WindLife?</strong></center></h4> 
+              <ul class="list-group">
+                <li class="list-group-item"><i class="glyphicon glyphicon-plus"></i> WindLife Dashboard is a fully customizable web-application for wind farms featuring real time monitoring for wind and rotor speed, generation and availability, log book for service record keeping, an alert system for status and temperature data, and a predictive application for estimation of remaining useful life. </li>   
+                </ul>
+                <h4 class="list-group-item list-group-item-info"><center><strong>Benefits</strong></center></h4> 
+                <ul class="list-group">
+                    <li class="list-group-item"><i class="glyphicon glyphicon-thumbs-up"></i> Uses the latest tools in prediction and visualization to help manage and optimize the operations of your wind farm. </li>
+                    <li class="list-group-item"><i class="glyphicon glyphicon-thumbs-up"></i> The application provides a predictive module to estimate the remaining useful life based on performance and inspection data.</li>
+                    <li class="list-group-item"><i class="glyphicon glyphicon-thumbs-up"></i>  It also includes a system for early anomaly detection of failures based on temperature behaviours. </li>
+                 </ul>
+            </div>
+            <div class="col-md-8">
+            <h4 class="list-group-item list-group-item-info"><center><strong>WindLife Dashboard</strong></center></h4> 
+            <img src="../static/img/services/wind_life.png" padding="50px" alt="Costcom" style="width:750px;height:470px" class="img-rounded">    
+           </div>
+        </div>
+    </div> <!-- /.container  -->
+      
+
+    <br><br>  
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-sm-12">                                
+                <p><a class="btn btn-lg btn-primary pull-right" href="contactus#" role="button">Do you want to know more? - Contact us &raquo;</a></p>
+            </div> 
+        </div>
+    </div> <!--  END OF CONTAINER--> 
+<br><br>
+{% endblock %}
+    

@@ -1,0 +1,122 @@
+#section-welcome {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.9));
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: bottom center;
+  color: #fff;
+  padding: 200px 0;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+#section-welcome .section-title h1 {
+  color: #fff;
+  font-size: 5em;
+}
+
+#section-welcome .ingrid-search {
+  margin: 4rem auto 0;
+  font-size: 1.8rem;
+  width: 70rem;
+}
+
+#section-benchmark {
+  background-color: #000;
+  color: #fff;
+}
+
+#section-benchmark h1:not(:first-child) {
+  color: #fff;
+}
+
+#section-benchmark #cycling {
+  width: 50rem;
+  max-width: 100%;
+}
+
+#section-benchmark .mini-section {
+  background-color: #222;
+  color: #fff;
+}
+
+#section-benchmark .mini-section h1 {
+  color: #fff;
+}
+
+#section-map {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3));
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  color: #fff;
+}
+
+#section-map h1 {
+  color: #fff;
+}
+
+#section-data {
+  background-color: #3C3D45;
+  color: #fff;
+}
+
+#section-features {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.5));
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: top;
+  color: #fff;
+}
+
+#section-features h1 {
+  color: #fff;
+}
+
+/* Computer simulation */
+.css-computer-monitor {
+  box-sizing: border-box;
+  background-color: lightgrey;
+  padding: 20px;
+  position: relative;
+  border-radius: 20px;
+  height: 300px;
+  width: 500px;
+}
+
+.css-computer-monitor:before {
+  content: '';
+  background-color: lightgray;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 60px;
+  height: 80px;
+  transform: translate(-50%, 100%);
+}
+
+.css-computer-monitor:after {
+  content: '';
+  background-color: lightgray;
+  border-radius: 20px 20px 2px 2px;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: -120px;
+  left: 50%;
+  width: 180px;
+  height: 40px;
+  transform: translateX(-50%);
+}
+
+.css-computer-monitor-content {
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

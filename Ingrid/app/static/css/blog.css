@@ -1,0 +1,75 @@
+#blogShortDescription{
+    padding-top: 1.25rem;
+    min-height: 80vh;
+}
+#blogShortDescription .blogShort{
+    display: block;
+    position: static;
+    background: rgba(0, 191, 255, 0.13);
+    padding: .5rem .75rem;
+    margin-bottom: .75rem;
+    min-height: 165px;
+}
+#blogShortDescription .blogShort a{
+    color: black;
+    text-decoration: none;
+}
+#blogShortDescription .blogShort a:focus,
+#blogShortDescription .blogShort a:hover{
+    color: black;
+    text-decoration: none;
+}
+#blogShortDescription .blogShort .img-thumbnail{
+    display: inline-block;
+    position: relative;
+    margin-right: .25rem;
+    max-width: 50%;
+    float: left !important;
+}
+#blogShortDescription .timeStamp{
+    display: block;
+    float: right;
+    text-align: right;
+    font-size: medium;
+    font-weight: 400;
+}
+#blogShortDescription .readMore{
+    text-align: center;
+    text-decoration: none;
+}
+#blogShortDescription .readMore:after{
+    content: " >";
+}
+#blogShortDescription .blogShort .img-responsive{
+    max-width: 100%;
+}
+#blog h2,
+#blogShortDescription h4{
+    font-weight: bold;
+    color: #21B6D7;
+}
+#blogShortDescription .mainBlog, .shortDescription{
+    margin-bottom: 2.25rem;
+}
+.blogTable{
+    counter-reset: Serial;
+}
+.blogTable tbody tr:nth-child(2n+1){
+    background: rgba(207, 207, 207, 0.38);
+}
+.blogTable td:first-child:before{
+    counter-increment: Serial;
+    content: counter(Serial);
+}
+.blogTable td .img-thumbnail{
+    max-width: 52px;
+}
+#fileUpload{
+    display: block;
+    padding-top: 2rem;
+    min-height: 90vh;
+}
+#fileUpload .fileInput{
+    padding: .5rem .75rem;
+    margin-bottom: .75rem;
+}

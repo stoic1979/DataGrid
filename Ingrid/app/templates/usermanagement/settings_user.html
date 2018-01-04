@@ -1,0 +1,115 @@
+{% extends "dashboard_layout.html" %}
+{% block title %}User - Settings{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <br />
+    <div class="row">
+
+        <div class="col-md-5">
+            <div class="well well-sm">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                      <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" name="name" id="settings_name" required="required" value="{{ current_user.name }}"/>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="username">Username</label>
+                          <input type="text" class="form-control" name="company" id="settings_username" required="required" value="{{ current_user.user }}" />
+                      </div>
+                        
+                      <div class="form-group">
+                          <label for="company">Company</label>
+                          <input type="text" class="form-control" name="company" id="settings_company" required="required" value="{{ current_user.company }}" />
+                      </div>
+
+                      <div class="form-group">
+                          <label for="email">Email</label>
+                          <input type="text" class="form-control" name="email" id="settings_email" required="required" value="{{ current_user.email }}" />
+                      </div>
+
+                      <div class="form-group">
+                          <!-- 
+                          <label for="company">New password (last update: {{ current_user.lastupdate_pwd }})</label>
+                          -->
+                          <label for="company">New password</label>
+                          <input type="text" class="form-control" name="pass"   id="settings_pass"   placeholder="***********" />
+                          <br />
+                          <input type="text" class="form-control" name="pass_c" id="settings_pass_c" placeholder="***********" />
+                      </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+                            <br />
+                            <button target="{{ current_user.id }}" class="btn btn-link" onclick="update_name({{ current_user.id }});" id="settings_update_name">Update Name</button>
+                        </div>
+
+                        <div class="form-group">
+                            <br />
+                            <button target="{{ current_user.id }}" class="btn btn-link" onclick="update_username({{ current_user.id }});" id="settings_update_username">Update Username</button>
+                        </div>
+                        
+                        <div class="form-group">
+                            <br />
+                            <button target="{{ current_user.id }}" class="btn btn-link" onclick="update_company({{ current_user.id}});" id="settings_update_company">Update Company</button>
+                        </div>
+                        
+                        <div class="form-group">
+                            <br />
+                            <button target="{{ current_user.id }}" class="btn btn-link" onclick="update_email({{ current_user.id }});" id="settings_update_email">Update Email</button>
+                        </div>
+
+                        <br />    
+                        <div class="form-group">
+                            <br />
+                            <button target="{{ current_user.id }}" class="btn btn-link" onclick="update_pass({{ current_user.id }});" id="settings_update_pass">Update Password</button>
+                        </div>
+
+                        
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-5">
+            <form>
+                <legend>{{current_user.name}}'s profile | {{ current_user.get_role() }} </legend>
+                <address>
+                    <div class="col-md-4">
+                        <strong>Name:</strong><br>
+                        <strong>Username:</strong><br>
+                        <strong>Company:</strong><br>
+                        <strong>Email:</strong><br>
+                    </div>
+                    <div class="col-md-8">
+                        <strong>{{ current_user.name }}</strong><br>
+                        <strong>{{ current_user.user }}</strong><br>
+                        <strong>{{ current_user.company }}</strong><br>
+                        <strong>{{ current_user.email }}</strong><br>
+                    </div>
+                </address>
+            </form>
+            <hr>
+            <form>
+                &nbsp;&nbsp; <span id="notif"></span>
+            </form>
+
+            
+            
+        </div>
+    </div>
+
+</div> <!-- /.container-->
+{% endblock %}

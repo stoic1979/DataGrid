@@ -1,0 +1,251 @@
+{% extends "LAYOUT.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link href="/static/css/pages/index.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="section" id="section-welcome" data-image-src="/static/img/index/transmission.jpg" data-parallax="scroll">
+  <div class="section-content">
+    <div class="container">
+      <div class="section-title">
+        <h1>WELCOME TO INGRID</h1>
+        <h2>
+          The market's largest database for Power Plant Cycling Operations
+        </h2>
+      </div>
+      <form action="/output" method="GET" class="ingrid-search">
+        <input type="text" name="plant" placeholder="Smart Search (e.g. plant name, oris, state, NERC region, Fuel, Operator, etc.)" required>
+        <button class="btn btn-success has-spinner" type="submit">
+          <span class="spinner"><i class="icon-spin icon-refresh"></i></span>
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="section-benchmark">
+  <div class="section-content">
+    <div class="container">
+      <div class="flex-area">
+        <div>
+          <div class="section-title">
+            <h1>
+              BENCHMARK
+            </h1>
+            <h1>
+              YOUR PLANT OPERATIONS
+            </h1>
+          </div>
+
+          <div class="mini-section">
+            <h1>
+               Why use INGRID?
+            </h1>
+              
+            <ul class="list-nobullet">
+              <li>
+                <i class="glyphicon glyphicon-ok-circle"></i> Have updated cycling information
+              </li>
+              <li>
+                <i class="glyphicon glyphicon-ok-circle"></i> Compare your plant to your peers <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(same capacity, age, and fuel)
+              </li>
+              <li>
+                <i class="glyphicon glyphicon-ok-circle"></i> Assess performance and establish baselines
+              </li> 
+              <li>
+                <i class="glyphicon glyphicon-ok-circle"></i> Set performance improvement goals
+              </li>
+              <li>
+                <i class="glyphicon glyphicon-ok-circle"></i> Increase efficiency and flexibility
+              </li>
+                <li>
+                <i class="glyphicon glyphicon-ok-circle"></i> Lower maintenance costs
+              </li>
+                
+            </ul>
+          </div>
+
+          <div class="mini-section">
+            <ol class="list-nobullet service-list">
+              <li>
+                <h1>
+                  Level 1:
+                </h1>
+                <div class="service-content">
+                  <div class="service-level">
+                    <i class="glyphicon glyphicon-time"></i>
+                    Quick
+                  </div>
+                  <div class="service-description">
+                    Tell us your plant name and we will benchmark your plant
+                    using public data.
+                  </div>
+                </div>
+              </li>
+              <li>
+                <h1>
+                  Level 2:
+                </h1>
+                <div class="service-content">
+                  <div class="service-level">
+                    <i class="glyphicon glyphicon-stats"></i>
+                    Deep
+                  </div>
+                  <div class="service-description">
+                    Give us your MW data and we will analyze it.
+                  </div>
+                </div>
+              </li>
+            </ol>
+            <a class="button" href="/bypo" role="button">Learn more</a>
+          </div>
+        </div>
+
+        <div>
+          <div id="cycling"></div>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              var data3 = [
+                {"rank": 1, "unit":"Similar Plant", "Equivalent Hot Starts per Year": 27},
+                {"rank": 2, "unit":"Similar Plant", "Equivalent Hot Starts per Year": 30},
+                {"rank": 3, "unit":"Similar Plant", "Equivalent Hot Starts per Year": 50},
+                {"rank": 4, "unit":"Similar Plant", "Equivalent Hot Starts per Year": 55},
+                {"rank": 5, "unit":"Your Plant?",   "Equivalent Hot Starts per Year": 63},
+                {"rank": 6, "unit":"Similar Plant", "Equivalent Hot Starts per Year": 75},
+                {"rank": 7, "unit":"Similar Plant", "Equivalent Hot Starts per Year": 80},
+                {"rank": 8, "unit":"Similar Plant", "Equivalent Hot Starts per Year": 100},
+                {"rank": 9, "unit":"Similar Plant", "Equivalent Hot Starts per Year": 130},
+              ]
+
+              var data3Attributes = [
+                {"unit": "Similar Plant", "hex": "#21B6D7"},
+                {"unit": "Your Plant?", "hex": "#FFC700"}
+              ]
+
+              var visualization = d3plus.viz()
+                .container("#cycling")
+                .data(data3)
+                .type("bar")
+                .id("unit")
+                .x("rank")
+                .y("Equivalent Hot Starts per Year")
+                .attrs(data3Attributes)
+                .color("hex")
+                .legend({
+                  "value": false
+                })
+                .background('transparent')
+                .font({
+                  "color": "#fff"
+                })
+                .axes({
+                  "background": {
+                    "color": "#222",
+                    "stroke": "#fff"
+                  }
+                })
+                .draw()
+            });
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="section-map" data-image-src="/static/img/index/wind_turbines.jpg" data-parallax="scroll">
+  <div class="section-content">
+    <div class="container">
+      <div class="flex-area">
+        <div>
+          <img src="/static/img/index/Map_search.png" alt="" width="2000px;">
+        </div>
+        <div>
+          <div class="section-title">
+            <h1>
+              AN INTEGRATED SOLUTION
+            </h1>
+          </div>
+          <p>
+            Ingrid allows power generation
+            stakeholders to efficiently analyze very large power
+            generation performance datasets.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="section-data">
+  <div class="section-content">
+    <div class="container">
+      <div class="flex-area">
+        <div>
+          <div class="section-title">
+            <h1>
+              A CLOUD-BASED PLATFORM
+            </h1>
+          </div>
+          <p>
+            Ingrid provides accurate information and has an easy-to-use query
+            tool with interactive output grids charting and mapping
+            capabilities.
+          </p>
+        </div>
+        <div>
+          <img src="/static/img/index/ingrid.gif" alt="" width="2000px;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="section-features" data-image-src="/static/img/index/oil_refinery.jpg" data-parallax="scroll">
+  <div class="section-content">
+    <div class="grid-area">
+      <div class="section-title">
+        <h1>
+          ADVANCED &amp; MAP SEARCH
+        </h1>
+        <h2>
+          Search by: plant name, state, region, operator or by
+          location using a U.S. Map
+        </h2>
+      </div>
+
+      <div class="section-title">
+        <h1>
+          OPERATIONAL BENCHMARK
+        </h1>
+        <h2>
+          Benchmark high level operational data up to hourly
+          granularity for fossil plants in US.
+        </h2>
+      </div>
+
+      <div class="section-title">
+        <h1>
+          SIGNATURE DATA BENCHMARK
+        </h1>
+        <h2>
+          Benchmark signature data up to 5 minute granularity for
+          plant data (wind, solar, hydro, coal, gas, nuclear)
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<!-- Parallax scrolling -->
+<script type="text/javascript" src="../static/lib/parallax.js/parallax.min.js"></script>
+
+{% endblock %}

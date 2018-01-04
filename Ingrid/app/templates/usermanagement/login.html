@@ -1,0 +1,67 @@
+{% extends "LAYOUT.html" %}
+{% block title %}Log-in{% endblock %}
+{% block head %}
+    {{ super() }}
+    <!-- signup -->	
+    <script type="text/javascript" src="../static/myjs/intertek.js"></script>  
+ 
+    <style>
+        body{background-color: #3c3d45;}
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<br><br><br><br><br><br>
+    <div class="container">
+        <div class="row centered-form">
+        <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+		  {% if current_user.is_authenticated %}
+            <div class="alert alert-danger">
+                <a class="close" data-dismiss="alert" href="#">×</a>You are already authenticated!
+            </div>
+		  {% else %}
+     
+		  {% if err %}
+            <div class="alert alert-danger">
+                <a class="close" data-dismiss="alert" href="#">×</a> {{ err|safe }}
+            </div>
+		  {% endif %}
+
+		<div class="panel panel-default">
+        	   <div class="panel-heading">
+			<h3 class="panel-title">Login: </h3>
+		   </div>
+			 			
+		   <div class="panel-body">
+			<form action='' method='post' name='login_user'>
+			    {{ form.hidden_tag() }}
+			    <p>
+					<label id="form">Username *</label>
+					{{ form.username }}
+			    </p>
+
+			    <p>
+					<label id="form">Password *</label>
+					{{ form.password }}
+			    </p>
+			    <p>
+			    <input type="submit" name='submit' value="Login" class="btn btn-info btn-block">
+			    </p>
+
+				<center>
+					<a href="/ForgotPassword"><span style="font-size: 15px;color: black; text-decoration:underline;">forgot password </span></a>	
+				</center>
+				
+			</form>
+		</div>
+		</div>
+
+		{% endif %}
+	</div>
+        </div>
+    </div>
+
+<br><br><br><br><br>
+
+{% endblock %} 		

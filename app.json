@@ -1,0 +1,13 @@
+{
+  "name": "DataGrid Heroku Login App",
+  "description": "DataGrid Heroku Login App",
+  "keywords": [
+    "DataGrid",
+    "python",
+    "sample"
+  ],
+  "repository": "https://github.com/stoic1979/DataGrid.git",
+  "addons": [
+    "heroku-postgresql"
+  ]
+}

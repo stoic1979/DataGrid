@@ -4,7 +4,7 @@ Python Aplication Template
 Licence: GPLv3
 """
 
-from app import db
+from init import db
 from flask_login import UserMixin
 import time
 import datetime

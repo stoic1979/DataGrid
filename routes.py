@@ -30,7 +30,7 @@ sys.setdefaultencoding('utf8')
 import socket,  re,  random,  string
 from flask_login import LoginManager
 from models import User,  user_assets,  Blogs
-from app import app,  db,  bc
+from init import app,  db,  bc
 from util import *
 
 from sqlalchemy import create_engine

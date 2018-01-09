@@ -1,7 +1,7 @@
 from common import *
 from models import *
 import re
-from app import db
+from init import db
 import hashlib
 
 

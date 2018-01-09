@@ -1,0 +1,80 @@
+<div class="dashboard-sidebar">
+  <div class="dashboard-sidebar-logo">
+    <a rel="home" href="/" title="Home">
+      <img src="/static/img/intertek_logo.png">
+    </a>
+  </div>
+
+  <div class="dashboard-sidebar-content">
+     <div class="dashboard-sidebar-user">
+      <div class="dashboard-sidebar-user-meta">
+        <div class="dashboard-sidebar-user-avatar">
+          <img alt="" src="">
+        </div>
+        <div class="dashboard-sidebar-user-name">
+          {{ current_user.name }}
+        </div>
+      </div>
+
+      <div class="dashboard-sidebar-menu">
+        <ul>
+
+          {% if current_user.is_authenticated %}
+
+          <li>
+            <a href="/dashboard" data-page="dashboard">
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="#" class="dashboard-sidebar-toggle">
+              Assets
+            </a>
+            <ul>
+              {% for p in assets %}
+              <li>
+                <a href="#" onclick="dashboard_plant_oper( {{p['unit_code']}} )" data-page="plant-{{p['unit_code']}}">
+                  {{p['fname']}} - UNIT {{p['unit_id']}}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li>
+            <a href="/settings" data-page="settings">
+              Settings
+            </a>
+          </li>
+              <li>
+                  <a href="/viewMyBlogs" data-page="viewMyBlogs">Blogs</a>
+              </li>
+          <li>
+            <a href="/logout">Logout</a>
+          </li>
+
+          {% else %}
+
+          <li>
+            <a href="/login">Login</a>
+          </li>
+          <li>
+            <a href="/register">Register</a>
+          </li>
+
+          {% endif %}
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-sidebar-search">
+    <form action="/output" method="GET" class="ingrid-search">
+      <input type="text" name="plant" placeholder="Plant Quick Search" required>
+      <button class="btn btn-success has-spinner">
+        <span class="spinner"><i class="icon-spin icon-refresh"></i></span>
+        <i class="glyphicon glyphicon-search"></i>
+      </button>
+    </form>
+  </div>
+</div>

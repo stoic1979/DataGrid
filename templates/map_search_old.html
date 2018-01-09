@@ -1,0 +1,279 @@
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Ingrid - Map Search</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+	html, body, #Map  {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+	#legende{
+             position: absolute;
+             z-index: 100000;
+             right: 50px;
+             bottom: 50px;
+        }
+
+
+
+    /*INTERTEK STYLE*/
+    .navbar-inverse .navbar-brand {color: #FFF;}
+    .navbar-inverse {background-color: #ffc700; border-color: #ffc700;}
+    footer {background-color: #3c3d45 !important;}
+    .navbar-inverse .navbar-nav> li > a {color: #000;}
+    .btn-success {color: #fff;background-color: #21B6D7;border-color: #21B6D7;}
+    .btn-primary {color: #fff;background-color: #21B6D7;border-color: #21B6D7;}
+    footer a:link, footer .gray a:visited {color: #FFF;}
+
+    </style>
+
+    <script src="../static/js/OpenLayers.js"></script>
+    <script>
+	function init() {
+            var map = new OpenLayers.Map("Map", {
+            controls: [new OpenLayers.Control.Navigation(),
+                       new OpenLayers.Control.PanZoomBar(),
+                       new OpenLayers.Control.Attribution(),
+                       new OpenLayers.Control.ScaleLine(),
+                       new OpenLayers.Control.MousePosition(),
+                       new OpenLayers.Control.LayerSwitcher()]
+
+
+            });
+     var osm = new OpenLayers.Layer.OSM();
+            var toMercator = OpenLayers.Projection.transforms['EPSG:4326']['EPSG:3857'];
+            var center = toMercator({x:-0.05,y:51.5});
+
+            var mappingLayer   = new OpenLayers.Layer.OSM("USA Map");
+            var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+            var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+            var position       = new OpenLayers.LonLat({{clon}},{{clat}}).transform(fromProjection, toProjection);
+            var zoom           = 5;
+            map.addLayer(mappingLayer);
+            map.setCenter(position, zoom);
+
+            var dict = {COAL: "#000000",OIL: "#8B4513", GAS:"#FF0000", NUCLEAR: "#800080", BIOMASS:"#80FFFF", HYDRO: "#0000FF", SOLAR: "#FFFF00", WIND: "#00FF00", OTHF:"#008000" }
+
+            var features = [];
+            var i=0;
+            {% for r in plants %}
+                var lat = {{r['lat']}};
+                var lon = {{r['lon']}};
+                features[i] = new OpenLayers.Feature.Vector(toMercator(new OpenLayers.Geometry.Point(lon,lat)),
+                {
+                    Name :  "{{r['na']}}",
+                    Fuel :  "{{r['fuel']}}",
+                    Code :  "{{r['oc']}}",
+                    Oper :  "{{r['op']}}",
+                    Nerc :  "{{r['ne']}}",
+                    Cnty :  "{{r['cn']}}",
+                    Nblr :  "{{r['nblr']}}",
+                    Ngen :  "{{r['ngen']}}",
+                    Npca :  "{{r['npc']}}"
+                }, {
+                    fillColor : dict["{{r['fuel']}}"],
+                    fillOpacity : 0.8,
+                    strokeColor : "#ee9900",
+                    strokeOpacity : 0.5,
+                    strokeWidth : 1,
+                    pointRadius : 4
+                });
+                i=i+1;
+            {% endfor %}
+      // create the layer with listeners to create and destroy popups *
+            var vector = new OpenLayers.Layer.Vector("Power Plants",{
+                eventListeners:{
+                    'featureselected':function(evt){
+                        var feature = evt.feature;
+                        var popup = new OpenLayers.Popup.FramedCloud("popup",
+                        OpenLayers.LonLat.fromString(feature.geometry.toShortString()),
+                        null,"<div>"
+                        +"<b>Plant Name:</b> "+"<a href='http://ingrid.intertek.com/output_plant_level?ocode="+  feature.attributes.Code+"'>" +  feature.attributes.Name + "</a>"+"</div>"
+                        +"<b>Fuel Category:</b> " + "<a href='http://ingrid.intertek.com/map_adv?plant=&state=&county=&oper=&util=&nerc=&fcat="+ feature.attributes.Fuel + "&npcmin=0&npcmax=10000' data-toggle='tooltip' title='Show all plants with this fuel category'>" + feature.attributes.Fuel+"</a></div>"
+                         +"<br><b>Operator:</b> " + "<a href='http://ingrid.intertek.com/map_adv?plant=&state=&county=&oper="+feature.attributes.Oper+"&util=&nerc=&fcat=&npcmin=0&npcmax=10000' data-toggle='tooltip' title='Show all plants from this Operator'>" + feature.attributes.Oper+"</a></div>"
+                        +"<br><b>NERC region:</b> "+ "<a href='http://ingrid.intertek.com/map_adv?plant=&state=&county=&oper=&util=&nerc="+feature.attributes.Nerc+"&fcat=&npcmin=0&npcmax=10000' data-toggle='tooltip' title='Show all plants in this NERC region'>" + feature.attributes.Nerc+"</a></div>" 
+                        +"<br><b>County Name:</b> " + "<a href='http://ingrid.intertek.com/map_adv?plant=&state=&county="+feature.attributes.Cnty+"&oper=&util=&nerc=&fcat=&npcmin=0&npcmax=10000' data-toggle='tooltip' title='Show all plants in thi county'>" + feature.attributes.Cnty+"</a></div>"
+                        +"<br><b>Generators:</b> " + feature.attributes.Ngen+"</div>"
+                        +"<br><b>Nameplate Capacity:</b> " + feature.attributes.Npca+" MW</div>"
+                        +"<br><b>More Info:</b> "+"<a href='http://ingrid.intertek.com/output_plant_level?ocode="+  feature.attributes.Code+"'>Click here</a>"+"</div>"
+                        +"<br><small><small>Source: US E.P.A. <a href='https://www.epa.gov/energy/emissions-generation-resource-integrated-database-egrid' data-toggle='tooltip' title='external link to the eGRID page' target='_blank'>eGRID-2014 (Feb. 2017)</a></div>"
+                        ,null,
+                        true
+                        );
+                        feature.popup = popup;
+                        map.addPopup(popup);
+                    },
+                    'featureunselected':function(evt){
+                        var feature = evt.feature;
+                        map.removePopup(feature.popup);
+                        feature.popup.destroy();
+                        feature.popup = null;
+                    }
+                }
+            });
+            vector.addFeatures(features);
+            var selector = new OpenLayers.Control.SelectFeature(vector,{
+            //hover: true,
+            autoActivate:true
+            });
+            map.addLayers([mappingLayer, vector]);
+            map.addControl(selector);
+            map.setCenter(position);
+            map.zoomToExtent(new OpenLayers.Bounds({{minLng}},{{minLat}},{{maxLng}},{{maxLat}}).transform("EPSG:4326", "EPSG:900913"))
+      }
+    </script>
+      
+</head>      
+<body  onload="init();"> <!--/ BODY -->
+
+
+ <!--/ BEGGINING OF MENU -->
+<div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" rel="home" href="index#" title="Ingrid">
+            INGRID<!--<img style="max-width:120px; margin-top: -7px;" src="../static/img/Ingrid_logo.jpg">--></a>
+        </div>
+	<div id="navbar" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="index#">Home</a></li>
+            <li class="dropdown"><!--ANALYTICS-->
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Analytics <span class="caret"></span></a>
+              <li><a href="adv_search#">Plant Advanced Search</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="bypo#">Operational Benchmark</a></li>
+                <li><a href="bypo2#">Signature Data Benchmark</a></li>
+            
+        </ul>
+        
+        
+            <li class="dropdown"> <!--PRODUCTS-->
+              <a href="products#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Products <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <!--<li><a href="#">Balife</a></li> -->
+                <li><a href="http://www.intertek.com/blog/2017-01-31-costcom/" target="_blank">Costcom</a></li>
+                <!--<li><a href="#">Opcon</a></li>-->
+                <li><a href="windlife#">WindLife</a></li>
+             </ul>
+            </li>
+            <li class="dropdown"> <!--SERVICES-->
+              <a href="products#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <!--<li><a href="#">Condition Assessment</a></li> -->
+                <li><a href="http://www.intertek.com/power-generation/cost-of-cycling-analysis/" target="_blank">Cost of Cycling</a></li>
+                <li><a href="http://www.intertek.com/forensics/" target="_blank">Failure Analysis</a></li>
+                <li><a href="http://www.intertek.com/power-generation/high-energy-piping/" target="_blank">High Energy Piping</a></li>
+              </ul>
+            </li>
+            <li><a href="pricing#" aria-haspopup="true" aria-expanded="false">Pricing</a></li>
+            <li><a href="blog#" aria-haspopup="true" aria-expanded="false">Blog</a></li>
+            <li><a href="team#" aria-haspopup="true" aria-expanded="false">People</a></li>
+            <li><a href="contactus#"  aria-haspopup="true" aria-expanded="false">Contact</a></li>
+        </ul>
+
+
+        <ul class="nav navbar-nav navbar-right">  <!--SEARCH PLANT-->
+             <li>
+                <div class="navbar-form" role="search">
+                      <form  action="/output" method="GET">
+                        <div class="form-inline">
+                          <input type="text" class="form-control" placeholder="Enter name of the plant" required name="plant" id="query">
+                          <button class="btn btn-success has-spinner">
+                            <span class="spinner"><i class="icon-spin icon-refresh"></i></span>
+                            <i class="glyphicon glyphicon-search"></i>
+                          </button>
+                        </div>
+                      </form>
+
+                </div>
+              </li>
+         </ul>
+
+	    </div><!--/.nav-collapse -->
+      </div><!-- /.container-->
+    </nav>
+    </div> <!-- /.container-->
+    <!--/ END OF MENU -->
+
+<br><br>
+
+
+<div id="Map">
+    <div id="legende">
+        <div class="udiv_legende" id="legende_1">
+            <img src="../static/img/legend_map_sm.png">
+            <p><a class="btn btn-sm btn-primary pull-right" href="adv_search#" role="button">back to search &raquo;</a></p>
+        </div>
+     </div>
+</div>
+  
+                
+                
+            <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../static/assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../static/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+
+ {% extends "footer.html" %}
+
+  </body>
+</html>
+
+
+        
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+             

@@ -1,0 +1,269 @@
+{% extends "LAYOUT.html" %}
+{% block title %}Blog{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+
+<section id="blogShortDescription">
+<div class="container">
+    <div id="blog" class="row">
+        {% if blogs %}
+            {% for blog in blogs %}
+                {% if loop.index==1 %}
+                    <div class="col-md-12 mainBlog">
+                        <a href="/blogs/{{ blog.id }}">
+                            <div class="mainBlogImage">
+                                <img src="{{ url_for('static', filename='img/blog/') }}{{ blog.image }}"
+                                     alt="{{ blog.title }}" class="img-responsive">
+                            </div>
+                            <div class="col-sm-12">
+                                <h3>{{ blog.title }} <span class="timeStamp"> {{ blog.published }}</span></h3>
+                            </div>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="col-md-4 shortDescription">
+                        <div class="blogShort">
+                            <img src="{{ url_for('static', filename='img/blog/') }}{{ blog.image }}" alt="Condition Assessment img" class="img-thumbnail">
+                            <a class="blogLink" href="/blogs/{{ blog.id }}">{{ blog.title }}</a>
+                        </div>
+                        <h4>{{ blog.title }}</h4>
+                        <div class="col-sm-12">
+                            <p>{{ blog.description[:100] }}.....</p>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <a class="readMore" href="/blogs/{{ blog.id }}">Read More</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <div class="col-md-12 gap10">
+            <!--my setting begins -->
+
+            <header class="blog-header">
+<h1>Vacation-ing the premises: Why sticking around isn’t doing anyone any favors</a></h1>
+</header>
+<div class="col-lt date-wrapper">
+<div class="meta-wrapper">
+<div class="meta-inner">
+<div class="meta">
+<span class="date">December 21, 2017</span>
+</div>
+</div>
+</div>
+</div>
+<figure class="blog-image">
+<img src="https://d26a57ydsghvgx.cloudfront.net/content/blog/1_NewZendeskHeaders/Vacation-ing-the-premises_Blog_image_preview.jpeg" alt="Vacation-ing the premises: Why sticking around isn’t doing anyone any favors" style="max-width: 100%;" />
+</figure>
+<div class="post-meta meta-wrapper">
+<div id="socialBlock">
+<ul class="social">
+<li id="custom-tweet-button">
+<a title="Share on Twitter" data-network="twitter" data-action="share" href="https://twitter.com/intent/tweet?url=http://zdsk.co/2yTThgB&text=Vacation-ing+the+premises%3A+Why+sticking+around+isn%E2%80%99t+doing+anyone+any+favors" target="_blank">
+&#xf309;
+</a>
+</li>
+<li class="custom-fb-like">
+<a title="Share on Facebook" data-network="facebook" data-action="share" href="https://www.facebook.com/sharer/sharer.php?u=http://zdsk.co/2BauNWd" target="_blank">
+&#xf30c;
+</a>
+</li>
+<li class="custom-li-share">
+<a title="Share on LinkedIn" data-network="linkedin" data-action="share" href="http://www.linkedin.com/shareArticle?mini=true&url=http://zdsk.co/2yUksrx&title=Vacation-ing+the+premises%3A+Why+sticking+around+isn%E2%80%99t+doing+anyone+any+favors" target="_blank">
+&#62232;
+</a>
+</li>
+<li class="custom-google-share">
+<a title="Share on Google+" data-network="googleplus" href="https://plus.google.com/share?url=http://zdsk.co/2Bcfsok" onclick="javascript:window.open(this.href,
+				'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+&#62223;
+</a>
+</li>
+</ul>
+</div>
+<script type="text/javascript">
+;(function() {
+	function init(){
+
+		var $window = $(window),
+				$socialblock = $('#socialBlock');
+
+		/**
+	   * On mobile we hide the social icons under a "share" cta, this method toggles them on click
+	   */
+		function showMobileShare() {
+			$socialblock.addClass('mobile-social');
+			if(!($socialblock.children('span').hasClass('share-social'))) {
+				$socialblock.append('<span class="share-social">Share</span>');
+			} else {
+				$('span.share-social').toggle(true);
+			}
+			$socialblock.children('ul').hide();
+			$('.mobile-social').on('click', function() {
+				$('span.share-social').toggle(false);
+				$('.mobile-social ul').toggle(true);
+			});
+		}
+
+
+		// If they click anywhere on the page other than the social-block, hide the social icons and show 'share'
+		$(document).click(function(e) {
+			var target = e.target;
+			if (!$(target).is('#socialBlock') && !$(target).parents().is('#socialBlock')) {
+				if($socialblock.hasClass('mobile-social')) {
+					$('span.share-social').toggle(true);
+					$socialblock.children('ul').toggle(false);
+				}
+			}
+		});
+
+		$('#socialBlock a').on('click', function(){
+			var network = $(this).attr('data-network'),
+					action  = $(this).attr('data-action'),
+					target  = window.location.href;
+
+			//_gaq.push(['_trackSocial', network, action, target]);
+		});
+
+		/**
+	   * The js version of adding the correct url's to our share buttons.
+	   * This is used for the job view page which will not function on php
+	   * appendUrl adds the text as well as the url params into the request
+	   *
+	   * @param   {string}   url     The url to append to the share button req
+	   * @param   {string}   title   The title of the page to be displayed when shared
+	   */
+		function populateHrefs(url, title) {
+			url = encodeURIComponent(url);
+			title = encodeURIComponent(title);
+			function appendUtmSource(url) {
+				var a = document.createElement('a');
+				a.href = url;
+				if (! /utm_source/.test(a.search)) {
+					a.search = (a.search ? a.search + '&' : '?') + 'utm_source=shared';
+				}
+				return a.href;
+			}
+			function appendUrl(network, urlKey, titleKey) {
+				var a = $socialblock.find('[data-network="' + network + '"]');
+				var hrefSuffix = [urlKey, '=', url];
+				if (titleKey) {
+					hrefSuffix = hrefSuffix.concat('&', titleKey, '=', title);
+				}
+				a.attr('href', a.attr('href') + hrefSuffix.join(''));
+			}
+			appendUrl('twitter', 'url', 'text');
+			appendUrl('facebook', 'u');
+			appendUrl('linkedin', 'url', 'title');
+			appendUrl('googleplus', 'url');
+		}
+
+		/**
+	   * Since the php string is injected first for the blog posts,
+	   * we need to remove it in order to add the correct string for
+	   * the individual job views which require js
+	   *
+	   * @param   {object}   $element       The DOM object whose string must be truncated
+	   * @param   {string}   identifier     Everything after this char will be removed
+	   */
+		function removePHPstr($element,identifier) {
+			var strtoAppend = $element.attr('href');
+			strtoAppend = strtoAppend.substring(0, strtoAppend.indexOf(identifier)+1);
+			$element.attr('href',strtoAppend);
+		}
+		if ($('.careers-single').length) {
+			removePHPstr($('#custom-tweet-button a'),'?');
+			removePHPstr($('.custom-fb-like a'),'?');
+			removePHPstr($('.custom-li-share a'),'?mini=true');
+			removePHPstr($('.custom-google-share a'),'?');
+			// see page-jobs-single.php for use of custom event job-populated
+			$socialblock.one('job-populated', function() {
+				var title = $('.job-title').text() || document.title;
+				var jobID = window.location.search
+    				.split("=").pop();
+				var jobviteHref = 'https://jobs.lever.co/zendesk/' + jobID;
+				populateHrefs(jobviteHref, title);
+			});
+		}
+	}
+
+	// allow loading this part before jQuery is loaded.
+	if (window.jQuery) {
+		$(init);
+	} else {
+		window.addEventListener('load', init);
+	}
+})();
+</script>
+<div class="author-tags-section">
+<div class="post-author">Faith Hanna</div>
+<div class="post-author-title">Team Lead, Technical Support</div>
+<div id="blog-tags">
+<a class="blog-tag" href="/blog/tags/agent-experience/"><span>Agent experience</span></a>
+<a class="blog-tag" href="/blog/tags/best-practices-all/"><span>Best Practices</span></a>
+<a class="blog-tag" href="/blog/tags/customer-service-leadership/"><span>Customer service leadership</span></a>
+</ul>
+</div>
+</div>
+<span class="sidebar-ad blogad-zone hide-mobile" data-ad-category="Agent experience, Best Practices, Customer service leadership" data-ad-count="1" data-ad-layout-override="cat-ad-style-1" data-exclude-this-url='true' data-location="article sidebar"></span>
+</div>
+<div class="post-body copy entry">
+<p>Mr. Cratchit, a friendly frog who manages a team of rats, looks around at his colleagues scribbling at their desks; they look back at him. He nods and proceeds towards Scrooge. </p>
+<p>“Tomorrow’s Christmas,” he observes, waiting for the man to understand.</p>
+<p>“How much time off is customary. Mr. Cratchit?”</p>
+<p>“Uh. Why. Um. the. Uh. Whole day.” </p>
+<p>“Yes! Yeah. That&#8217;s right! The whole day!” a chorus of rodents cries in the back.</p>
+<p>“The entire day? No. That&#8217;s the frog&#8217;s idea.”</p>
+<p>Scrooge eventually gives in and allows the whole day off. Thus concludes the first miracle in The Muppets version of Charles Dicken’s A Christmas Carol.</p>
+<h2>Tis the season</h2>
+<p>Spoiler: Scrooge eventually made amends for his miserly ways. However, employees still struggle to request and take vacation time. Even when we are out-of-office, our attention and energy stay hitched to our teams. For although there is no “stay” in “leave,” the latter drags around a footnote ball-and-chain: “to be physically away, but digitally present.”</p>
+<p>We see ourselves as customer driven, dedicated, and hard-working. We are keen and ready to swing in and help when there is an opportunity, but what if we are really hurting our team, company, and ourselves by staying on?</p>
+<p>Research done for Project Time Off concludes that “fully utilizing vacation leave drives higher employee performance and productivity, boosts organizational morale, contributes to employee wellness and results in higher employee retention.” Conversely, a company culture that sustains the illusion that being around equates to getting ahead worsens moral which can lead to attrition and churn. </p>
+<p>So what are the tangible benefits of taking vacation time?</p>
+<h2>1. Sharper focus on the right work</h2>
+<p>When you go on vacation, you distance yourself from your regular routine. When you get back, it’s easier to see with a fresh perspective and prioritize. Removing superfluous patterns from your workflow allows you to concentrate on more valuable tasks.</p>
+<h2>2. Team building</h2>
+<p>Others take on additional responsibility in your absence. This helps them develop skills and experience that make for an overall stronger, more resilient team.</p>
+<h2>3. Personal career momentum</h2>
+<p>People who take time off tend to be promoted more often. According to PMC, those who engage in enjoyable activities tend to be more physically and mentally healthy which in turn <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2863117/" target="_blank">improves the quality of their work performance</a>.</p>
+<h2>4. Better leadership</h2>
+<p>When we come back from vacation, we usually feel refreshed and ready to tend to the needs of our teams. Think of going on leave as placing your oxygen mask on first before turning to help others.</p>
+<p>As a leader, it is your responsibility to make sure people feel comfortable being away; that begins with leading by example. If you sense that someone on your team feels guilty for requesting time-away, try to settle their doubts, but also look into why they might be hesitating. It’s possible that your own discomfort with being away has set an insidious tone across the team.</p>
+<p>Here’s how you can step away and stay vacated:</p>
+<ul>
+<h3> 1. Use your reasons</h3>
+<p>Take some time to justify the break in your own mind. If you don’t believe you should stay away, it’s more likely that you won’t. </p>
+<h3>2. Spread awareness</h3>
+<p>Let your team know a week ahead of time of your leave and also the day before. When having conversations about upcoming projects, make sure to communicate the days you’ll be unavailable so people have a chance to schedule meetings around your leave.</p>
+<h3>3. Empower your team</h3>
+<p>By setting them up for success, you will worry less that something will go awry. Set up workflows that allow them to help out when needed. For example, here’s how you can e<a href="https://www.zendesk.com/blog/time-tackle-ticket-backlog/" target="_blank">nsure ticket re-opens are handled</a>.</p>
+<h3>4. Create a view for Open tickets assigned to people who are away</h3>
+<p>Then create a Calendar that people can check who is off<br />
+Have someone check both and update the tickets accordingly</p>
+<h3>5. Own your out-of-office email</h3>
+<p>Let people know why you are away so they can picture you running after rickshaws or trekking up a lush mountain lieu of writing reports. They may then understand why you aren’t responding.</p>
+<h3>6. Status change</h3>
+<p>Change your Slack/Hipchat/[other chat tool] status so others know you are away. If you only work with internal teams, you can also update your profile name in your Zendesk profile to say ON LEAVE &#8211; PLEASE DO NOT ASSIGN TICKETS. </p>
+<h3>7. Mobile no more</h3>
+<p>Disable work-related notifications on your phone so you can stay focused on being as inefficient as possible.</ul>
+<h2>Unscheduled time-outs</h2>
+<p>If you need to detach in a hurry, you may want to send a quick email to your team to let them know you’ll be absent. If you’re really pressed for time, ask your manager to do so on your behalf so that people know not to bother you. </p>
+<h2>Longer breaks</h2>
+<p>If you’re managing people and projects that you want to make sure stay on course, consider writing up a document that your team can rely on for guidance. Make sure to run through it with them before your time-off so you can answer any questions they have. Keep in mind that you will need to trust that your team will make the right decision. You will also need to understand that they may make mistakes, as you have as well.</p>
+<p>What may help here is imagining the worst case scenario. Play it out scene by scene. It’s likely that you will realize that at the end of it, you will be mostly OK. After all, landing in your parent’s basement instead of working on spreadsheets may not be so bad after all.</p>
+<h2>Use your frog brain</h2>
+<p>Mr. Cratchit’s courageous leadership earned his team a respite. He knows they deserved time off and he also made sure to take time himself.</p>
+<p>While it can be challenging to let go, taking off for yourself and truly leaving can reward you with a fresh perspective to spot otherwise hidden opportunities when you return. Most importantly, you will have renewed energy to captain worthwhile change. This all brews optimal conditions for stronger performance. </p>
+<p>So, if you can’t remember when you last fully detached from work, it’s time to start planning your next vacation as if your career depends on it.</p>
+</div>
+<div class="" style="clear:both;"></div>
+<div>
+      <!--my setting ends -->
+        </div>
+    </div>
+</section>
+
+{% endblock %}

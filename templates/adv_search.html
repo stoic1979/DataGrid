@@ -1,0 +1,302 @@
+{% extends "LAYOUT.html" %}
+{% block title %}Advanced Search{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="form">
+        <form>
+            <div class="row">
+                <br><br>
+                <!--first row -->
+                <div class="col-sm-4">                        
+                    <div class="form-group">
+                    <label>Plant Name</label> 
+                    <!--<input type="text" class="form-control" placeholder="ALL" name="plant" id="plant">-->
+                    <select class="form-control" id="plant" name="plant">
+                        <option value="">ALL</option>
+                        {% for p in plants %}
+                        <option value="{{p['name']}}">{{p['name']}}</option>
+                        {% endfor %}  
+                    </select>
+                    </div>
+                </div> 
+                <div class="col-sm-4">
+                    <div class="form-group">
+                    <label>State:</label>   
+                    <select class="form-control" id="state" name="state">
+                        <option value="">ALL</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DC">District of Columbia</option>
+                        <option value="DE">Delaware</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="IA">Iowa</option>
+                        <option value="ID">Idaho</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IN">Indiana</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MD">Maryland</option>
+                        <option value="ME">Maine</option>
+                        <option value="MI">Michigan</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MO">Missouri</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="MT">Montana</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="NE">Nebraska</option>
+                        <option value="NH">New Hampshire</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="NV">Nevada</option>
+                        <option value="NY">New York</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="OR">Oregon</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="PR">Puerto Rico</option>
+                        <option value="RI">Rhode Island</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="TX">Texas</option>
+                        <option value="UT">Utah</option>
+                        <option value="VA">Virginia</option>
+                        <option value="VT">Vermont</option>
+                        <option value="WA">Washington</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="WY">Wyoming</option>
+                    </select>
+                    </div>  
+                </div>            
+                <div class="col-sm-4">
+                    <div class="form-group">
+                    <label>County:</label>                                 
+                    <input type="text" class="form-control" placeholder="ALL" name="county" id="county">
+                    </div>              
+                </div>     
+
+                <div class="col-sm-4">
+                    <div class="form-group">   
+                    <label>Operator: </label>    
+                    <!--<input type="text" class="form-control" placeholder="ALL" name="oper" id="oper"> </div>-->
+                    <select class="form-control" id="oper" name="oper">
+                        <option value="">ALL</option>
+                        {% for p in opers %}
+                        <option value="{{p['op']}}">{{p['op']}}</option>
+                        {% endfor %}  
+                    </select>
+                    </div>
+                </div>          
+                <div class="col-sm-4">
+                    <div class="form-group">
+                    <label>Utility Service Territory:   </label>    
+                    <!--<input type="text" class="form-control" placeholder="ALL" name="util" id="util">-->   
+                    <select class="form-control" id="util" name="util">
+                        <option value="">ALL</option>
+                        {% for p in userv %}
+                        <option value="{{p['us']}}">{{p['us']}}</option>
+                        {% endfor %}  
+                    </select>   
+                        
+                    </div> 
+                </div>       
+                <div class="col-sm-4">
+                    <div class="form-group">
+                    <label>NERC Region:</label>
+                    <select name="nerc" class="form-control" id="nerc">
+                        <option selected value="">ALL</option>
+                        <option value="ASCC">ASCC</option>
+                        <option value="SERC">SERC</option>
+                        <option value="WECC">WECC</option>
+                        <option value="RFC">RFC</option>
+                        <option value="NPCC">NPCC</option>
+                        <option value="FRCC">FRCC</option>
+                        <option value="HICC">HICC</option>
+                        <option value="MRO">MRO</option>
+                        <option value="TRE">TRE</option>
+                    </select>  
+                    </div> 
+                </div>    
+
+                <div class="col-sm-4">
+                    <div class="form-group">   
+                    <label>Fuel Category </label>
+                    <select name="fcat" class="form-control" id="fcat">
+                        <option selected value="">ALL</option>
+                        <option value="BIOMASS">BIOMASS</option>
+                        <option value="COAL">COAL</option>
+                        <option value="GAS">GAS</option>    
+                        <option value="GEOTHERMAL">GEOTHERMAL</option>
+                        <option value="HYDRO">HYDRO</option>
+                        <option value="NUCLEAR">NUCLEAR</option>
+                        <option value="OFSL">OTHER FOSSIL FUELS</option>
+                        <option value="OIL">OIL</option>
+                        <option value="OTHF">OTHER FUELS FROM WASTE</option>
+                        <option value="SOLAR">SOLAR</option>
+                        <option value="WIND">WIND</option>
+                    </select>     
+                    </div>  
+                </div>               
+                <div class="col-sm-2">
+                    <div class="form-group">   
+                    <label>Min Capacity (MW)</label>
+                      <div class="form-group">
+                        <input type="int" class="form-control" placeholder= "0 MW" name="npcmin" id="npcmin" value="0">
+                      </div>              
+                    </div>    
+                </div>       
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Max Capacity (MW)</label>
+                        <div class="form-group">
+                        <input type="int" class="form-control" placeholder= "10000 MW" name="npcmax" id="npcmax" value="10000">
+                        </div>
+                    </div> 
+                </div> 
+
+
+               <!--<div class="col-sm-12">
+                 <h4>Or run special queries for ...</h4>
+               </div>             
+
+                <div class="col-sm-4">
+                    <div class="form-group">   
+                    <label>Generation </label>
+                    <select name="spq" class="form-control" id="spq">
+                        <option selected value="ALL">ALL</option>
+                        <option value="LowerMW">Top 10 power plants with the highest generation drop in current year compared to previous year</option>
+                    </select>     
+                    </div>  
+                </div> 
+                <br><br>-->
+<!--
+                <div class="col-sm-3">
+                    <div class="form-group">
+                    
+                        
+                        
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filter-panel">
+                    <span class="glyphicon glyphicon-fire"></span> Number of BOILERS
+                    </button><br>
+                    <div id="filter-panel" class="collapse filter-panel">
+                    <div class="form-group">
+                    <label class="filter-col" style="margin-right:0;" for="pref-search"> Between:</label>
+                    <input type="text" class="form-control input-sm" placeholder= "0" name="blrmin" id="blrmin" value="0">
+                    <label class="filter-col" style="margin-right:0;" for="pref-search"> and:</label>
+                    <input type="text" class="form-control input-sm" placeholder= "100" name="blrmax" id="blrmax" value="200">
+                    </div> 
+                    </div> 
+                    </div>      
+                </div>
+-->
+                <!--<div class="col-sm-3">        
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filter-panel2">
+                    <span class="glyphicon glyphicon-flash"></span> Number of GENERATORS
+                    </button>
+                    <div id="filter-panel2" class="collapse filter-panel">
+                    <div class="form-group">
+                        <label class="filter-col" for="pref-search2"> Between:</label>
+                        <input type="text" class="form-control input-sm" placeholder= "0" name="gnrmin" id="gnrmin" value="0">
+                        <label class="filter-col" for="pref-search2"> and:</label>
+                        <input type="text" class="form-control input-sm" placeholder= "100" name="gnrmax" id="gnrmax" value="200">
+                    </div> 
+
+                    </div>
+                </div>
+                <div class="col-sm-3">        
+                    <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filter-panel3">
+                    <span class="glyphicon glyphicon-signal"></span> NAMEPLATE CAPACITY (MW)
+                    </button>
+                    <div id="filter-panel3" class="collapse filter-panel">
+                    <div class="form-group">
+                        <label class="filter-col" for="pref-search2"> Between:</label>
+                        <input type="text" class="form-control input-sm" placeholder= "0 MW" name="npcmin" id="npcmin" value="0">
+                        <label class="filter-col" for="pref-search2"> and:</label>
+                        <input type="text" class="form-control input-sm" placeholder= "10000 MW" name="npcmax" id="npcmax" value="10000">
+                    </div> 
+                    </div>
+                </div>
+
+                <div class="col-sm-3">      
+                </div>-->
+
+                <!--<div class="input-group">
+                        <div class="input-group-btn search-panel">
+
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span id="search_concept">Boilers </span> <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#contains"> Equal &#61; </a></li>
+                              <li><a href="#greather_than"> Greater than  </a></li>
+                              <li><a href="#less_than"> Less than   </a></li>
+                              <li class="divider"></li>
+                              <li><a href="#all">Between</a></li>
+                            </ul>
+                        </div>
+                        <input type="hidden" name="search_param" value="all" id="search_param">         
+                        <input type="text" class="form-control" name="numblr" placeholder="Number">
+
+                    </div>
+
+                    <br><br>
+                    <div class="input-group">
+                        <div class="input-group-btn search-panel">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span id="search_concept">Generators </span> <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#contains"> Equal &#61; </a></li>
+                              <li><a href="#greather_than"> Greater than  </a></li>
+                              <li><a href="#less_than"> Less than   </a></li>
+                              <li class="divider"></li>
+                              <li><a href="#all">Between</a></li>
+                            </ul>
+                        </div>
+                        <input type="hidden" name="search_param" value="all" id="search_param">         
+                        <input type="text" class="form-control" name="numgen" placeholder="Number">
+                    </div>-->
+
+                <div class="col-sm-12 centered"> 
+                    <br><br>
+                    <p>
+                    <button type="submit" formaction="/output_adv" method="GET" class="btn btn-success has-spinner">
+                    <span class="glyphicon glyphicon-search"><i class="icon-spin icon-refresh"></i></span>
+                        SEARCH 
+                    </button>
+                        
+                    <button type="submit" formaction="/map_adv" method="GET" class="btn btn-success has-spinner">
+                    <span class="glyphicon glyphicon-search"><i class="icon-spin icon-refresh"></i></span>
+                        SEARCH IN A MAP
+                    </button>
+                    </p>  
+                </div>
+                
+            </div> <!--END OF ROW -->
+
+        </form> 
+        <br><br>
+
+
+    </div> <!-- /.FORM-->     
+</div> <!-- /.container-->
+{% endblock %}
+
+
+  
+   

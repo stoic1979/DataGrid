@@ -1,0 +1,1148 @@
+<head>
+  <link href="../static/css/pages/dashboard_plant_operations.css" rel="stylesheet">
+  <link href="../static/css/pages/dashboard_user.css" rel="stylesheet">
+</head>
+
+<!-- top tiles -->
+ 
+<div class="row tile_count">
+ {% for s in stats %}
+ <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+    <span class="count_top"><i class="fa fa-calendar-check-o"></i> Last Update</span>
+    <div class="count">{{s['up']}}</div>
+  </div>
+  <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+    <span class="count_top"><i class="fa fa-calendar"></i> Nominal days</span>
+    <div class="count">{{s['ndays']}}</div>  
+  </div>
+  
+  <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+    <span class="count_top"><i class="fa fa-plug"></i> Total Net Generation </span>
+    <div class="count">{{s['ng0']}}</div>
+    <span class="count_bottom"><i class="{{s['ng3']}}"><i class="fa fa-sort-{{s['ng2']}}"></i>{{s['ng1']}} % </i> From last year</span>
+  </div>
+  <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+    <span class="count_top"><i class="fa fa-bar-chart"></i> Total Cycling (EHS) </span>
+    <div class="count {{s['da3']}}">{{s['da0']}}</div>
+    <span class="count_bottom"><i class="{{s['da3']}}"><i class="fa fa-sort-{{s['da2']}}"></i>{{s['da1']}} % </i> From last year</span>
+  </div>
+  <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+    <span class="count_top"><i class="fa fa-tachometer"></i> Capacity Factor</span>
+    <div class="count">{{s['cf0']}} %</div>
+    <span class="count_bottom"><i class="{{s['cf3']}}"><i class="fa fa-sort-{{s['cf2']}}"></i>{{s['cf1']}} % </i> From last year</span>
+  </div>
+  <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+    <span class="count_top"><i class="fa fa-line-chart"></i> Number of Starts</span>
+    <div class="count">{{s['st0']}} </div>
+    <span class="count_bottom"><i class="{{s['st3']}}"><i class="fa fa-sort-{{s['st2']}}"></i>{{s['st1']}} % </i> From last year</span>
+  </div>
+    
+ </div>
+ <!--SECOND ROW-->
+ <div class="row tile_count">      
+  <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+    <span class="count_top"><i class="fa fa-random"></i> Load Followings </span>
+    <div class="count">{{s['lf0']}}</div>
+    <span class="count_bottom"><i class="{{s['lf3']}}"><i class="fa fa-sort-{{s['lf2']}}"></i>{{s['lf1']}} % </i> From last year</span>
+  </div>
+ 
+  <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+    <span class="count_top"><i class="fa fa-battery-half"></i> Utilization Factor </span>
+    <div class="count">{{s['uf0']}} %</div>
+    <span class="count_bottom"><i class="{{s['uf3']}}"><i class="fa fa-sort-{{s['uf2']}}"></i>{{s['uf1']}} % </i> From last year</span>
+  </div>
+
+  <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+    <span class="count_top"><i class="fa fa-fire" aria-hidden="true"></i> Hot Starts </span>
+    <div class="count">{{s['hs0']}}</div>
+    <span class="count_bottom"><i class="{{s['hs3']}}"><i class="fa fa-sort-{{s['hs2']}}"></i>{{s['hs1']}} % </i> From last year</span>
+  </div>
+  <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+    <span class="count_top"><i class="fa fa-sun-o"></i> Warm Starts</span>
+    <div class="count">{{s['ws0']}}</div>
+    <span class="count_bottom"><i class="{{s['ws3']}}"><i class="fa fa-sort-{{s['ws2']}}"></i>{{s['ws1']}} % </i> From last year</span>
+  </div>
+  <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+    <span class="count_top"><i class="fa fa-warning" aria-hidden="true"></i> Cold starts</span>
+    <div class="count">{{s['cs0']}}</div>
+    <span class="count_bottom"><i class="{{s['cs3']}}"><i class="fa fa-sort-{{s['cs2']}}"></i>{{s['cs1']}} % </i>From last year</span>
+  </div>
+  <div class="col-md-2 col-sm-2 col-xs-2 tile_stats_count">
+    <span class="count_top"><i class="fa fa-clock-o"></i> Operating hours</span>
+    <div class="count">{{s['od0']}}</div>
+    <span class="count_bottom"><i class="{{s['od3']}}"><i class="fa fa-sort-{{s['od2']}}"></i>{{s['od1']}} % </i> From last year</span>
+  </div>
+  <hr>
+</div>
+{% endfor %}
+<!-- /top tiles -->
+
+<br><br>
+
+<div class="container-fluid">
+
+      <!-- START OF TABS -->
+      <ul class="nav nav-tabs">
+
+        <li><a data-toggle="pill" href="#ginfo">PLANT PROFILE</a></li>
+        <li class="active"><a data-toggle="pill" href="#oinfo">OPERATIONS DATA</a></li>
+        <!--<li><a data-toggle="pill" href="#dinfo">HOURLY GENERATION</a></li>-->
+        <!--<li><a data-toggle="pill" href="#finfo">FINANCIAL DATA</a></li>-->
+      </ul>
+      <!-- Tab contents -->
+      <div class="tab-content">
+
+        <!-- Operations Data  -->
+        <div id="oinfo" class="tab-pane fade in active">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="dashboard-content-area">
+                   <h3 class="list-group-item list-group-item-info"><center><strong>This Unit's info</strong></center></h3>
+                    <div class="content">
+                        <table class="table table-condensed table-striped">
+                           <tbody>
+                               {% for p in unit_info %}
+                                <tr><td><b>Plant Name               </b></td><td> {{p['pname']}}    </td></tr>
+                                <tr><td><b>Unit ID                  </b></td><td> {{p['uid']}}      </td></tr>
+                                <tr><td><b>Fuel                     </b></td><td> {{p['fuel']}}     </td></tr>
+                                <tr><td><b>Prime Mover              </b></td><td> {{p['prmvr']}}    </td></tr>
+                                <tr><td><b>Nameplate Capacity (MW)  </b></td><td> {{p['npc']}}      </td></tr>
+                                <tr><td><b>Year Online               </b></td><td>{{p['untyronl']}}</td></tr>
+                                <tr><td><b>Operation's data          </b></td><td>{{p['yrmin']}}-{{p['yrmax']}}</td></tr>
+                               {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+              </div>
+            <div class="col-sm-4">
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Summary Plot</strong></center></h3>
+                <div id="bench" style="100%; height:380px;"></div>
+                  <script>
+                    $(document).ready(function(){
+                      var sample_data = [
+                            {% for p in oper_data %}
+                                {"name": "Your Peers","skill": "HS", "score": 100},
+                                {"name": "Your Peers","skill": "WS", "score": 100},
+                                {"name": "Your Peers","skill": "CS", "score": 100},
+                                {"name": "Your Peers","skill": "EHS", "score": 100},
+                                {"name": "Your Peers","skill": "GEN", "score": 100},
+                                {"name": "Your Peers","skill": "LF", "score": 100},
+                                {"name": "Your Peers","skill": "OH", "score": 100},
+                                {"name": "Your Peers","skill": "CF", "score": 100},
+                                {"name": "Your Peers","skill": "UF", "score": 100},
+                                {"name": "Your Unit","skill": "HS", "score": {{p['rhs']}}},
+                                {"name": "Your Unit","skill": "WS", "score": {{p['rws']}}},
+                                {"name": "Your Unit","skill": "CS", "score": {{p['rcs']}}},
+                                {"name": "Your Unit","skill": "EHS", "score": {{p['rda']}}},
+                                {"name": "Your Unit","skill": "GEN", "score": {{p['rge']}}},
+                                {"name": "Your Unit","skill": "LF", "score": {{p['rlf']}}},
+                                {"name": "Your Unit","skill": "OH", "score": {{p['rod']}}},
+                                {"name": "Your Unit","skill": "CF", "score": {{p['rcf']}}},
+                                {"name": "Your Unit","skill": "UF", "score": {{p['ruf']}}},
+                            {% endfor %}
+
+
+                      ];
+                      var visualization = d3plus.viz()
+                        .container("#bench")
+                        .data(sample_data)
+                        .id(["name", "skill"])
+                        .size("score")
+                        .font({"size":12})
+                        .type("radar")
+                        .color(function(d){
+                            return d.score != 900 ? "rgb(143, 27, 0)" : "#0047b3";
+                        })
+                        .legend({"size": 55})
+                        .draw();
+
+                      moveLegend();
+
+                      function moveLegend() {
+                        var l = d3.select("#key"),
+                            c = d3.select("#container");
+
+                        // wait for the legend and container to appear
+                        // if not wait 200 milliseconds and try again
+                        if (!l.size() || !c.size()) {
+                          setTimeout(moveLegend, 1000);
+                        } else {
+                          // both now exist
+                          // move legend to top
+                          l.transition()
+                           .attr("transform","translate(120,20)");
+                          // move chart down height of legend
+                          var lh = l.node().getBBox().height;
+                          var lw = -l.node().getBBox().width;
+                          c.attr("transform", "translate("+lw/2+"," + lh/2 + ")");
+                        }
+                      }
+                    });
+                  </script>
+                </div>
+              </div>
+            <div class="col-sm-4">
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Peer Comparison</strong></center></h3>
+                    <div class="content">
+                        {% for c in comp_text %}
+                          <p>
+                              This unit has been automically compared with <strong>{{c['n']}}</strong> <strong>{{c['fuel']}}</strong> units for which the prime mover is <strong>{{c['prmvr']}}</strong> with a namplate capacity between <strong>{{c['npcm']}}</strong> and <strong>{{c['npcx']}}</strong> MW, that started operations between <strong>{{c['yrm']}}</strong> and <strong>{{c['yrx']}}</strong>.
+                          </p>
+                          <p>
+                               <small> On the left, a summary plot shows a radial comparison of the most important key perfomance indicators for cycling. Values in the radial direction are percentages and are normalized to the value of your peers <br>(Hs = Hot starts, Ws = Warm starts, Cs = Cold starts, Ehs = Cycling, Gen = Generation, Lf = Load folows, Oh = Operating hours, Cf = Capacity factor, Uf = Utilization factor)</small>
+                          </p>
+
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+           
+            <div class="col-sm-6">
+            <br>    
+              <div class="dashboard-content-area">
+               <h3 class="list-group-item list-group-item-info"><center><strong>Annual Cycling Averages
+                    ({% for p in unit_info %}{{p['yrmin']}}-{{p['yrmax']}}{% endfor %})</strong></center></h3>
+                <div class="content">
+                    <table class="table table-condensed table-striped">
+                        <thead>
+                            <tr><td><b>Historical average values for:</b></td><td><b>Your Unit</b></td><td><b>Your Peers</b></td><td><b> Diff. (&#37;)</b></td></tr>
+                        </thead>
+
+                        <tbody>
+                           {% for p in oper_data %}
+                            <tr><td><b>Cycling (EHS)</b></td><td><b>{{p['da1']}}</b></td><td><b> {{p['da2']}}</b> </td><td><b><i class="{{p['dac']}}"><i class="fa fa-sort-{{p['das']}}"></i> {{p['dav']}} &#37;</i></b></td></tr>
+                            <tr><td>Total starts      </td><td> {{p['st1']}} </td><td> {{p['st2']}} </td><td><i class="{{p['stc']}}"><i class="fa fa-sort-{{p['sts']}}"></i>  {{p['stv']}} &#37;</i></td></tr>
+                            <tr><td>Hot Starts    </td><td> {{p['hs1']}} </td><td> {{p['hs2']}} </td><td> <i class="{{p['hsc']}}"><i class="fa fa-sort-{{p['hss']}}"></i>  {{p['hsv']}} &#37; </i> </td></tr>
+                            <tr><td>Warm Starts   </td><td> {{p['ws1']}} </td><td> {{p['ws2']}} </td><td> <i class="{{p['wsc']}}"><i class="fa fa-sort-{{p['wss']}}"></i> {{p['wsv']}} &#37; </i></td></tr>
+                            <tr><td>Cold Starts   </td><td> {{p['cs1']}} </td><td> {{p['cs2']}} </td><td> <i class="{{p['csc']}}"><i class="fa fa-sort-{{p['css']}}"></i> {{p['csv']}} &#37; </i> </td></tr>
+                            <tr><td>Significant Load Follows </td><td> {{p['lf1']}} </td><td> {{p['lf2']}} </td><td><i class="{{p['lfc']}}"><i class="fa fa-sort-{{p['lfs']}}"></i> {{p['lfv']}} &#37;</i></td></tr>
+                            <tr><td>Capacity Factor </td><td> {{p['cf1']}} </td><td> {{p['cf2']}} </td><td><i class="{{p['cfc']}}"><i class="fa fa-sort-{{p['cfs']}}"></i> {{p['cfv']}} &#37;</i></td></tr>
+                            <tr><td>Utilization Factor </td><td> {{p['uf1']}} </td><td> {{p['uf2']}} </td><td><i class="{{p['ufc']}}"><i class="fa fa-sort-{{p['ufs']}}"></i> {{p['ufv']}} &#37;</i></td></tr>
+                           {% endfor %}
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            <div class="col-sm-6">
+            <br> 
+              <div class="dashboard-content-area">
+               <h3 class="list-group-item list-group-item-info"><center><strong>Cycling ranking</strong></center></h3>
+                <div id="rank" style="100%; height:380px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        var sample_data2 = [
+                         {% for p in ranking %}
+                              {"rank":{{p['rank']}}, "unit":"{{p['unit']}}", "Equivalent Hot Starts (EHS)":{{p['dam']}}  },
+                         {% endfor %}
+                        ]
+                        // instantiate d3plus
+                        var visualization = d3plus.viz()
+                          .container("#rank")
+                          .data(sample_data2)
+                          .type("bar")
+                          .id("unit")          // key for which our data is unique on
+                          .y("Equivalent Hot Starts (EHS)")           // key to use for y-axis
+                          .x("rank")          // key to use for x-axis
+                          .legend({"size": 50})
+                          .draw()           
+                      });
+                    </script>
+              </div>
+          </div>
+
+            <!--CYCLING-->  
+            <div class="col-sm-8">
+            <br>
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Cycling</strong></center></h3>
+                  <div id="oper_2" style="100%; height:350px;"></div>
+                      <script type="text/javascript">
+                        $(document).ready(function(){
+                          var sample_data2 = [
+                           {% for p in oper %}
+                                {"year":"{{p['yr']}}", "unit":"{{p['ui']}}", "Equivalent Hot Starts (EHS)":{{p['dam']}}  },
+                           {% endfor %}
+                          ]
+
+
+                          // instantiate d3plus
+                          var visualization = d3plus.viz()
+                            .container("#oper_2")
+                            .data(sample_data2)
+                            .type("bar")
+                            .id("unit")                                 // key for which our data is unique on
+                            .text("year")
+                            .y("Equivalent Hot Starts (EHS)")           // key to use for y-axis
+                            .x("year")          // key to use for x-axis
+                            .legend({"size": 50})
+                            .draw()           
+                        });
+                      </script>
+                </div>
+              </div>
+            <div class="col-sm-4">
+            <br>
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Peer Comparison</strong></center></h3>
+                    <div id="oper_2comp" style="100%; height:350px;"></div>
+                        <script>
+                          $(document).ready(function(){
+                            var data = [
+                              {% for p in oper %}
+                                  {"plant":"Your Unit", "name":"{{p['yr']}}", "value": {{p['dam']}}  },
+                              {% endfor %}
+                              {% for p in oper_comp %}
+                                  {"plant":"Your Peers", "name":"{{p['ut']}}", "value": {{p['dam']}}  },
+                              {% endfor %}
+                            ]
+                            var visualization = d3plus.viz()
+                              .container("#oper_2comp")
+                              .data(data)
+                              .type("box")
+                              .id("name")
+                              .x("plant")
+                              .y("value")
+                              .time("year")
+                              .ui([{
+                                  "label": "Visualization Type",
+                                  "method": "type",
+                                  "value": ["scatter","box"]
+                                }])
+                              .draw()
+                          });
+                        </script>
+                </div>
+              </div>
+
+            <!--CAPACITY FACTOR-->
+            <div class="col-sm-8">
+            <br>
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Capacity Factor</strong></center></h3>
+                  <div id="oper_cf" style="100%; height:350px;"></div>
+                      <script type="text/javascript">
+                        $(document).ready(function(){
+                          var sample_data2 = [
+                           {% for p in oper %}
+                                {"year":"{{p['yr']}}", "unit":"{{p['ui']}}", "Capacity Factor (%)":{{p['cf']}}  },
+                           {% endfor %}
+                          ]
+
+
+                          // instantiate d3plus
+                          var visualization = d3plus.viz()
+                            .container("#oper_cf")
+                            .data(sample_data2)
+                            .type("line")
+                            .id("unit")                                 // key for which our data is unique on
+                            .text("year")
+                            .y("Capacity Factor (%)")           // key to use for y-axis
+                            .x("year")          // key to use for x-axis
+                            .legend({"size": 50})
+                            .draw()           
+                        });
+                      </script>
+                </div>
+              </div>
+            <div class="col-sm-4">
+            <br>
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Peer Comparison</strong></center></h3>
+                    <div id="oper_cf2comp" style="100%; height:350px;"></div>
+                        <script>
+                          $(document).ready(function(){
+                            var data = [
+                              {% for p in oper %}
+                                  {"plant":"Your Unit", "name":"{{p['yr']}}", "value": {{p['cf']}}  },
+                              {% endfor %}
+                              {% for p in oper_comp %}
+                                  {"plant":"Your Peers", "name":"{{p['ut']}}", "value": {{p['cf']}}  },
+                              {% endfor %}
+                            ]
+                            var visualization = d3plus.viz()
+                              .container("#oper_cf2comp")
+                              .data(data)
+                              .type("box")
+                              .id("name")
+                              .x("plant")
+                              .y("value")
+                              .time("year")
+                              .ui([{
+                                  "label": "Visualization Type",
+                                  "method": "type",
+                                  "value": ["scatter","box"]
+                                }])
+                              .draw()
+                          });
+                        </script>
+                </div>
+              </div>  
+              
+            <!--STARTS--> 
+            <div class="col-sm-8">
+            <br>
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Starts</strong></center></h3>
+                <div id="oper_3" style="width:100%; height:350px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        var sample_data3 = [
+                         {% for p in oper %}
+                          {"year":"{{p['yr']}}", "unit":"{{p['ui']}}", "Starts":{{p['starts']}}  },
+                         {% endfor %}
+                        ]
+                        var attributes3 = [
+                          {% for p in oper_col %}
+                          {"unit": "{{p['ui']}}", "hex": "{{p['co']}}"},
+                          {% endfor %}
+                        ]
+                        // instantiate d3plus
+                        var visualization = d3plus.viz()
+                          .container("#oper_3")
+                          .data(sample_data3)
+                          .type("bar")
+                          .text("year")
+                          .id("unit")          // key for which our data is unique on
+                          .y("Starts")           // key to use for y-axis
+                          .x("year")          // key to use for x-axis
+                          .attrs(attributes3)
+                          .legend({"size": 50})
+                          .draw()             // finally, draw the visualization!
+                      });
+                    </script>
+                </div>
+
+          </div>
+            <div class="col-sm-4">
+            <br>
+              <div class="dashboard-content-area">
+              <h3 class="list-group-item list-group-item-info"><center><strong>Peer Comparison</strong></center></h3>
+                  <div id="oper_3comp" style="100%; height:350px;"></div>
+                      <script>
+                        $(document).ready(function(){
+                          var data = [
+                            {% for p in oper %}
+                                {"plant":"Your Unit", "name":"{{p['yr']}}", "value": {{p['starts']}}  },
+                            {% endfor %}
+                            {% for p in oper_comp %}
+                                {"plant":"Your Peers", "name":"{{p['ut']}}", "value": {{p['starts']}}  },
+                            {% endfor %}
+                          ]
+                          var visualization = d3plus.viz()
+                            .container("#oper_3comp")
+                            .data(data)
+                            .type("box")
+                            .id("name")
+                            .x("plant")
+                            .y("value")
+                            .time("year")
+                            .ui([{
+                                "label": "Visualization Type",
+                                "method": "type",
+                                "value": ["scatter","box"]
+                              }])
+                            .draw()
+                          });
+                        </script>
+                </div>
+              </div>
+
+            <!--LOAD FOLLOWS-->  
+            <div class="col-sm-8">
+            <br>
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Significant Load Follows</strong></center></h3>
+                <div id="oper_4" style="width:100%; height:350px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        var sample_data4 = [
+                         {% for p in oper %}
+                          {"year":"{{p['yr']}}", "unit":"{{p['ui']}}", "No. of Load Followings":{{p['lf']}}  },
+                         {% endfor %}
+                        ]
+
+
+                        // instantiate d3plus
+                        var visualization = d3plus.viz()
+                          .container("#oper_4")
+                          .data(sample_data4)
+                          .type("bar")
+                          .text("year")
+                          .id("unit")          // key for which our data is unique on
+                          .y("No. of Load Followings")           // key to use for y-axis
+                          .x("year")          // key to use for x-axis
+                          .legend({"size": 50})
+                          .draw()             // finally, draw the visualization!
+                      });
+                    </script>
+              </div>
+          </div>
+            <div class="col-sm-4">
+            <br> 
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Peer Comparison</strong></center></h3>
+                    <div id="oper_4comp" style="100%; height:350px;"></div>
+                        <script>
+                          $(document).ready(function(){
+                            var data = [
+                              {% for p in oper %}
+                              {"plant":"Your Unit", "name":"{{p['yr']}}", "value": {{p['lf']}}  },
+                              {% endfor %}
+                              {% for p in oper_comp %}
+                                  {"plant":"Your Peers", "name":"{{p['ut']}}", "value": {{p['lf']}}  },
+                              {% endfor %}
+                            ]
+                            var visualization = d3plus.viz()
+                              .container("#oper_4comp")
+                              .data(data)
+                              .type("box")
+                              .id("name")
+                              .x("plant")
+                              .y("value")
+                              .time("year")
+                              .ui([{
+                                  "label": "Visualization Type",
+                                  "method": "type",
+                                  "value": ["scatter","box"]
+                                }])
+                              .draw()
+                          });
+                        </script>
+                </div>
+              </div>
+
+            <!--UTILIZATION FACTOR-->
+            <div class="col-sm-8">
+            <br>
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Utilization Factor</strong></center></h3>
+                  <div id="oper_uf" style="100%; height:350px;"></div>
+                      <script type="text/javascript">
+                        $(document).ready(function(){
+                          var sample_data2 = [
+                           {% for p in oper %}
+                                {"year":"{{p['yr']}}", "unit":"{{p['ui']}}", "Utilization Factor (%)":{{p['uf']}}  },
+                           {% endfor %}
+                          ]
+
+
+                          // instantiate d3plus
+                          var visualization = d3plus.viz()
+                            .container("#oper_uf")
+                            .data(sample_data2)
+                            .type("line")
+                            .id("unit")                                 // key for which our data is unique on
+                            .text("year")
+                            .y("Utilization Factor (%)")           // key to use for y-axis
+                            .x("year")          // key to use for x-axis
+                            .legend({"size": 50})
+                            .draw()           
+                        });
+                      </script>
+                </div>
+              </div>
+            <div class="col-sm-4">
+            <br>
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Peer Comparison</strong></center></h3>
+                    <div id="oper_uf2comp" style="100%; height:350px;"></div>
+                        <script>
+                          $(document).ready(function(){
+                            var data = [
+                              {% for p in oper %}
+                                  {"plant":"Your Unit", "name":"{{p['yr']}}", "value": {{p['uf']}}  },
+                              {% endfor %}
+                              {% for p in oper_comp %}
+                                  {"plant":"Your Peers", "name":"{{p['ut']}}", "value": {{p['uf']}}  },
+                              {% endfor %}
+                            ]
+                            var visualization = d3plus.viz()
+                              .container("#oper_uf2comp")
+                              .data(data)
+                              .type("box")
+                              .id("name")
+                              .x("plant")
+                              .y("value")
+                              .time("year")
+                              .ui([{
+                                  "label": "Visualization Type",
+                                  "method": "type",
+                                  "value": ["scatter","box"]
+                                }])
+                              .draw()
+                          });
+                        </script>
+                </div>
+              </div>  
+            
+              
+            <!--OPERATING HOURS-->  
+            <div class="col-sm-8">
+            <br> 
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Operating Hours</strong></center></h3>
+                  <div id="oper_4b" style="width:100%; height:350px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                         var sample_data4b = [
+                           {% for p in oper %}
+                            {"year":"{{p['yr']}}", "unit":"{{p['ui']}}", "Operating Hours (%)":{{p['od']}}  },
+                           {% endfor %}
+                          ]
+                          // instantiate d3plus
+                          var visualization = d3plus.viz()
+                            .container("#oper_4b")
+                            .data(sample_data4b)
+                            .type("bar")
+                            .text("year")
+                            .id("unit")          // key for which our data is unique on
+                            .y("Operating Hours (%)")           // key to use for y-axis
+                            .x("year")          // key to use for x-axis
+                            .legend({"size": 50})
+                            .draw()             // finally, draw the visualization!
+                        });
+                      </script>
+              </div>
+           </div>
+            <div class="col-sm-4">
+            <br> 
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Peer Comparison</strong></center></h3>
+                    <div id="oper_4bcomp" style="100%; height:350px;"></div>
+                        <script>
+                          $(document).ready(function(){
+                            var data = [
+                              {% for p in oper %}
+                                  {"plant":"Your Unit", "name":"{{p['yr']}}", "value": {{p['od']}}  },
+                              {% endfor %}
+                              {% for p in oper_comp %}
+                                  {"plant":"Your Peers", "name":"{{p['ut']}}", "value": {{p['od']}}  },
+                              {% endfor %}
+                            ]
+                            var visualization = d3plus.viz()
+                              .container("#oper_4bcomp")
+                              .data(data)
+                              .type("box")
+                              .id("name")
+                              .x("plant")
+                              .y("value")
+                              .time("year")
+                              .ui([{
+                                  "label": "Visualization Type",
+                                  "method": "type",
+                                  "value": ["scatter","box"]
+                                }])
+                              .draw()
+                            });
+                          </script>
+                  </div>
+              </div>
+            
+            <br>
+            <!--HOT STARTS-->  
+            <div class="col-sm-8">
+            <br> 
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-danger"><center><strong>Hot Starts</strong></center></h3>
+                  <div id="oper_5" style="width:100%; height:350px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        var sample_data5 = [
+                         {% for p in oper %}
+                          {"year":"{{p['yr']}}", "unit":"{{p['ui']}}", "Hot Starts":{{p['hs']}}  },
+                         {% endfor %}
+                        ]
+
+
+                        // instantiate d3plus
+                        var visualization = d3plus.viz()
+                          .container("#oper_5")
+                          .data(sample_data5)
+                          .type("bar")
+                          .text("year")
+                          .id("unit")          // key for which our data is unique on
+                          .y("Hot Starts")           // key to use for y-axis
+                          .x("year")          // key to use for x-axis
+                          .draw()             // finally, draw the visualization!
+                      });
+                    </script>
+              </div>
+            </div>
+            <div class="col-sm-4">
+            <br> 
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-danger"><center><strong>Peer Comparison</strong></center></h3>
+                    <div id="oper_5comp" style="100%; height:350px;"></div>
+                      <script>
+                        $(document).ready(function(){
+                          var data = [
+                            {% for p in oper %}
+                                {"plant":"Your Unit", "name":"{{p['yr']}}", "value": {{p['hs']}}  },
+                            {% endfor %}
+                            {% for p in oper_comp %}
+                                {"plant":"Your Peers", "name":"{{p['ut']}}", "value": {{p['hs']}}  },
+                            {% endfor %}
+                          ]
+                          var visualization = d3plus.viz()
+                            .container("#oper_5comp")
+                            .data(data)
+                            .type("box")
+                            .id("name")
+                            .x("plant")
+                            .y("value")
+                            .time("year")
+                            .ui([{
+                                "label": "Visualization Type",
+                                "method": "type",
+                                "value": ["scatter","box"]
+                              }])
+                            .draw()
+                          });
+                        </script>
+                </div>
+              </div>
+            
+            <!--WARM STARTS  -->
+            <div class="col-sm-8">
+            <br> 
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-warning"><center><strong>Warm Starts</strong></center></h3>
+                  <div id="oper_6" style="width:100%; height:350px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        var sample_data6 = [
+                         {% for p in oper %}
+                          {"year":"{{p['yr']}}", "unit":"{{p['ui']}}", "Warm Starts":{{p['ws']}}  },
+                         {% endfor %}
+                        ]
+
+                        // instantiate d3plus
+                        var visualization = d3plus.viz()
+                          .container("#oper_6")
+                          .data(sample_data6)
+                          .type("bar")
+                          .text("year")
+                          .id("unit")          // key for which our data is unique on
+                          .y("Warm Starts")           // key to use for y-axis
+                          .x("year")          // key to use for x-axis
+                          .draw()             // finally, draw the visualization!
+                      });
+                    </script>
+              </div>
+            </div>
+            <div class="col-sm-4">
+            <br> 
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-warning"><center><strong>Peer Comparison</strong></center></h3>
+                    <div id="oper_6comp" style="100%; height:350px;"></div>
+                        <script>
+                          $(document).ready(function(){
+                            var data = [
+                              {% for p in oper %}
+                                  {"plant":"Your Unit", "name":"{{p['yr']}}", "value": {{p['ws']}}  },
+                              {% endfor %}
+                              {% for p in oper_comp %}
+                                  {"plant":"Your Peers", "name":"{{p['ut']}}", "value": {{p['ws']}}  },
+                              {% endfor %}
+                            ]
+                            var visualization = d3plus.viz()
+                              .container("#oper_6comp")
+                              .data(data)
+                              .type("box")
+                              .id("name")
+                              .x("plant")
+                              .y("value")
+                              .time("year")
+                              .ui([{
+                                  "label": "Visualization Type",
+                                  "method": "type",
+                                  "value": ["scatter","box"]
+                                }])
+                              .draw()
+                          });
+                        </script>
+                </div>
+              </div>
+
+            <!--COLD STARTS-->  
+            <div class="col-sm-8">
+            <br> 
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Cold Starts</strong></center></h3>
+                  <div id="oper_7" style="width:100%; height:350px;"></div>
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        var sample_data7 = [
+                         {% for p in oper %}
+                          {"year":"{{p['yr']}}", "unit":"{{p['ui']}}", "Cold Starts":{{p['cs']}}  },
+                         {% endfor %}
+                        ]
+                        // instantiate d3plus
+                        var visualization = d3plus.viz()
+                          .container("#oper_7")
+                          .data(sample_data7)
+                          .type("bar")
+                          .text("year")
+                          .id("unit")          // key for which our data is unique on
+                          .y("Cold Starts")           // key to use for y-axis
+                          .x("year")          // key to use for x-axis
+                          .draw()             // finally, draw the visualization!
+                      });
+                </script>
+              </div>
+            </div>
+            <div class="col-sm-4">
+            <br> 
+              <div class="dashboard-content-area">
+                <h3 class="list-group-item list-group-item-info"><center><strong>Peer Comparison</strong></center></h3>
+                    <div id="oper_7comp" style="100%; height:350px;"></div>
+                        <script>
+                        $(document).ready(function(){
+                          var data = [
+                            {% for p in oper %}
+                                {"plant":"Your Unit", "name":"{{p['yr']}}", "value": {{p['cs']}}  },
+                            {% endfor %}
+                            {% for p in oper_comp %}
+                                {"plant":"Your Peers", "name":"{{p['ut']}}", "value": {{p['cs']}}  },
+                            {% endfor %}
+                          ]
+                          var visualization = d3plus.viz()
+                            .container("#oper_7comp")
+                            .data(data)
+                            .type("box")
+                            .id("name")
+                            .x("plant")
+                            .y("value")
+                            .time("year")
+                            .ui([{
+                                "label": "Visualization Type",
+                                "method": "type",
+                                "value": ["scatter","box"]
+                              }])
+                            .draw()
+                          });
+                        </script>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Plant profile  -->
+        <div id="ginfo" class="tab-pane fade " >
+
+            <div class="row">
+                <!-- LEFT COLUMN-->
+                <div class="col-sm-7">
+                  <div class="dashboard-content-area">
+                    <h4 class="list-group-item list-group-item-info"> <strong>Plant Level Information</strong></h4>
+                    <table class="table table-condensed" style="background: #FFF" >
+                        <thead>
+                           <tr>
+                            {% for n in ptlsh %}
+                            <th style=""><div data-toggle="tooltip" title="{{n['fi']}}">{{n['na']}}</div></th>
+                            {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {% for p in plts %}
+                                    <tr data-index="{{p['oc']}}">
+                                    <td>{{p['na']}}</td>
+                                    <td>{{p['st']}}</td>
+                                    <!--<td>{{p['ci']}}</td>
+                                    <td>{{p['oc']}}</td>-->
+                                    <td>{{p['ne']}}</td>
+                                    <!--<td>{{p['nb']}}</td>
+                                    <td>{{p['ng']}}</td>-->
+                                    <td>{{p['pf']}}</td>
+                                    <!--<td>{{p['fc']}}</td>-->
+                               <!--     <td>{{p['cf']}}</td>
+                                    <td>{{p['npc']}}</td>-->
+
+                                {% endfor %}
+                        </tbody>
+                    </table>
+                  </div>
+                  <br>
+                  <div class="dashboard-content-area"> 
+                    <h4 class="list-group-item list-group-item-info";> <strong>Generators</strong></h4>
+                    <table class="table table-condensed table-striped" style="background: #FFF">
+                        <thead class="warning">
+                        <tr >
+                        {% for n in gnrsh %}
+                        <th><div data-toggle="tooltip" title="{{n['fi']}}">{{n['na']}}</div></th>
+                        {% endfor %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for g in gens %}
+                        <tr><td>{{g['gid']}}</td><td>{{g['gs']}}</td><td>{{g['pm']}}</td><td>{{g['fu']}}</td><td>{{g['yo']}}</td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                  </div>
+                  <br>
+                  <div class="dashboard-content-area">
+                    <h4 class="list-group-item list-group-item-info";> <strong>Boilers</strong></h4>
+                    <table class="table table-condensed table-striped" style="background: #FFF">
+                        <thead>
+                            <tr>
+                            {% for n in blrsh %}
+                            <th>{{n['na']}}</th>
+                            {% endfor %}
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            {% for b in blrs %}
+                            <tr><td>{{b['bid']}}</td><td>{{b['us']}}</td><td>{{b['pm']}}</td><td>{{b['fu']}}</td><td>{{b['yo']}}</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                  </div>
+                  <br>
+                  <div class="dashboard-content-area">
+                    <h4 class="list-group-item list-group-item-info";> <strong>Operator and Owners</strong></h4>
+                    <table class="table table-condensed table-striped" style="background: #FFF">
+                       <tbody>
+                        {% for g in ownsh %}
+                           <tr><td><div data-toggle="tooltip" title="{{g['fi']}}"><b>{{g['na']}}</b></div></td><td>{{g['na2']}}</td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <h6>Source: U.S. Environmental Protection Agency (EPA) (eGRID-Database) (Feb. 2017)</h6>
+                  </div>
+                </div><!--END OF LEFT COLUMN-->
+
+                <!-- RIGHT COLUMN-->
+                <div class="col-sm-5">
+                  <div class="dashboard-content-area">
+                    <h4 class="list-group-item list-group-item-info"> <strong>Plant Annual Net Generation (MWh)</strong></h4>
+                    <div class="content">
+                        <div id="viz2" style="width:550px; height:300px;"></div>
+                        <script type="text/javascript">
+                          $(document).ready(function(){
+                            var sample_data = [
+                              {% for a in agenplt %}
+                              {"year":{{a['year']}}, "Plant Name":"{{a['na']}}", "Net Gen (MWh)":{{a['gen']}}  },
+                              {% endfor %}
+                            ]
+                            var attributes = [
+                              {% for a in agenplt %}
+                              {"Plant Name": "{{a['na']}}", "hex": "#AA0000"},
+                              {% endfor %}
+                            ]
+
+                            // instantiate d3plus
+                            var visualization = d3plus.viz()
+                              .container("#viz2")
+                              .data(sample_data)
+                              .type("bar")
+                              .id("Plant Name")
+                              .text('year')
+                              .y("Net Gen (MWh)")
+                              .x("year")
+                              .attrs(attributes)
+                              .color("hex")
+                              /*.ui([
+                              {
+                              "method" : "type",
+                              "value"  : [{" Bar plot ": "bar"}, {"Tree Map ": "tree_map"},{" Pie ":"pie"}]
+                               }
+                               ])*/
+                              .draw()
+                          });
+                        </script>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="dashboard-content-area">
+                     <h4 class="list-group-item list-group-item-info"> <strong>Fuel consumption by reported fuel type <br><h6>(Consumed For Electric Generation And Useful Thermal Output)</h6></strong></h4>
+                     <div class="content">
+                     <div id="fuel3" style="width:550px; height:300px;"></div>
+                        <script type="text/javascript">
+                          $(document).ready(function(){
+                            var sample_data3 = [
+                             {% for p in afuels %}
+                              {"year":"{{p['yr']}}", "type":"{{p['rf']}}", "Total Fuel Consumption MMBtu":{{p['tfm']}}  },
+                             {% endfor %}
+                            ]
+                            var attributes3 = [
+                              {"type": "BIT", "hex": "#AA0000"},
+                              {"type": "DFO", "hex": "#00AA00"},
+                              {"type": "NG", "hex": "#0000AA"},
+                              {"type": "LIG", "hex": "#800000"},
+                              {"type": "SUB", "hex": "#FFAA00"},
+                              {"type": "ANT", "hex": "#808000"},
+                              {"type": "WAT", "hex": "#AA00FF"},
+                              {"type": "COL", "hex": "#800080"},
+                            ]
+
+                            // instantiate d3plus
+                            var visualization = d3plus.viz()
+                              .container("#fuel3")
+                              .data(sample_data3)
+                              .type("bar")
+                              .id("type")          // key for which our data is unique on
+                              //.text('type')        // key to use for display text
+                              .y("Total Fuel Consumption MMBtu")           // key to use for y-axis
+                              .x("year")          // key to use for x-axis
+                              .attrs(attributes3)
+                              //.font({"size":14})
+                              .color("hex")
+                              .draw()
+                          });
+                        </script>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="dashboard-content-area">
+                    <h4 class="list-group-item list-group-item-info"> <strong>Monthly Net Generation (MW) by Generator ID</strong></h4><center><h4></h4></center>
+                    <div class="content">
+                        <div id="viz3" style="width:550px; height:300px;"></div>
+                        <script type="text/javascript">
+                          $(document).ready(function(){
+                            var sample_data = [
+                              {% for a in agens %}
+                              {"Month":"{{a['date']}}", "gen":"{{a['gid']}}", "MWh":{{a['gen']}}  },
+                              {% endfor %}
+                            ]
+                            var attributes = [
+                              {% for a in agensb %}
+                              {"gen": "{{a['gid']}}", "hex": "{{a['co']}}"},
+                              {% endfor %}
+                            ]
+
+                            // instantiate d3plus
+                            var visualization = d3plus.viz()
+                              .container("#viz3")
+                              .data(sample_data)
+                              .type("bar")
+                              .id("gen")          // key for which our data is unique on
+                              .text('gen')        // key to use for display text
+                              .y("MWh")           // key to use for y-axis
+                              .x("Month")          // key to use for x-axis
+                              .attrs(attributes)
+                              //.legend({"size": 60})
+                              .color("hex")
+                              /*.ui([
+                                {
+                              "method" : "type",
+                              "value"  : [{" Stacked Lines ": "stacked"}, {" Scatter ": "scatter"}, {" Tree Map ": "tree_map"} , {" Pie ": "pie"}, {" Stacked Bars": "bar"}]
+                              }
+
+                               ])*/
+                              .draw()             // finally, draw the visualization!
+                          });
+                        </script>
+                    </div>
+                     <h6>Source: U.S. Energy Information Administration (Dec. 2016)</h6>
+                  </div>
+                </div><!--END OF RIGHT COLUMN-->
+            </div> <!--END OF ROW-->
+        </div>
+
+        <div id="dinfo" class="tab-pane fade">
+
+          <div class="row">
+            <div class="col-sm-12">
+              <h3 class="list-group-item list-group-item-info"><center><strong>Unit 1</strong></center></h3>
+              <hr>
+              <div id="mw_1"></div>
+              <hr>
+              <hr>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+        var df, df2;
+
+        /*AUXILIARY FUNCTIONS*/
+        function timeConverter(UNIX_timestamp){
+          var a = new Date(UNIX_timestamp * 1000);
+          var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          var year = a.getFullYear();
+          var month = months[a.getMonth()];
+          var date = a.getDate();
+          var hour = a.getHours();
+          var min = a.getMinutes();
+          var sec = a.getSeconds();
+          var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+          return time;
+        }
+
+        /*LOAD THE GENERATION AND TEMPERATURE DATA*/
+        d3.csv("../static/data/input_small.csv", function(data) {
+            parseTime = d3.time.format("%X").parse;
+            df = data.map(function(d) {
+                return [
+                    d.month,
+                    d.day,
+                    d.year,
+                    d.hour,
+                    d.minute,
+                    d.second,
+                    new Date(d.month.concat("-", d.day, "-", d.year, " ", d.hour, ":", d.minute, ":", d.second)),
+                    parseTime(d.hour.concat(":", d.minute, ":", d.second)), +d.mw1, // 8
+                    +d.mw, +d.drum_tsat, +d.sec_sh_t, +d.rh_out_t, +d.pri_sh_t, // 13
+                    +d.hp_chest_in_temp, +d.rh_bowl_in_t, +d.fwd_temp_econ, +d.hp_chest_delta_temp, +d.ip_case_delta_temp, +d.hp_stress_ratio, +d.ip_stress_ratio, +d.sh_dsup_flow, +d.turb_throttle, +d.mn_stm_cv
+                ];
+            });
+            Export_df(df)
+        });
+
+
+
+        function Export_df(df) {
+            google.charts.load('current', {'packages':['annotationchart']});
+            google.charts.setOnLoadCallback(drawChart1);
+
+
+            function drawChart1() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('datetime', 'Date');
+                data.addColumn('number', 'Gross Generation (MW)');
+                for (i=1;i<df.length;i++){
+                  data.addRows([ [ df[i][6], parseFloat(df[i][8]) ] ]);
+                }
+                var chart = new google.visualization.AnnotationChart(document.getElementById('mw_1'));
+                var options1 = {
+                   displayAnnotations: true,
+                   lineWidth: 5,
+                   vAxis: {title: 'MW', minValue: 0, maxValue: 1200},
+                   width:700,
+                   height:400,
+                };
+                chart.draw(data, options1);
+              };
+
+
+
+        }
+  });
+</script>
+
+
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- Financial Data  -->
+        <div id="finfo" class="tab-pane fade">
+        <h3>Financial Data</h3>
+        <h4><button>This page is NOT part of your current subscription.</button></h4>
+        <h4>To gain access, please contact us using our contact form.</h4>
+        </div>
+
+
+
+
+      </div>
+
+</div> <!-- /.container-->

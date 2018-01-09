@@ -1,0 +1,200 @@
+{% extends "LAYOUT.html" %}
+{% block title %}Signature Data Benchmark{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style> 
+        .bar {
+          fill: green;
+        }
+        .bar:hover {
+          fill: red;
+        }
+        .jumbotron {
+            background: rgb(200, 54, 54); /* This is for ie8 and below */
+            background: rgba(250, 254, 254, 0.7); 
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-3"><center>Signature Data Benchmark</center></h1>
+                <h3 class="display-3"><center>(Wind, Solar, Hydro, Coal, Gas, Nuclear)</center></h3> 
+            </div>
+        </div>
+        <div class="container">
+            <h3 class="list-group-item list-group-item-danger"><center><strong>Below you will see an example of what you will get ...</strong></center></h3>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+             <h4 class="list-group-item list-group-item-info"><center><strong>Analytics Solutions</strong></center></h4>
+              <ul class="list-group">
+                  <li class="list-group-item"><i class="glyphicon glyphicon-plus"></i> Benchmarking your plant signature data  against US plants/units of the same capacity, age, and fuel.</li>
+                  <li class="list-group-item"><i class="glyphicon glyphicon-plus"></i> Comparing operational damage and start type (hot, warm, cold) against similar units.</li>
+                  <li class="list-group-item"><i class="glyphicon glyphicon-plus"></i> See where you rank in terms of operations.</li>
+               </ul>
+             </div>
+            <div class="col-md-6">
+                <h4 class="list-group-item list-group-item-info"><center><strong>Outcomes</strong></center></h4>
+                <ul class="list-group">
+                  <li class="list-group-item"><i class="glyphicon glyphicon-plus"></i> Determine the relative stresses and damage to key unit components using available signature data (i.e., pressures and temperatures at key points in each unit).</li>
+                  <li class="list-group-item"><i class="glyphicon glyphicon-plus"></i> Analysis of past reliability and outage data will assist in defining the critical cycling-related components.</li>
+                  <li class="list-group-item"><i class="glyphicon glyphicon-plus"></i> Procedures for turndown to the lowest loads and how to do that in the least damaging ways.</li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+               <h4 class="list-group-item list-group-item-info"><center><strong>Benefits</strong></center></h4>
+                <ul class="list-group">
+                    <li class="list-group-item"><i class="glyphicon glyphicon-thumbs-up"></i> Assess performance, establish baselines, and set performance improvement goals  </li>
+                    <li class="list-group-item"><i class="glyphicon glyphicon-thumbs-up"></i> Optimize operations and save in operating and maintenance costs.</li>
+                    <li class="list-group-item"><i class="glyphicon glyphicon-thumbs-up"></i> Minimize outages and prioritize systems in your next inspection.</li>
+                </ul> 
+            </div> 
+       </div>
+    </div> <!-- /.container  -->
+    <br><br>
+    <div class="container">
+         <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-6">
+              <h4 class="list-group-item list-group-item-info"><center><strong>Example of Maximum Temperature Change for Transients</strong></center></h4>
+                <div id="temp" style="position: relative; max-width: 550px; height: 300px;"></div>
+                    <script>
+                      var data1 = [
+                        {"system": "DIV WALL SOUTH", "unit":"Normal Shutdown", "Temperature (deg F)": 250},
+                        {"system": "DIV WALL SOUTH", "unit":"Cold Start", "Temperature (deg F)": 810},
+                        {"system": "DIV WALL SOUTH", "unit":"Warm Start", "Temperature (deg F)": 670},
+                        {"system": "DIV WALL SOUTH", "unit":"Hot Start", "Temperature (deg F)": 350},
+                        {"system": "DIV WALL SOUTH", "unit":"Load Swing", "Temperature (deg F)": 35},
+                        {"system": "MAIN STEAM", "unit":"Normal Shutdown", "Temperature (deg F)": 180},
+                        {"system": "MAIN STEAM", "unit":"Cold Start", "Temperature (deg F)": 940},
+                        {"system": "MAIN STEAM", "unit":"Warm Start", "Temperature (deg F)": 500},
+                        {"system": "MAIN STEAM", "unit":"Hot Start", "Temperature (deg F)": 320},
+                        {"system": "MAIN STEAM", "unit":"Load Swing", "Temperature (deg F)": 60},
+                        {"system": "FINAL RH", "unit":"Normal Shutdown", "Temperature (deg F)": 205},
+                        {"system": "FINAL RH", "unit":"Cold Start", "Temperature (deg F)": 880},
+                        {"system": "FINAL RH", "unit":"Warm Start", "Temperature (deg F)": 710},
+                        {"system": "FINAL RH", "unit":"Hot Start", "Temperature (deg F)": 230},
+                        {"system": "FINAL RH", "unit":"Load Swing", "Temperature (deg F)": 60},
+                        {"system": "FWH #7", "unit":"Normal Shutdown", "Temperature (deg F)": 100},
+                        {"system": "FWH #7", "unit":"Cold Start", "Temperature (deg F)": 350},
+                        {"system": "FWH #7", "unit":"Warm Start", "Temperature (deg F)": 300},
+                        {"system": "FWH #7", "unit":"Hot Start", "Temperature (deg F)": 290},
+                        {"system": "FWH #7", "unit":"Load Swing", "Temperature (deg F)": 120},
+                        {"system": "FIRST STATE METAL", "unit":"Normal Shutdown", "Temperature (deg F)": 110},
+                        {"system": "FIRST STATE METAL", "unit":"Cold Start", "Temperature (deg F)": 730},
+                        {"system": "FIRST STATE METAL", "unit":"Warm Start", "Temperature (deg F)": 470},
+                        {"system": "FIRST STATE METAL", "unit":"Hot Start", "Temperature (deg F)": 150},
+                        {"system": "FIRST STATE METAL", "unit":"Load Swing", "Temperature (deg F)": 170},
+                          
+                      ]
+
+                     var attributes2 = [
+                      {"unit":"Normal Shutdown", "hex": "#0047b3"}, 
+                      {"unit":"Cold Start", "hex": "rgb(143, 27, 0)"},   
+                      {"unit":"Warm Start", "hex": "#9BBB59"}, 
+                      {"unit":"Hot Start", "hex": "#8064A2"}, 
+                      {"unit":"Load Swing", "hex": "#73EFFF"} 
+                         
+                    ]
+                      var visualization = d3plus.viz()
+                        .container("#temp")
+                        .data(data1)
+                        .type("bar")
+                        .id("unit")
+                        .x("system")
+                        //.font({"size":11})
+                        .y("Temperature (deg F)")
+                        .attrs(attributes2)
+                        .color("hex")
+                        .legend({"size": 60})
+                        .draw()
+
+                    </script> 
+            </div>
+            <div class="col-md-6">
+                <h4 class="list-group-item list-group-item-info"><center><strong>Example of Max. Temperature Change Rate for Transients</strong></center></h4>
+             
+                <div id="rate" style="position: relative; width: 550px; height: 300px;"></div>
+                    <script>
+                        
+                         var data2= [
+                        {"system": "Drum Tsat Calc", "unit":"Normal Shutdown", "Temperature rate (Deg F/hour)": 150},
+                        {"system": "Drum Tsat Calc", "unit":"Cold Start", "Temperature rate (Deg F/hour)": 160},
+                        {"system": "Drum Tsat Calc", "unit":"Warm Start", "Temperature rate (Deg F/hour)": 180},
+                        {"system": "Drum Tsat Calc", "unit":"Hot Start", "Temperature rate (Deg F/hour)": 80},
+                        {"system": "Drum Tsat Calc", "unit":"Deep Low Follow", "Temperature rate (Deg F/hour)": 70},
+                        {"system": "Steam Temp", "unit":"Normal Shutdown", "Temperature rate (Deg F/hour)": 850},
+                        {"system": "Steam Temp", "unit":"Cold Start", "Temperature rate (Deg F/hour)": 760},
+                        {"system": "Steam Temp", "unit":"Warm Start", "Temperature rate (Deg F/hour)": 790},
+                        {"system": "Steam Temp", "unit":"Hot Start", "Temperature rate (Deg F/hour)": 450},
+                        {"system": "Steam Temp", "unit":"Deep Low Follow", "Temperature rate (Deg F/hour)": 220},
+                        {"system": "Feed Water Temp", "unit":"Normal Shutdown", "Temperature rate (Deg F/hour)": 460},
+                        {"system": "Feed Water Temp", "unit":"Cold Start", "Temperature rate (Deg F/hour)": 370},
+                        {"system": "Feed Water Temp", "unit":"Warm Start", "Temperature rate (Deg F/hour)": 320},
+                        {"system": "Feed Water Temp", "unit":"Hot Start", "Temperature rate (Deg F/hour)": 110},
+                        {"system": "Feed Water Temp", "unit":"Deep Low Follow", "Temperature rate (Deg F/hour)": 205},
+                        {"system": "Air Heater Air Outlet B Temp", "unit":"Normal Shutdown", "Temperature rate (Deg F/hour)": 120},
+                        {"system": "Air Heater Air Outlet B Temp", "unit":"Cold Start", "Temperature rate (Deg F/hour)": 230},
+                        {"system": "Air Heater Air Outlet B Temp", "unit":"Warm Start", "Temperature rate (Deg F/hour)": 95},
+                        {"system": "Air Heater Air Outlet B Temp", "unit":"Hot Start", "Temperature rate (Deg F/hour)": 50},
+                        {"system": "Air Heater Air Outlet B Temp", "unit":"Deep Low Follow", "Temperature rate (Deg F/hour)": 210},
+                 
+                      ]
+
+                     var attributes2 = [
+                      {"unit":"Normal Shutdown", "hex": "#0047b3"}, 
+                      {"unit":"Cold Start", "hex": "rgb(143, 27, 0)"},   
+                      {"unit":"Warm Start", "hex": "#9BBB59"}, 
+                      {"unit":"Hot Start", "hex": "#8064A2"}, 
+                      {"unit":"Deep Low Follow", "hex": "#73EFFF"} 
+                         
+                    ]
+  
+                      var visualization = d3plus.viz()
+                        .container("#rate")
+                        .data(data2)
+                        .type("bar")
+                        .id("unit")
+                        .x("system")
+                        //.font({"size":11})
+                        .y("Temperature rate (Deg F/hour)")
+                        .attrs(attributes2)
+                        .color("hex")
+                        .legend({"size": 60})
+                        .draw()
+                    </script>
+
+                <br><br>
+
+           </div>
+        </div>
+    </div> <!-- /.container  -->
+    <br><br>  
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+            <center>  
+            <h4 class="list-group-item list-group-item-info"><center><strong>Here are some of our previous projects</strong></center></h4>
+            <br><br>
+            <img src="../static/img/services/COC_List_Projects2.png" padding="20px" alt="Projects" style="max-width:1250px;" class="img-rounded"> 
+            </center>  
+            </div>
+        </div>
+    </div> <!--  END OF CONTAINER-->    
+
+<br><br>  
+  
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-sm-12"> 
+                <p><a class="btn btn-lg btn-primary pull-right" href="contactus#" role="button">Do you want to know more? -- Contact us &raquo;</a></p>
+            </div> 
+        </div>
+    </div> <!--  END OF CONTAINER-->  
+{% endblock %}
+    

@@ -1,0 +1,380 @@
+{% extends "LAYOUT.html" %}
+{% block title %}Blog{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+
+<!--<section id="blogShortDescription">-->
+<div class="container">
+    <div id="blog" class="row">
+    <!--    {% if blogs %}
+            {% for blog in blogs %}
+                {% if loop.index==1 %}
+                    <div class="col-md-12 mainBlog">
+                        <a href="/blogs/{{ blog.id }}">
+                            <div class="mainBlogImage">
+                                <img src="{{ url_for('static', filename='img/blog/') }}{{ blog.image }}"
+                                     alt="{{ blog.title }}" class="img-responsive">
+                            </div>
+                            <div class="col-sm-12">
+                                <h3>{{ blog.title }} <span class="timeStamp"> {{ blog.published }}</span></h3>
+                            </div>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="col-md-4 shortDescription">
+                        <div class="blogShort">
+                            <img src="{{ url_for('static', filename='img/blog/') }}{{ blog.image }}" alt="Condition Assessment img" class="img-thumbnail">
+                            <a class="blogLink" href="/blogs/{{ blog.id }}">{{ blog.title }}</a>
+                        </div>
+                        <h4>{{ blog.title }}</h4>
+                        <div class="col-sm-12">
+                            <p>{{ blog.description[:100] }}.....</p>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <a class="readMore" href="/blogs/{{ blog.id }}">Read More</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}-->
+        <div class="col-md-12 gap10">
+            <!--my setting begins -->
+
+
+            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                    })(window,document,'script','dataLayer','GTM-Z4DV');
+            </script>
+            <script src="//cdn.optimizely.com/js/112699136.js">
+
+            </script>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+            <meta charset="UTF-8" />
+            <script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);
+            </script>
+            <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+            <meta name="google-site-verification" content="2q8u-0_6HxJZdS7l7LYlf-WDEYwIPvdJ_XVujkTFNCY" />
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="profile" href="https://gmpg.org/xfn/11" />
+            <link rel="dns-prefetch" href="//d16cvnquvjw7pr.cloudfront.net">
+            <link rel="dns-prefetch" href="//ajax.googleapis.com">
+            <link rel="shortcut icon" href="//d1eipm3vz40hy0.cloudfront.net/images/logos/zendesk-favicon.ico" />
+            <link rel="apple-touch-icon-precomposed" sizes="144x144" href="//d26a57ydsghvgx.cloudfront.net/www/public/assets/images/logos/zendesk144.png">
+            <link rel="apple-touch-icon-precomposed" sizes="114x114" href="//d26a57ydsghvgx.cloudfront.net/www/public/assets/images/logos/zendesk114.png">
+            <link rel="apple-touch-icon-precomposed" sizes="72x72" href="//d26a57ydsghvgx.cloudfront.net/www/public/assets/images/logos/zendesk72.png">
+            <link rel="apple-touch-icon-precomposed" href="//d26a57ydsghvgx.cloudfront.net/www/public/assets/images/logos/zendesk57.png">
+            <meta property="og:image" content="https://d26a57ydsghvgx.cloudfront.net/content/blog/1_NewZendeskHeaders/Vacation-ing-the-premises_Blog_image_preview.jpeg" />
+            <meta category="og:category" content="" />
+            <meta name="description" content="Zendesk&#039;s blog is the best source for customer service tips, industry best practices, and Zendesk product news." />
+            <link rel="canonical" href="https://www.zendesk.com/blog/" />
+            <link rel="next" href="https://www.zendesk.com/blog/page/2/" />
+            <meta property="og:locale" content="en_US" />
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content="Customer Service Blog for Tips, News, &amp; More | Zendesk" />
+            <meta property="og:url" content="https://www.zendesk.com/blog/" />
+            <meta property="og:site_name" content="Zendesk" />
+            <link rel='dns-prefetch' href='//s.w.org' />
+            <link rel='https://api.w.org/' href='https://www.zendesk.com/wp-json/' />
+            <link href="https://d1eipm3vz40hy0.cloudfront.net/css/blog-revamp-2017.min.fb352efbA.css" media="all" rel="stylesheet" type="text/css" /></head>
+
+
+            <body data-useragent class="lang-en responsive " lang="en-US">
+            <script type="text/javascript">
+                !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
+
+                var hostPattern = /www\.zendesk\.(com|com\.br|es|co\.uk|com\.mx|fr|de|it|nl|co\.jp|com\.ru|kr|tw|hk)/;
+                location.protocol === 'https:' && location.host.match(hostPattern) ?
+                analytics.load("xOTfJyNJNvVkdB9Q44diR31bdJ7Q1hMj") :
+                analytics.load("tVOWekEijVQoA9SxmiW6CiDCL6X4Mtd5");
+
+                analytics.page();
+                }}();
+            </script>
+            </body>
+        </div>
+        <label style="display: none; opacity: 0;">
+            <span>
+
+            </span>Please use a valid email
+        </label>
+        </li>
+        </ul>
+        </form>
+        <form id="email-subscribe-supplimential-fields" style="display: none;">
+            <input class="" name="owner[email]" id="owner[email]" type="text" placeholder="Enter email"><input type="hidden" name="elqFormName" id="elqFormName" value="blogform">
+            <input type="hidden" name="elqCustomerGUID" id="elqCustomerGUID" value="">
+            <input type="hidden" name="elqCookieWrite" id="elqCookieWrite" value="0">
+            <input type="hidden" name="elqSiteID" id="elqSiteID" value="2136619493">
+            <input type="hidden" name="Web_Offer_Name__c" id="Web_Offer_Name__c" value="Vacation-ing the premises: Why sticking around isn’t doing anyone any favors" />
+            <input type="hidden" name="GA_Medium" id="GA_Medium" value="" />
+            <input type="hidden" name="GA_Source" id="GA_Source" value="" />
+            <input type="hidden" name="Opti_ID" id="Opti_ID" value="" />
+            <input type="hidden" name="Opti_Variation_ID" id="Opti_Variation_ID" value="" />
+            <input type="hidden" name="trial_extras[Opti_ID]" id="trial_extras[Opti_ID]" value="">
+            <input type="hidden" name="trial_extras[Opti_Variation_ID]" id="trial_extras[Opti_Variation_ID]" value="">
+            <input type="hidden" name="trial_extras[Inferred_City]" id="trial_extras[Inferred_City]" value="">
+            <input type="hidden" name="trial_extras[Inferred_State]" id="trial_extras[Inferred_State]" value="">
+            <input type="hidden" name="trial_extras[Inferred_CCode]" id="trial_extras[Inferred_CCode]" value="">
+            <input type="hidden" name="trial_extras[Inferred_Country]" id="trial_extras[Inferred_Country]" value="">
+            <input type="hidden" name="trial_extras[Inferred_Zip]" id="trial_extras[Inferred_Zip]" value="">
+            <input type="hidden" name="trial_extras[Inferred_Region]" id="trial_extras[Inferred_Region]" value="">
+            <input type="hidden" name="trial_extras[DB_City__c]" id="trial_extras[DB_City__c]" value="">
+            <input type="hidden" name="trial_extras[DB_State__c]" id="trial_extras[DB_State__c]" value="">
+            <input type="hidden" name="trial_extras[DB_CCode__c]" id="trial_extras[DB_CCode__c]" value="">
+            <input type="hidden" name="trial_extras[Country__c]" id="trial_extras[Country__c]" value="">
+            <input type="hidden" name="trial_extras[DB_Zip__c]" id="trial_extras[DB_Zip__c]" value="">
+            <input type="hidden" name="trial_extras[Region__c]" id="trial_extras[Region__c]" value="">
+            <input type="hidden" name="trial_extras[First_Touch__c]" id="trial_extras[First_Touch__c]" />
+            <input type="hidden" name="trial_extras[Last_Touch__c]" id="trial_extras[Last_Touch__c]" />
+        </form>
+    </div>
+</div>
+
+    <div class="zendesk-blog-library-navigation" style="display:none;">
+        <div class="" style="clear:both;"></div>
+        <div class="newsletter-offsetter"></div>
+    </div>
+
+    <div id="landing-promo-header-backdrop">
+        <div class="tag-promo-header" id="tag-promo-header">
+        <div class="row">
+        <div class="lg-span-8 med-span-6 sm-span-12">
+            {% for latest_data in latest_data %}
+            <a class="index-hero" href="https://www.zendesk.com/blog/how-to-support-your-robot-co-worker/">
+
+                <img src="{{ url_for('static', filename='img/blog/') }}{{ latest_data.image }}"
+                                         alt="{{ latest_data.title }}" class="img-responsive">
+                <h2>{{ latest_data.title }}</h2>
+            </a>
+            {% endfor %}
+        </div>
+
+
+
+
+
+
+
+        <div class="lg-span-4 med-span-6 sm-span-12">
+        <div class="pad-left-20 mobile-pad-left-0">
+            <div data-zen-widget="tabs">
+                <div class="tag-popular-recent-buttons" data-zen-tab="button" data-zen-state="active" data-toggler-id="1">
+                    Popular
+                </div>
+                <div class="tag-popular-recent-buttons" data-zen-tab="button" data-zen-state="inactive" data-toggler-id="2">
+                New
+            </div>
+            <!-- +++++++++++++++++++++ [Popular Tab Button] +++++++++++++++++ -->
+            <div class="" data-zen-tab="content" data-zen-state="active" data-toggler-id="1">
+                <div class="insert-popular-items">
+                    {% for popular in popular %}
+                    <li>
+                        <a href="/blog/5-traits-perfect-customer-service-employee/">
+                            <span class="libblog-nav-recent-item">
+                                <span class="recent-item-title-wrapper">
+                                    <span class="recent-item-title">{{ popular.title }}
+                                    </span>
+                                </span>
+                                <span class="recent-item-image" style="background-image:url('{{ url_for('static', filename='img/blog/') }}{{ popular.image }}');">
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- +++++++++++++++++++++ [ End Popular Tab Button] +++++++++++++++++ -->
+
+            <!-- +++++++++++++++++++++ [New Tab Button] +++++++++++++++++ -->
+            <div class="" data-zen-tab="content" data-zen-state="inactive" data-toggler-id="2">
+                <div class="insert-recent-items">
+                    {% for time_data in time_data %}
+                    <li>
+                        <a href="/blog/6-tips-hone-support-superpowers/">
+                            <span class="libblog-nav-recent-item">
+                                <span class="recent-item-title-wrapper">
+                                    <span class="recent-item-title">{{ time_data.title }}
+                                    </span>
+                                </span>
+                                <span class="recent-item-image" style="background-image:url('{{ url_for('static', filename='img/blog/') }}{{ time_data.image }}');">
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                    {% endfor %}
+
+                </div>
+            </div>
+            <!-- +++++++++++++++++++++ [ End New Tab Button ] +++++++++++++++++ -->
+        </div>
+    </div>
+    <div class="newsletters-are-fun">
+    <h3 class="fun-newsletter-headline ">Because newsletters can be fun</h3>
+    <form class="" action="index.html" method="post">
+        <input type="text" name="" value="" placeholder="email" class="email-address-sign-up-thingy">
+        <label class="subscribe-error-message" style="display: none;">Ugh, sorry something went wrong, try again later?</label>
+        <label class="subscribe-invalid-message" style="display: none;">Please use a valid email</label>
+        <label class="subscribe-success-message" style="display: none;">Welcome to the club!</label>
+        <input type="button" name="" value="Subscribe" class="btn-primary-cta filled email-address-sign-up-thingy-button">
+    </form>
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+
+        <!-- +++++++++++++++++++++ [ Main Grid View] +++++++++++++++++ -->
+    <div class="blog" id="main">
+        <div>
+            {% for blog in blogs %}
+            <div class="tile single blogpost with-img">
+                <div class="img visible">
+                    <img src="{{ url_for('static', filename='img/blog/') }}{{ blog.image }}"
+                                         alt="{{ blog.title }}" class="img-responsive">
+                </div>
+                <div class="description">
+                    <h3 class="h3like">{{ blog.title }}</h3>
+                    <div class="friendly-timestamp">
+                        <h4><span class="timeStamp"> {{ blog.published }}</span></h4>
+                    </div>
+                    <!--<div class="filter-tag-wapper">
+                        <a href="/blog/tags/agent-experience/" class="article-tag"> Agent experience</a><a href="/blog/tags/best-practices-all/" class="article-tag"> Best Practices</a><a href="/blog/tags/customer-service-leadership/" class="article-tag"> Customer service leadership</a>
+                    </div>-->
+                    <h4 class="long-h3"> <p>
+                        {{ blog.description[:100] }}</p></h4>
+                </div>
+                <div class="col-sm-12 text-center">
+                                <h4><a class="readMore" href="/blogs/{{ blog.id }}">Read More</a></h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+</div>
+        <!-- +++++++++++++++++++++ [ End Grid View] +++++++++++++++++ -->
+
+
+
+
+<!--<div class="pagination" style="clear: both;">
+<div class="nav-below">
+<span class='page-numbers current'>1</span>
+<a class='page-numbers' href='https://www.zendesk.com/blog/page/2/'>2</a>
+<a class='page-numbers' href='https://www.zendesk.com/blog/page/3/'>3</a>
+<a class='page-numbers' href='https://www.zendesk.com/blog/page/4/'>4</a>
+<a class='page-numbers' href='https://www.zendesk.com/blog/page/5/'>5</a>
+<a class='page-numbers' href='https://www.zendesk.com/blog/page/6/'>6</a>
+<span class="page-numbers dots">&hellip;</span>
+<a class="next page-numbers" href="https://www.zendesk.com/blog/page/2/"><span style="font-family: entypo;">&#9656;</span></a> </div>
+</div>
+</div>-->
+<div style="clear: both;">
+</div>
+</div>
+<div class="clearfix"></div>
+
+
+
+
+
+
+<div class="clearfix"></div>
+</footer>
+<script src="//d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js" data-apikey="14b4da2b1698aa9ce8da80a183366f26"></script>
+<script src="https://d1eipm3vz40hy0.cloudfront.net/js/plugins.min.24a441e1.js"></script><script src="https://d1eipm3vz40hy0.cloudfront.net/js/cookieUtils.min.e7207bed.js"></script><script src="https://d1eipm3vz40hy0.cloudfront.net/js/formUtils.min.14bb8fc7.js"></script><script src="https://d1eipm3vz40hy0.cloudfront.net/js/webutils.min.9b5afa3d.js"></script>
+<script type="text/javascript">
+  webutils.styleHeader();
+  webutils.gauge();
+  webutils.loadEloqua();
+</script>
+<script>
+  webutils.processGA();
+  webutils.saveEloquaGuid();
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+    // Add class when max-width is mobile sized
+    var $window = $(window);
+
+    var newsletterScroll = function() {
+    var topper = $(document).scrollTop()
+      , offsetter = $('.newsletter-offsetter').offset().top - 165;
+
+    if (topper > offsetter) {
+      $('#newsletter-sub-container').addClass('fixed');
+      $('#newsletter-sub').addClass('fixed');
+    } else {
+      $('#newsletter-sub-container').removeClass('fixed');
+      $('#newsletter-sub').removeClass('fixed');
+    }
+    };
+    $window.scroll(newsletterScroll);
+    $window.resize(newsletterScroll);
+    // Back to top scroll bind
+    $(".back-to-top a").click(function() {
+      $('html, body').animate({
+        scrollTop: $("#main").offset().top
+      }, 1000);
+      return false;
+    });
+});
+</script>
+<div id="ouibounce-modal-blog-register">
+<div class="dim-backg">
+<div class="center-modal">
+<div class="content">
+<h2>We know. It's a lot to take in.</h2>
+<h3>Sign up for our newsletter and read at your own pace </h3>
+</div>
+<form>
+<input type="text" name="" value="" placeholder="email" class="email-address-sign-up-thingy">
+<input type="button" name="" value="Subscribe" class="btn-primary-cta filled email-address-sign-up-thingy-button">
+<label class="subscribe-error-message" style="display: none;">Ugh, sorry something went wrong, try again later?</label>
+<label class="subscribe-invalid-message" style="display: none;">Please use a valid email</label>
+<label class="subscribe-success-message" style="display: none;">Welcome to the club!</label>
+</form>
+</div>
+</div>
+</div>
+<script src="https://d1eipm3vz40hy0.cloudfront.net/js/ouibounce.min.f91b9be1.js"></script><script type="text/javascript">
+  $(document).ready(function(){
+    // Show Modal on Exit
+    ouibounce(document.getElementById('ouibounce-modal-blog-register'), {
+      sensitivity: 40,
+      cookieExpire: 1,
+      sitewide: true,
+      callback: function() {
+        webutils.track('Website_Bounce Popup_Impression');
+      }
+    });
+
+    // Hide modal
+    $('.dim-backg').click(function(e){
+      if (e.target.className === 'dim-backg') {
+        $('#ouibounce-modal-blog-register').fadeOut();
+      }
+    });
+  });
+</script>
+<script src="https://d1eipm3vz40hy0.cloudfront.net/js/p-blog.min.f183bef0.js"></script><script src="https://d1eipm3vz40hy0.cloudfront.net/js/search.js"></script><script src="https://d1eipm3vz40hy0.cloudfront.net/js/p-blog-ad-render.min.abb183a3.js"></script>
+<script type="text/javascript">
+ blogFilterTag = undefined;
+ blogAdRender.storageBootloader('indexAds');
+</script>
+
+
+
+
+                <!--my setting ends -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

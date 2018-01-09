@@ -1,6 +1,6 @@
 
 from   models import Object
-from   app    import db
+from   init    import db
 import time,datetime
 
 class STATUS:
